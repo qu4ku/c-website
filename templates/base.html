@@ -1,8 +1,11 @@
+{% load staticfiles %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<title>{% block title %}Crypt{% endblock title %}</title>
+	<link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
 	<div class="wrapper">
@@ -12,7 +15,10 @@
 		
 		{% block content %}
 		{% endblock content %}
+		
+		<footer class="footer">© 2018 Paper Tiger LLC—All Rights Reserved, All Wrongs Reversed.</footer>
 	</div>
-	
+
+
 </body>
 </html>
