@@ -1,3 +1,6 @@
+{% load staticfiles %}
+
+
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
@@ -57,16 +60,54 @@ body {
 }
 
 .wrapper {
-	max-width: 780px;
+	/*max-width: 780px;*/
 	margin: auto;
 }
 
-.post {
-	/*background: yellow;*/
+.top {
+	max-width: 1200px;
+	margin: auto;
+	display: grid;
+	grid-auto-flow: column;
+
+	align-items: center;
 	margin-bottom: 50px;
+  /*justify-content: center;*/
+}
+
+.top-logo {
+	margin: auto;
+	/*width: 100px;*/
+	font-family: "Bebas Neue";
+	font-size: 15px;
+}
+
+.patreon {
+	/*height: 50px;*/
+	width: 90px;
+	padding: 10px;
+	font-family: "Bebas Neue";
+	font-size: 15px;
+	color: white;
+	background-color: #e63140;
+	margin-left: 50px;
+}
+
+.top-links {
+	font-family: "Bebas Neue";
+	font-size: 15px;
+	justify-self: end;
+	margin-right: 50px;
+}
+
+.post {
+	max-width: 480px;
+	margin-bottom: 50px;
+	margin: auto;
 }
 
 .post a {
+
 	text-decoration: none;
 	color: black;
 }
@@ -104,12 +145,16 @@ body {
 }
 
 .tag {
+	font-family: "Bebas Neue";
+	font-size: 14px;
+
 	display: inline-block;
-	font-size: 12px;
+
+	/*font-size: 12px;*/
 	text-decoration: none;
 	margin-right: 20px;
 	text-transform: uppercase;
-	letter-spacing: 2px;
+	letter-spacing: 1px;
 }
 
 

@@ -9,8 +9,12 @@
 </head>
 <body>
 	<div class="wrapper">
-		<header>
-			<a href="{% url 'home' %}">Home</a>   |   <a href="{% url 'about' %}">About</a>
+		<header class="top">
+			<a href="#"><div class="patreon">Become a patreon</div></a>
+			<img class="top-logo" src="{% static 'img/logo.png' %}" alt="">
+			<nav class="top-links">
+				<a href="{% url 'about' %}">About</a>
+			</nav>
 		</header>
 		
 		{% block content %}

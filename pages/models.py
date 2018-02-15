@@ -7,10 +7,11 @@ class Post(models.Model):
 
 	title = models.CharField(max_length=200)
 	slug = models.SlugField()
-	original_url = models.CharField(max_length=500)
+	url = models.CharField(max_length=500)
 	description = models.TextField(null=True, blank=True)
 	post_date = models.DateTimeField()
 
+	post_type = models.CharField
 	# Later we may need: author, original_date, original_author, post_type
 
 	def __str__(self):

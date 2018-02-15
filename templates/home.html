@@ -7,10 +7,10 @@
 {% block content %}
 	<h1>Posts</h1>
 	{% for post in posts %}
-		<div class="post">
+		<article class="post">
 			<!-- <div class="post-break"></div> -->
-			<h2 class="post-title"><a href="{{ post.original_url }}" target="_blank">{{ post.title }}</a></h2>
-			<p class=title-base-url>[{{ post.original_url }}]</p>
+			<h2 class="post-title"><a href="{{ post.url }}" target="_blank">{{ post.title }}</a></h2>
+			<p class=title-base-url>[{{ post.url }}]</p>
 			<p class="post-date">{{ post.post_date }}</p>
 			<p class="post-description">{{ post.description }}</p>
 			
@@ -23,7 +23,7 @@
 			</ul>
 			<div class="post-break-line"></div>
 
-		</div>
+		</article>
 
 	{% endfor %}
 {% endblock content %}
