@@ -9,7 +9,7 @@
 	{% for post in posts.all %}
 		<article class="post">
 			<h2 class="post-title"><a href="{{ post.url }}" target="_blank">{{ post.title }}</a></h2>
-			<p class="post-date">{{ post.published }}</p>
+			<p class="post-date">{{ post.publish|date:"d M, Y" }}</p>
 			<p class="post-description">{{ post.description }}</p>
 
 			<ul class="post-tags">

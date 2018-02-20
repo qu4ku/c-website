@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title}
+	Crypt
+{% endblock title}
+
+{% block content %}
+	<article class="post">
+		<h2 class="post-title"><a href="{{ post.url }}" target="_blank">{{ post.title }}</a></h2>
+		<p class="post-date">{{ post.publish|date:"d M, Y" }}</p>
+		<p class="post-description">{{ post.description }}</p>
+
+		<ul class="post-tags">
+			<li class="tag tag-type"><a href="#">{{ post.difficulty_level }}</a></li>
+			{% for category in post.categories.all %}
+				<li class="tag text-shadow underline"><a href="#">{{ category }}</a></li>
+			{% endfor %}
+		</ul>
+		<div class="post-break-line"></div>
+
+	</article>
+
+{% endblock content %}

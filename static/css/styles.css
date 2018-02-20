@@ -1,5 +1,10 @@
 {% load staticfiles %}
 
+:root {
+	--main-dark-color: #161c28;
+	--secondary-color: #f6311c;
+}
+
 
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
@@ -80,6 +85,23 @@ body {
 	/*width: 100px;*/
 	font-family: "Bebas Neue";
 	font-size: 15px;
+}
+
+.top-intro-text {
+	height: 50px;
+	background-color: var(--main-dark-color);
+	color: white;
+	font-size: 11px;
+	/*vertical-align: center;*/
+	/*display: grid;*/
+	/*padding-left: 50px;*/
+	text-align: center;
+	margin: auto;
+	line-height: 13px;
+}
+
+.top-intro-text span {
+	color: var(--secondary-color);
 }
 
 .patreon {
@@ -171,5 +193,27 @@ body {
 	height: 1px;
 	background: #a9abad;
 	margin: 50px 0;
+}
+
+
+/* ----- FOOTER ------ */
+.footer {
+	display: grid;
+	grid-auto-flow: row;
+	/*justify-content: center;*/
+	/*align-items: center;*/
+	/*background-color: red;*/
+}
+
+.footer-img {
+	justify-self: center;
+}
+
+.footer-text {
+	margin: 20px 0 50px 0;
+	justify-self: center;
+	transform: translateX(50%);
+	font-size: 14px;
+	line-height: 18px;
 }
 

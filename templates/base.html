@@ -9,9 +9,11 @@
 </head>
 <body>
 	<div class="wrapper">
+		<h1 class="top-intro-text"><span class="text-orange">Knowledge Protocol</span>. Daily curated brainfood from the space of blockchain, bitcoin, tokens, cryptocurencies and protocols. No news, no bullshit, <span class="text-orange">deep knowledge</span> only.</h1>
 		<header class="top">
+
 			<a href="#"><div class="patreon">Become a patreon</div></a>
-			<img class="top-logo" src="{% static 'img/logo.png' %}" alt="">
+			<img class="top-logo" src="{% static 'img/logo2.png' %}" alt="">
 			<nav class="top-links">
 				<a href="{% url 'about' %}">About</a>
 			</nav>
@@ -20,7 +22,14 @@
 		{% block content %}
 		{% endblock content %}
 		
-		<footer class="footer">© 2018 Paper Tiger LLC—All Rights Reserved, All Wrongs Reversed.</footer>
+		<footer class="footer">
+			<img src="{% static 'img/footer-eye.png' %}" alt="" class="footer-img">
+			<div class="footer-text">
+				©<br>
+				Copyright Knowledge Protocol<br>
+				2018
+			</div>
+		</footer>
 	</div>
 
 
