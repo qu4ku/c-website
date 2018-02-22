@@ -81,6 +81,13 @@ class Post(models.Model):
 	difficulty_level = models.ForeignKey(DifficultyLevel, on_delete='SET_DEFAULT')
 	post_type = models.ForeignKey(PostType, on_delete='SET_DEFAULT')
 
+	
+
+	# Twitter case
+	original_author = models.CharField(max_length=250, blank=True)
+	original_author_handle = models.CharField(max_length=250, blank=True)
+	original_author_url = url = models.CharField(max_length=250, blank=True)
+
 	# tags = TagField()
 	objects = PublicManager()
 
