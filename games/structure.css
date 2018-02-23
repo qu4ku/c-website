@@ -1,0 +1,179 @@
+:root {
+	--main-dark-color: #161c28;
+	--secondary-color: #f6311c;
+	--posts-width: 780px;
+}
+
+body {
+	font-family: "Inter UI";
+	line-height: 1.8;
+	font-size: 14px;
+}
+
+.wrapper {
+	display: grid;
+	grid-template-columns: minmax(20px, 50px) minmax(40px, auto) minmax(400px, 780px) minmax(40px, auto);
+	grid-template-rows: 50px 150px auto auto;
+	grid-template-areas:
+	"intro 		intro 			intro 		intro"
+	"patreon 	top 				top 			top"
+	"patreon 	sizebar-l 	content 	sidebar-r"
+	"patreon 	footer 			footer 		footer";
+}
+
+
+.patreon {
+	grid-area: patreon;
+
+	height: 50px;
+
+	font-family: "Bebas Neue";
+	font-size: 15px;
+
+	background-color: pink;
+	background-color: var(--secondary-color) ;
+	height: 100%;
+	writing-mode: vertical-rl;
+}
+
+.intro-text {
+	grid-area: intro;
+
+	height: 50px;
+
+	background-color: var(--main-dark-color);
+	color: white;
+}
+
+.top {
+	grid-area: top;
+	
+	background-color: black;
+	color: white;
+}
+
+.content {
+	grid-area: content;
+	height: 700px;
+	margin: auto;
+}
+
+.post {
+	display: grid;
+	grid-template-columns: 90px 120px minmax(200px, auto);
+	grid-template-rows: auto auto auto;
+	grid-auto-flow: column;
+	margin-bottom: 40px;
+
+	/*background: green;*/
+}
+
+.post__number {
+	/*position: relative;*/
+	grid-column: 1 / 1;
+	grid-row: 1 / 1;
+	
+	display: grid;
+	grid-template-columns: 1fr 1fr auto;
+	justify-content: start;
+
+	font-family: "DINPro-Light";
+	font-size: 20px;
+	color: #b5b5b5;
+
+}
+
+.big_num {
+
+	font-weight: lighter;
+	grid-column: 1 / 2;
+	font-size: 60px;
+	color: #212127;
+	transform: translateY(-24px);
+
+}
+
+.small_num {
+	grid-column: 2 / 3;
+	transform: translateX(-6px);
+
+}
+
+.post__title {
+	grid-column: 2 / -1;
+	grid-row: 1 / 1;
+	margin-bottom: 40px;
+	
+	font-family: "DINPro";
+	font-size: 40px;
+	line-height: 1.2em;
+}
+
+.post__date {
+	grid-column: 2 / 2;
+	grid-row: 2 / 2;
+	
+	font-size: 12px;
+
+
+}
+
+.post__description {
+	grid-column: 3 / -1;
+	grid-row: 2 / 3;
+	margin-bottom: 30px;
+
+
+}
+
+.post__categories {
+	grid-column: 3 / -1;
+	grid-row: 3 / 3;
+}
+
+.category-link {
+	font-family: "Bebas Neue";
+	font-size: 14px;
+
+	display: inline-block;
+
+	text-decoration: none;
+	color: black;
+	margin-right: 20px;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+}
+
+.post__categories a {
+	/*text-decoration: underline;*/
+	/*border-bottom: 7px solid #00ff78;*/
+/*	transform: translateY(-5px);*/
+	box-shadow: inset 0 -6px 0 #00ff78;
+}
+
+.separator {
+	margin-right: 20px;
+}
+
+.video__title {
+	grid-column: 3 / -1;
+}
+
+.video__image {
+	
+	grid-column: 2 / 3;
+	grid-row: 1 / 2;
+
+	width: 80px;
+	height: 80px;
+	background-color: red;
+	transform: translateY(+10px);
+}
+
+.footer {
+	grid-column: footer;
+	height: 200px;
+
+	background-color: black;
+	color: white;
+}

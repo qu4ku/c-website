@@ -38,7 +38,8 @@ footer, header, hgroup, menu, nav, section {
 	display: block;
 }
 body {
-	line-height: 1;
+	font-family: "Inter UI";
+	line-height: 1.8;
 }
 ol, ul {
 	list-style: none;
@@ -82,7 +83,7 @@ body {
 
 .site-container {
 
-}/*
+}
 
 .intro-text {
 	height: 50px;
@@ -232,4 +233,3 @@ body {
 	line-height: 18px;
 }
 
-*/
