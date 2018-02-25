@@ -93,10 +93,14 @@ class Post(models.Model):
 	# tags = TagField()
 	objects = PublicManager()
 
-	def get_first_set_number(self):
+	@property
+	def first_set_number(self):
+		"""Gets post's number in a certain day."""
 		return self.set_number[0]
 
-	def get_second_set_number(self):
+	@property
+	def second_set_number(self):
+		"""Gets number of posts in a certain day."""
 		return self.set_number[1]
 
 

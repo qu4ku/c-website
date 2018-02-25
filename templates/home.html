@@ -11,6 +11,8 @@
 			<h2 class="post-title"><a href="{{ post.url }}" target="_blank">{{ post.title }}</a></h2>
 			<p class="post-date">{{ post.publish|date:"d M, Y" }}</p>
 			<p class="post-description">{{ post.description }}</p>
+			<img src="{{ post.thumb_image.url }}" alt="">
+			<h1>{{ post.first_set_number }} / {{ post.second_set_number }}</h1>
 
 			<ul class="post-tags">
 				<li class="tag tag-type"><a href="#">{{ post.difficulty_level }}</a></li>
@@ -21,6 +23,12 @@
 			<div class="post-break-line"></div>
 
 		</article>
+
+		<style>
+			h1 {
+				font-size: 50px;
+			}
+		</style>
 
 	{% endfor %}
 {% endblock content %}
