@@ -57,6 +57,7 @@ class PostType(models.Model):
 	post_type = models.IntegerField(choices=TYPE_CHOICES, default=ARTICLE)
 
 	def __str__(self):
+		"""Returns human-readable option in admin."""
 		return self.TYPE_CHOICES[self.post_type][1]
 
 
@@ -106,7 +107,6 @@ class Post(models.Model):
 
 
 	class Meta:
-		# abstract = True
 		verbose_name = 'post'
 		verbose_name_plural = 'posts'
 		db_table = 'posts'
@@ -115,5 +115,7 @@ class Post(models.Model):
 
 	def __str__(self):
 		return self.title
+
+
 
 	
