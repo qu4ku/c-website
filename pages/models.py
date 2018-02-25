@@ -68,9 +68,9 @@ class Post(models.Model):
 	)
 
 	title = models.CharField(max_length=250)
-	slug = models.SlugField(unique_for_date='publish')
+	slug = models.SlugField(max_length=200, unique_for_date='publish')
 	author = models.ForeignKey(User, blank=True, null=True, on_delete='SET_DEFAULT')
-	url = models.CharField(max_length=250)
+	url = models.URLField(max_length=250)
 	description = models.TextField(null=True, blank=True)
 	tease = models.TextField(blank=True, help_text='Concise text suggested. Does not appear in RSS feed.')
 	status = models.IntegerField(choices=STATUS_CHOICES, default=0)
@@ -80,16 +80,26 @@ class Post(models.Model):
 	categories = models.ManyToManyField(Category, blank=True)
 	difficulty_level = models.ForeignKey(DifficultyLevel, on_delete='SET_DEFAULT')
 	post_type = models.ForeignKey(PostType, on_delete='SET_DEFAULT')
-
-
+	seo_text = models.TextField(null=True, blank=True)
+	set_number = models.CharField(max_length=2) # 14 means 1rst post out of 4 - max 9 posts per day
 
 	# Twitter case
 	original_author = models.CharField(max_length=250, blank=True)
 	original_author_handle = models.CharField(max_length=250, blank=True)
-	original_author_url = models.CharField(max_length=250, blank=True)
+	original_author_url = models.URLField(max_length=250, blank=True)
+
+	thumb_image = models.ImageField(upload_to='thumbs/', blank=True)
 
 	# tags = TagField()
 	objects = PublicManager()
+
+	def get_first_set_number(self):
+		return self.set_number[0]
+
+	def get_second_set_number(self):
+		return self.set_number[1]
+
+
 
 	class Meta:
 		# abstract = True
@@ -103,8 +113,3 @@ class Post(models.Model):
 		return self.title
 
 	
-
-
-
-
-

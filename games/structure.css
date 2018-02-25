@@ -29,6 +29,7 @@ body {
 
 	font-family: "Bebas Neue";
 	font-size: 15px;
+	color: white;
 
 	background-color: pink;
 	background-color: var(--secondary-color) ;
@@ -168,8 +169,19 @@ body {
 	height: 80px;
 	background-color: red;
 	transform: translateY(+10px);
+
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 1fr;
 }
 
+/*.video-image {
+	grid-column: 1 / 2;
+}
+*/
+.video-play-overlay {
+	grid-column: 1 / 2;
+}
 .footer {
 	grid-column: footer;
 	height: 200px;

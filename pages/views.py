@@ -4,7 +4,8 @@ from .models import Post
 
 
 def home_view(request):
-	posts = Post.objects.all().order_by('-publish')
+	# Status=1 : filter published posts
+	posts = Post.objects.filter(status=1).order_by('-publish')
 	template = 'home.html'
 	context = {'posts': posts}
 	

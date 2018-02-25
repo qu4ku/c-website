@@ -5,7 +5,7 @@
 {% endblock title}
 
 {% block content %}
-	<h1>Posts</h1>
+	<!-- <h1>Posts</h1> -->
 	{% for post in posts.all %}
 		<article class="post">
 			<h2 class="post-title"><a href="{{ post.url }}" target="_blank">{{ post.title }}</a></h2>
