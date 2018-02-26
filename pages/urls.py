@@ -1,6 +1,7 @@
 from django.urls import path
 
 from . import views
+from .forms import PostForm
 
 
 urlpatterns = [
@@ -10,4 +11,5 @@ urlpatterns = [
 	path('article/<slug:slug>/', views.article_detail_view, name='article_detail'),
 	path('twitter/<slug:slug>/', views.twitter_detail_view, name='twitter_detail'),
 	path('video/<slug:slug>/', views.video_detail_view, name='video_detail'),
+	path('create_post/', views.create_post_view, name='create_post'),
 ]
