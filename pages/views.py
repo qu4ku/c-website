@@ -1,4 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, reverse, redirect
+from django.http import HttpResponseRedirect
+from django.contrib import messages
 
 from .models import Post
 from .forms import PostForm
@@ -7,7 +9,6 @@ import datetime
 
 
 def home_view(request, page=1):
-
 	posts = Post.objects.published().order_by('-publish')
 	template = 'home.html'
 
@@ -24,13 +25,12 @@ def home_view(request, page=1):
 	return render(request, template, context)
 
 
-def about(request):
+def about_view(request):
 	return render(request, 'about.html')
 
 
-def article_detail_view(request, slug):
-	template = 'article_detail.html'
-
+def post_detail_view(request, slug):
+	template = 'post_detail.html'
 	post = Post.objects.published().get(slug=slug)
 
 	context = {'post': post}
@@ -38,40 +38,46 @@ def article_detail_view(request, slug):
 	return render(request, template, context)
 
 
-def video_detail_view(request, slug):
-	template = 'video_detail.html'
-
-	# 2do: Change to published
-	post = Post.objects.get(slug=slug)
-	print(post)
-
-	context = {'post': post}
-
-	return render(request, template, context)
-
-
-def twitter_detail_view(request, slug):
-	template = 'twitter_detail.html'
-
-	# 2do: Change to published
-	post = Post.objects.get(slug=slug)
-	print(post)
-
-	context = {'post': post}
-
-	return render(request, template, context)
-
-
-def create_post_view(request):
+def post_create_view(request):
 	form = PostForm(request.POST or None)
 	context = {'form': form}
-	template = 'create_form.html'
+	template = 'post_create.html'
 
 	if form.is_valid():
-		form.save()
-
-
+		post = form.save(commit=False)
+		post.save()
+		messages.success(request, 'Successfully Created')
+		return HttpResponseRedirect(post.get_absolute_url())
+	else:
+		messages.error(request, "Error")
 
 	return render(request, template, context)
 
+
+def post_edit_view(request, slug=None):
+	post = get_object_or_404(Post, slug=slug)
+
+	if request.method == 'POST':
+		form = PostForm(request.POST, instance=post)
+
+		if form.is_valid():
+			post.save()
+			messages.success(request, 'Saved')
+			return HttpResponseRedirect(post.get_absolute_url())
+	else:
+		form = PostForm(instance=post)
+
+	context = {
+		'post': post,
+		'form': form,
+	}
+	template = 'post_edit.html'
+	return render(request, template, context)
+
+
+def post_delete_view(request, slug=None):
+	post = get_object_or_404(Post, slug=slug)
+	post.delete()
+	messages.success(request, 'Deleted')
+	return redirect('home')
 
