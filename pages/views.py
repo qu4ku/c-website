@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.http import HttpResponseRedirect
 from django.contrib import messages
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 
 from .models import Post
 from .forms import PostForm
@@ -8,18 +10,26 @@ from .forms import PostForm
 import datetime
 
 
-def home_view(request, page=1):
-	posts = Post.objects.published().order_by('-publish')
+def home_view(request):
+	post_list = Post.objects.published().order_by('-publish')
+	paginator = Paginator(post_list, 2)  # Show 25 contacts per page
+
+	page = request.GET.get('page')
+	posts = paginator.get_page(page)
+	print(posts)
+	# try:
+	# 	posts = paginator.page(page)
+	# except PageNotAnInteger:
+	# 	# If page is not an integer, deliver first page.
+	# 	posts = paginator.page(1)
+	# except EmptyPage:
+	# 	# If page is out of range(e.g. 9999), deliver last page of results.
+	# 	posts = paginator.page(paginator.num_pages)
+
+
 	template = 'home.html'
-
-	next_page = page + 1
-	previous_page = 1 if page == 1 else page + 1
-
 	context = {
 		'posts': posts,
-		'page': page,
-		'next_page': next_page,
-		'previous_page': previous_page,
 	}
 
 	return render(request, template, context)
@@ -39,7 +49,7 @@ def post_detail_view(request, slug):
 
 
 def post_create_view(request):
-	form = PostForm(request.POST or None)
+	form = PostForm(request.POST or None, request.FILES or None)
 	context = {'form': form}
 	template = 'post_create.html'
 
@@ -47,7 +57,7 @@ def post_create_view(request):
 		post = form.save(commit=False)
 		post.save()
 		messages.success(request, 'Successfully Created')
-		return HttpResponseRedirect(post.get_absolute_url())
+		return HttpResponseRedirect(reverse('home'))
 	else:
 		messages.error(request, "Error")
 
@@ -58,7 +68,7 @@ def post_edit_view(request, slug=None):
 	post = get_object_or_404(Post, slug=slug)
 
 	if request.method == 'POST':
-		form = PostForm(request.POST, instance=post)
+		form = PostForm(request.POST, request.FILES, instance=post)
 
 		if form.is_valid():
 			post.save()
