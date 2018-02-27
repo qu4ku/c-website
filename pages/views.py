@@ -1,8 +1,9 @@
 from django.shortcuts import render, get_object_or_404, reverse, redirect
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
+from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 
 from .models import Post
 from .forms import PostForm
@@ -12,20 +13,18 @@ import datetime
 
 def home_view(request):
 	post_list = Post.objects.published().order_by('-publish')
-	paginator = Paginator(post_list, 2)  # Show 25 contacts per page
+	query = request.GET.get('q')  # Search
 
+	if query:
+		# Check both title and description for the query word
+		post_list = Post.objects.published().filter(
+			Q(title__icontains=query) | 
+			Q(description__icontains=query)
+		).distinct()
+
+	paginator = Paginator(post_list, 2)  # Show 25 contacts per page
 	page = request.GET.get('page')
 	posts = paginator.get_page(page)
-	print(posts)
-	# try:
-	# 	posts = paginator.page(page)
-	# except PageNotAnInteger:
-	# 	# If page is not an integer, deliver first page.
-	# 	posts = paginator.page(1)
-	# except EmptyPage:
-	# 	# If page is out of range(e.g. 9999), deliver last page of results.
-	# 	posts = paginator.page(paginator.num_pages)
-
 
 	template = 'home.html'
 	context = {
@@ -48,6 +47,7 @@ def post_detail_view(request, slug):
 	return render(request, template, context)
 
 
+@login_required()
 def post_create_view(request):
 	form = PostForm(request.POST or None, request.FILES or None)
 	context = {'form': form}
@@ -64,6 +64,7 @@ def post_create_view(request):
 	return render(request, template, context)
 
 
+@login_required()
 def post_edit_view(request, slug=None):
 	post = get_object_or_404(Post, slug=slug)
 
@@ -85,6 +86,7 @@ def post_edit_view(request, slug=None):
 	return render(request, template, context)
 
 
+@login_required()
 def post_delete_view(request, slug=None):
 	post = get_object_or_404(Post, slug=slug)
 	post.delete()

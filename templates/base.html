@@ -16,6 +16,8 @@
 			<header class="top">
 				<img class="top__logo" src="{% static 'img/logo2.png' %}" alt="">
 				<nav class="top__nav">
+
+
 					<a href="{% url 'about' %}">About</a>
 				</nav>
 			</header>
@@ -27,6 +29,11 @@
 				    {% endfor %}
 				</ul>
 			{% endif %}
+
+			<form action="" method="get">
+				<input type="text" name="q" placeholder="Search post" value='{{ request.GET.q }}' >
+				<input type="submit" value="Search">
+			</form>
 			
 			{% block content %}
 			{% endblock content %}

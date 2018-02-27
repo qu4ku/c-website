@@ -60,8 +60,8 @@
 	        </span>
 
 	        {% if posts.has_next %}
-	            <a href="?page={{ posts.next_page_number }}">next</a>
-	            <a href="?page={{ posts.paginator.num_pages }}">last &raquo;</a>
+	            <a href="?page={{ posts.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">next</a>
+	            <a href="?page={{ posts.paginator.num_pages }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">last &raquo;</a>
 	        {% endif %}
 	    </span>
 		</div>
