@@ -6,6 +6,55 @@
 	--main-text-color: #161c28;
 }
 
+
+/*------------------ RESET CSS ------------------*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+
+
 body {
 	font-family: "Inter UI";
 	line-height: 1.8;
@@ -32,10 +81,9 @@ a {
 .patreon {
 	grid-area: patreon;
 
-	height: 50px;
-
 	font-family: "Bebas Neue";
 	font-size: 15px;
+	letter-spacing: 2px;
 	color: white;
 
 	background-color: pink;
@@ -44,13 +92,38 @@ a {
 	writing-mode: vertical-rl;
 }
 
+.patreon p {
+	position: relative;
+	top: 50vh;
+	transform: translateY(-100px);
+	left: -13px;
+}
+
+
 .intro-text {
+	display: grid;
+	/*grid-template-columns: 1fr;*/
+	grid-auto-flow: column;
+	align-content: center;
+	justify-content: center;
+
 	grid-area: intro;
 
 	height: 50px;
+	width: 100%;
 
 	background-color: var(--main-dark-color);
 	color: white;
+
+	/*font-family: "DINPro-Light";*/
+	font-size: 11px;
+	text-align: center;
+	margin: auto;
+	line-height: 13px;
+}
+
+.intro-text span {
+	color: var(--secondary-color);
 }
 
 .top {
