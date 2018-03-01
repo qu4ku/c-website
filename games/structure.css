@@ -37,7 +37,9 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
+	background-color: blue !important;
 }
+
 ol, ul {
 	list-style: none;
 }
@@ -70,7 +72,7 @@ a {
 
 .wrapper {
 	display: grid;
-	grid-template-columns: minmax(20px, 50px) minmax(40px, auto) minmax(400px, 780px) minmax(40px, auto);
+	grid-template-columns: minmax(20px, 50px) minmax(40px, auto) minmax(400px, 800px) minmax(40px, auto);
 	grid-template-rows: 50px minmax(150px, auto) auto auto;
 	grid-template-areas:
 	"intro 		intro 			intro 		intro"
@@ -175,7 +177,6 @@ a {
 
 .content {
 	grid-area: content;
-	/*height: 700px;*/
 	margin: auto;
 }
 
@@ -185,13 +186,11 @@ a {
 	grid-template-rows: auto auto auto auto;
 	grid-auto-flow: column;
 	margin-bottom: 40px;
-
-	/*background: green;*/
 }
 
 
 .post__number {
-	/*position: relative;*/
+
 	grid-column: 1 / 1;
 	grid-row: 1 / 1;
 	
@@ -259,6 +258,44 @@ a {
 	justify-self: left;
 }
 
+.post__info__categories p {
+	display: block-inline;
+	font-family: "Bebas Neue";
+	font-size: 14px;
+	font-weight: bold;
+
+	display: inline-block;
+
+	text-decoration: none;
+	color: black;
+	/*margin-right: 10px;*/
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	/*box-shadow: inset 0 -6px 0 var(--underline-color);*/
+}
+
+.original-author-url {
+	display: block-inline;
+	/*font-family: "Bebas Neue";*/
+	font-size: 14px;
+	/*font-weight: bold;*/
+
+	display: inline-block;
+
+	text-decoration: none;
+	color: black;
+	margin-right: 10px;
+	/*text-transform: uppercase;*/
+	/*letter-spacing: 1px;*/
+	box-shadow: inset 0 -6px 0 #76cfec;
+
+}
+
+.original_author_handle {
+	margin-right: 0;
+	box-shadow: none;
+}
+
 .post__info__social {
 	justify-self: right;
 	transition: transformX(+30px);
@@ -277,7 +314,7 @@ a {
 
 	text-decoration: none;
 	color: black;
-	margin-right: 20px;
+	margin-right: 10px;
 	text-transform: uppercase;
 	letter-spacing: 1px;
 	box-shadow: inset 0 -6px 0 var(--underline-color);
@@ -287,7 +324,7 @@ a {
 
 
 .x-separator {
-	margin-right: 20px;
+	margin-right: 10px;
 }
 .i-separator {
 	display: inline-block;
@@ -362,7 +399,6 @@ a {
 
 .footer-text {
 	margin: 20px 0 40px 0;
-	/*justify-self: center;*/
 	transform: translateX(40px);
 	font-size: 12px;
 	line-height: 18px;
