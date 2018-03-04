@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title}
 	Crypt
@@ -8,45 +9,116 @@
 	<!-- <h1>Posts</h1> -->
 
 	{% for post in posts %}
-		<article class="post">
-			<h2 class="post-title"><a href="{{ post.url }}" target="_blank">{{ post.title }}</a></h2>
+
+		{% if post.post_type|stringformat:"s" == "Article" %}
 			
+			<div class="post">
+				<div class="post__number"><span class="big_num">{{ post.first_set_number }}</span><span class="small_num">/ {{ post.second_set_number }}</span></div>
+				<div class="post__title"><a href=a href="{{ post.url }}" target="_blank">{{ post.title }}</a></div>
+				<div class="post__date">{{ post.publish|date:"d M, Y" }}</div>
+				<p class="post__description">{{ post.description }}</p>
+				<div class="post__info">
 
-			<p class="post-date">{{ post.publish|date:"d M, Y" }}</p>
-			<p class="post-description">{{ post.description }}</p>
-			{% if post.thumb_image %}
-				<img src="{{ post.thumb_image.url }}" alt="">
-			{% endif %}
-			<h1>{{ post.first_set_number }} / {{ post.second_set_number }}</h1>
+					<div class="post__info__categories">
 
-			<ul class="post-tags">
-				<li class="tag tag-type"><a href="#">{{ post.difficulty_level }}</a></li>
-				{% for category in post.categories.all %}
-					<li class="tag text-shadow underline"><a href="#">{{ category }}</a></li>
-				{% endfor %}
-			</ul>
-			<a href="{{ post.get_absolute_url }}">detail</a>
-			<a href="{{ post.get_absolute_url }}edit">edit</a>
-			<div>Share:
-				<a href="https://www.facebook.com/sharer/sharer.php?u=http://CodingForEntrepreneurs.com/">FB</a>
-				<a href="https://twitter.com/home?status=I'm%20going%20to%20learn%20to%20Code...%20Come%20build%20an%20web%20apsp%20with%20me!%20%23CFE%20and%20@justinmitchel%20http://codingforentrepreneurs.com/">TW</a>
-				<a href='https://plus.google.com/share?url=http://codingforentrepreneurs.com'>G+</a>
-				<a href="https://www.linkedin.com/shareArticle?mini=true&url=http://swiftforentrepreneurs.com/&title=Be%20first%20%7C%20Join%20Swift%20for%20Entrepreneurs&summary=Swift%20for%20Entrepreneurs%20is%20a%20project-based%20programming%20course%20for%20non-technical%20founders.%20We'll%20learn%20how%20to%20build%20iOS%20apps%20from%20scratch%20using%20Apple's%20new%20programming%20language:%20Swift.%20Be%20first%20and%20learn%20with%20me!&source=http://swiftforentrepreneurs.com/">LN</a>
-				<a href="http://www.reddit.com/submit?url=http://swiftforentrepreneurs.com/&title=Unlock%20to%20Learn%20Swift%20for%20Free!%20By%20Swift%20for%20Entrepreneurs.%20Made%20for%20Non%20Techincals.">Reddit</a>
+						<a class="category-link" href="#">{{ post.difficulty_level }}</a>
+						{% for category in post.categories.all %}
+							<img src="{% static 'img/x-separator.png' %}" alt="" class="x-separator"><a class="category-link" href="#">{{ category }}</a>
+						{% endfor %}
+					</div>
+
+					<div class="post__info__social">
+						<a class="social-link" href="http://www.facebook.com/share.php?u=www.url.com&title=sometitle" target="_blank">
+							<img src="{% static 'img/icons/fb.png' %}" alt="">
+						</a>
+						<a class="social-link" href="http://twitter.com/home?status=[TITLE]+[URL]" target="_blank">
+							<img src="{% static 'img/icons/twitter.png' %}" alt="">
+						</a>
+						<a class="social-link" href="http://www.linkedin.com/shareArticle?mini=true&url=www.domain.com&title=sometitle&source=domain.com" target="_blank">
+							<img src="{% static 'img/icons/linkedin.png' %}" alt="">
+						</a>
+					</div>
+				</div>
+				<div class="post__separator"></div>
 			</div>
-			<div class="post-break-line"></div>
+		{% endif %}
+		{% if post.post_type|stringformat:"s" == "Video" %}
+			<div class="post">
+				<div class="post__number"><span class="big_num">{{ post.first_set_number }}</span><span class="small_num">/ {{ post.second_set_number }}</span></div>
+				<div class="post__title video__title"><a href=a href="{{ post.url }}" target="_blank">{{ post.title }}</a></div>
+				<div class="video__image">
+					<a href="{{ post.url }}">
+						<img class="video-play-overlay" src="{% static 'img/vid-play-overlay.png' %}" alt="">
+						<img class="video-image" src="{{ post.thumb_image.url }}" alt="">
+					</a>
+				</div>	
 
-		</article>
+				<div class="post__date">{{ post.publish|date:"d M, Y" }}</div>
+				<p class="post__description video__description">{{ post.description }}</p>
+				<div class="post__info">
 
+					<div class="post__info__categories">
 
+						<a class="category-link" href="#">{{ post.difficulty_level }}</a>
+						{% for category in post.categories.all %}
+							<img src="{% static 'img/x-separator.png' %}" alt="" class="x-separator"><a class="category-link" href="#">{{ category }}</a>
+						{% endfor %}
+					</div>
 
-		<style>
-			h1 {
-				font-size: 50px;
-			}
-		</style>
+					<div class="post__info__social">
+						<a class="social-link" href="http://www.facebook.com/share.php?u=www.url.com&title=sometitle" target="_blank">
+							<img src="{% static 'img/icons/fb.png' %}" alt="">
+						</a>
+						<a class="social-link" href="http://twitter.com/home?status=[TITLE]+[URL]" target="_blank">
+							<img src="{% static 'img/icons/twitter.png' %}" alt="">
+						</a>
+						<a class="social-link" href="http://www.linkedin.com/shareArticle?mini=true&url=www.domain.com&title=sometitle&source=domain.com" target="_blank">
+							<img src="{% static 'img/icons/linkedin.png' %}" alt="">
+						</a>
+					</div>
+				</div>
+				<div class="post__separator"></div>
+			</div>
+		{% endif %}
+		{% if post.post_type|stringformat:"s" == "Twitter" %}
+			<div class="post">
+				<div class="post__number"><span class="big_num">{{ post.first_set_number }}</span><span class="small_num">/ {{ post.second_set_number }}</span></div>
+				<div class="post__title video__title"><a href=a href="{{ post.url }}" target="_blank">{{ post.title }}</a></div>
+				<div class="video__image">
+					<a href="{{ post.url }}">
+						<img class="video-image" src="{% static 'img/twitter_bit_icon.png' %}" alt="">
+					</a>
+				</div>	
 
+				<div class="post__date">{{ post.publish|date:"d M, Y" }}</div>
+				<p class="post__description video__description">{{ post.description }}</p>
+				<div class="post__info">
+
+					<div class="post__info__categories">
+
+						<a class="category-link" href="#">{{ post.difficulty_level }}</a>
+						{% for category in post.categories.all %}
+							<img src="{% static 'img/x-separator.png' %}" alt="" class="x-separator"><a class="category-link" href="#">{{ category }}</a>
+						{% endfor %}
+					</div>
+
+					<div class="post__info__social">
+						<a class="social-link" href="http://www.facebook.com/share.php?u=www.url.com&title=sometitle" target="_blank">
+							<img src="{% static 'img/icons/fb.png' %}" alt="">
+						</a>
+						<a class="social-link" href="http://twitter.com/home?status=[TITLE]+[URL]" target="_blank">
+							<img src="{% static 'img/icons/twitter.png' %}" alt="">
+						</a>
+						<a class="social-link" href="http://www.linkedin.com/shareArticle?mini=true&url=www.domain.com&title=sometitle&source=domain.com" target="_blank">
+							<img src="{% static 'img/icons/linkedin.png' %}" alt="">
+						</a>
+					</div>
+				</div>
+				<div class="post__separator"></div>
+			</div>
+		{% endif %}
 	{% endfor %}
+
 	<div class="pagination">
 	    <span class="step-links">
 	    	

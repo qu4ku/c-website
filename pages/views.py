@@ -22,7 +22,7 @@ def home_view(request):
 			Q(description__icontains=query)
 		).distinct()
 
-	paginator = Paginator(post_list, 2)  # Show 25 contacts per page
+	paginator = Paginator(post_list, 20)  # Show 25 contacts per page
 	page = request.GET.get('page')
 	posts = paginator.get_page(page)
 
