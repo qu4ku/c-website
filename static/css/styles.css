@@ -387,3 +387,10 @@ a {
 	font-size: 12px;
 	line-height: 18px;
 }
+
+.pagination {
+	margin: auto;
+	text-align: center;
+	/*background-color: red;*/
+
+}

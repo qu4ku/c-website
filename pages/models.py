@@ -69,7 +69,7 @@ class Post(models.Model):
 		(1, 'Public'),
 	)
 
-	title = models.CharField(max_length=250)
+	title = models.CharField(max_length=280)
 	slug = models.SlugField(max_length=200, unique_for_date='publish')
 	url = models.URLField(max_length=250)
 	description = models.TextField(null=True, blank=True)
