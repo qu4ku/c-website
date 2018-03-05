@@ -85,6 +85,7 @@ class Post(models.Model):
 	created = models.DateTimeField(auto_now_add=True)
 	modified = models.DateTimeField(auto_now=True)
 	seo_text = models.TextField(null=True, blank=True)
+	# active or not
 	
 	# Twitter case
 	original_author = models.CharField(max_length=250, blank=True)
