@@ -69,6 +69,11 @@ class Post(models.Model):
 		(1, 'Public'),
 	)
 
+	ACTIVE_CHOICES = (
+		(0, 'Not Active'),
+		(1, 'Active'),
+	)
+
 	title = models.CharField(max_length=280)
 	slug = models.SlugField(max_length=200, unique_for_date='publish')
 	url = models.URLField(max_length=250)
@@ -85,7 +90,7 @@ class Post(models.Model):
 	created = models.DateTimeField(auto_now_add=True)
 	modified = models.DateTimeField(auto_now=True)
 	seo_text = models.TextField(null=True, blank=True)
-	# active or not
+	active = models.IntegerField(choices=ACTIVE_CHOICES, default=1, blank=True)
 	
 	# Twitter case
 	original_author = models.CharField(max_length=250, blank=True)

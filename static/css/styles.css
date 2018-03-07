@@ -194,7 +194,6 @@ a {
 	font-family: "DINPro-Light";
 	font-size: 20px;
 	color: #b5b5b5;
-
 }
 
 .big_num {
@@ -223,11 +222,16 @@ a {
 	line-height: 1.2em;
 }
 
+.post__title--twitter {
+	font-style: italic;
+}
+
 .post__date {
 	grid-column: 2 / 2;
 	grid-row: 2 / 2;
 	
 	font-size: 12px;
+	transform: translateY(3px);
 
 
 }
@@ -236,7 +240,6 @@ a {
 	grid-column: 3 / -1;
 	grid-row: 2 / 3;
 	margin-bottom: 30px;
-
 }
 
 .post__info {
@@ -245,8 +248,13 @@ a {
 
 	display: grid;
 	grid-template-columns: auto auto;
-	
 }
+
+.post__info--no-description {
+	grid-row: 2 / 3;
+}
+
+
 .post__info__categories {
 	justify-self: left;
 }
@@ -333,7 +341,7 @@ a {
 	grid-column: 1 / -1;
 }
 
-.video__title {
+.post__title--video {
 	grid-column: 3 / -1;
 }
 
