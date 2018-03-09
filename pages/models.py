@@ -126,5 +126,5 @@ class Post(models.Model):
 		return '/post/{}/'.format(self.slug)
 
 
-
+# 2do: LinkModel
 	
