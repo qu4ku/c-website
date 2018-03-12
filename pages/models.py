@@ -1,5 +1,6 @@
-from django.db import models
 from django.contrib.auth.models import User
+from django.db import models
+
 
 import datetime
 
@@ -14,6 +15,7 @@ class PublicManager(models.Manager):
 
 class Category(models.Model):
 	"""Category model."""
+
 	title = models.CharField(max_length=100)
 	slug = models.SlugField(unique=True)
 
@@ -29,6 +31,7 @@ class Category(models.Model):
 
 class DifficultyLevel(models.Model):
 	"""Difficulty option Foreign Key model."""
+
 	BEGINNER = 0
 	INTERMEDIATE = 1
 	ADVANCED = 2
@@ -46,6 +49,7 @@ class DifficultyLevel(models.Model):
 
 class PostType(models.Model):
 	"""Difficulty option Foreign Key model."""
+
 	ARTICLE = 0
 	TWITTER = 1
 	VIDEO = 2
@@ -64,6 +68,7 @@ class PostType(models.Model):
 
 class Post(models.Model):
 	"""Post model."""
+
 	STATUS_CHOICES = (
 		(0, 'Draft'),
 		(1, 'Public'),
