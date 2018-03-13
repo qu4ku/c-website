@@ -8,7 +8,6 @@ from django.db.models import Q
 from .models import Post
 from .forms import PostForm
 
-import datetime
 
 
 def home_view(request):
@@ -31,8 +30,6 @@ def home_view(request):
 		'posts': posts,
 	}
 
-	print(request.META.get('REMOTE_ADDR', None))
-
 	return render(request, template, context)
 
 
@@ -42,8 +39,7 @@ def about_view(request):
 
 def post_detail_view(request, slug):
 	template = 'post_detail.html'
-	post = Post.objects.published().get(slug=slug)
-
+	post = get_object_or_404(Post, slug=slug)  # 2do: use posted manager
 	context = {'post': post}
 
 	return render(request, template, context)

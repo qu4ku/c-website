@@ -53,11 +53,13 @@ class PostType(models.Model):
 	ARTICLE = 0
 	TWITTER = 1
 	VIDEO = 2
+	PODCAST = 3
 
 	TYPE_CHOICES = (
 		(ARTICLE, 'Article'),
 		(TWITTER, 'Twitter'),
 		(VIDEO, 'Video'),
+		(PODCAST, 'Podcast')
 	)
 	post_type = models.IntegerField(choices=TYPE_CHOICES, default=ARTICLE)
 
@@ -130,9 +132,13 @@ class Post(models.Model):
 	def get_absolute_url(self):
 		return '/post/{}/'.format(self.slug)
 
+	def get_url_for_social(self):
+		return 'https://www.knowledgeprotocol.com/post/{}/'.format(self.slug)
+
 
 # 2do: LinkModel
 class Link(models.Model):
 	"""Link model."""
 	ip = models.CharField(max_length=50, null=True)
 	url = models.URLField(max_length=250)
+
