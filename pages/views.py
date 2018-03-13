@@ -31,6 +31,8 @@ def home_view(request):
 		'posts': posts,
 	}
 
+	print(request.META.get('REMOTE_ADDR', None))
+
 	return render(request, template, context)
 
 

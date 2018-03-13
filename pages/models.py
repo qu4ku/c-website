@@ -132,4 +132,7 @@ class Post(models.Model):
 
 
 # 2do: LinkModel
-	
+class Link(models.Model):
+	"""Link model."""
+	ip = models.CharField(max_length=50, null=True)
+	url = models.URLField(max_length=250)
