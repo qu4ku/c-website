@@ -4,3 +4,5 @@ __pycache__/
 arch_db.sqlite3
 .DS_Store
 settings.py
+settings_original.py
+local.py
