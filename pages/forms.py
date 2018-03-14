@@ -23,7 +23,7 @@ class PostForm(forms.ModelForm):
 			'tease',
 			# 'created',
 			# 'modified',
-			'seo_text',
+			
 			'original_author',
 			'original_author_handle',
 			'original_author_url',

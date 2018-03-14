@@ -3,14 +3,14 @@ from django.db import models
 
 
 import datetime
+from django.utils import timezone
 
 
 class PublicManager(models.Manager):
 	"""Returns published posts that are not in the future."""
 
 	def published(self):
-		PUBLIC = 1
-		return self.get_queryset().filter(status=PUBLIC, publish__lte=datetime.datetime.now())
+		return self.get_queryset().filter(status='Public', publish__lte=timezone.now())
 
 
 class Category(models.Model):
@@ -18,6 +18,11 @@ class Category(models.Model):
 
 	title = models.CharField(max_length=100)
 	slug = models.SlugField(unique=True)
+	description = models.CharField(max_length=250, blank=True, null=True)
+	seo_title = models.CharField(max_length=60, blank=True, null=True)
+	seo_description = models.CharField(max_length=165, blank=True, null=True)
+	created = models.DateTimeField(auto_now_add=True)
+	updated = models.DateTimeField(auto_now=True)
 
 	class Meta:
 		verbose_name = 'category'
@@ -32,62 +37,53 @@ class Category(models.Model):
 class DifficultyLevel(models.Model):
 	"""Difficulty option Foreign Key model."""
 
-	BEGINNER = 0
-	INTERMEDIATE = 1
-	ADVANCED = 2
-
 	DIFFICULTY_CHOICES = (
-		(BEGINNER, 'Beginner'),
-		(INTERMEDIATE, 'Intermediate'),
-		(ADVANCED, 'Advanced'),
+		('Beginner', 'Beginner'),
+		('Intermediate', 'Intermediate'),
+		('Advanced', 'Advanced'),
 	)
-	dificulty_level = models.IntegerField(choices=DIFFICULTY_CHOICES, default=BEGINNER)
+	dificulty_level = models.CharField(max_length=20, choices=DIFFICULTY_CHOICES, default='Beginner')
 
 	def __str__(self):
-		return self.DIFFICULTY_CHOICES[self.dificulty_level][1]
+		return self.dificulty_level
 
 
 class PostType(models.Model):
 	"""Difficulty option Foreign Key model."""
 
-	ARTICLE = 0
-	TWITTER = 1
-	VIDEO = 2
-	PODCAST = 3
-
 	TYPE_CHOICES = (
-		(ARTICLE, 'Article'),
-		(TWITTER, 'Twitter'),
-		(VIDEO, 'Video'),
-		(PODCAST, 'Podcast')
+		('Article', 'Article'),
+		('Twitter', 'Twitter'),
+		('Video', 'Video'),
+		('Podcast', 'Podcast'),
 	)
-	post_type = models.IntegerField(choices=TYPE_CHOICES, default=ARTICLE)
+	post_type = models.CharField(max_length=20, choices=TYPE_CHOICES, default='Article')
 
 	def __str__(self):
 		"""Returns human-readable option in admin."""
-		return self.TYPE_CHOICES[self.post_type][1]
+		return self.post_type
 
 
 class Post(models.Model):
 	"""Post model."""
 
 	STATUS_CHOICES = (
-		(0, 'Draft'),
-		(1, 'Public'),
+		('Draft', 'Draft'),
+		('Public', 'Public'),
 	)
 
 	ACTIVE_CHOICES = (
-		(0, 'Not Active'),
-		(1, 'Active'),
+		('Dead', 'Dead'),
+		('Active', 'Active'),
 	)
 
 	title = models.CharField(max_length=280)
-	slug = models.SlugField(max_length=200, unique_for_date='publish')
+	slug = models.SlugField(max_length=280, unique_for_date='publish')
 	url = models.URLField(max_length=250)
 	description = models.TextField(null=True, blank=True)
 	set_number = models.CharField(max_length=2) # 14 means 1rst post out of 4 - max 9 posts per day
-	status = models.IntegerField(choices=STATUS_CHOICES, default=0)
-	publish = models.DateTimeField(default=datetime.datetime.now)
+	status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Draft')
+	publish = models.DateTimeField(default=timezone.now)
 	categories = models.ManyToManyField(Category, blank=True)
 	difficulty_level = models.ForeignKey(DifficultyLevel, on_delete='SET_DEFAULT')
 	post_type = models.ForeignKey(PostType, on_delete='SET_DEFAULT')
@@ -96,8 +92,11 @@ class Post(models.Model):
 	tease = models.TextField(blank=True, help_text='Concise text suggested. Does not appear in RSS feed.')
 	created = models.DateTimeField(auto_now_add=True)
 	modified = models.DateTimeField(auto_now=True)
-	seo_text = models.TextField(null=True, blank=True)
-	active = models.IntegerField(choices=ACTIVE_CHOICES, default=1, blank=True)
+
+	seo_title = models.CharField(max_length=60, blank=True, null=True)
+	seo_description = models.CharField(max_length=165, blank=True, null=True)
+
+	active = models.CharField(max_length=20, choices=ACTIVE_CHOICES, default='Active')
 	
 	# Twitter case
 	original_author = models.CharField(max_length=250, blank=True)
@@ -141,4 +140,10 @@ class Link(models.Model):
 	"""Link model."""
 	ip = models.CharField(max_length=50, null=True)
 	url = models.URLField(max_length=250)
+
+class NewsletterContact(models.Model):
+	"""Newsletter client model."""
+
+	ip = models.CharField(max_length=50, null=True)
+	email = models.EmailField(max_length=70, null=True, unique=True)
 
