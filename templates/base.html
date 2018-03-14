@@ -22,8 +22,17 @@
 			{% block content %}
 			{% endblock %}
 		</section>
+		
+		<div class="newsletter">
+			<p>Subscribe to our newsletter to get the latest scoop right to your inbox.</p>
+			<form action="index.html" method="post" class="subscribe-form">
+	      <input type="email" name="email" class="newsletter-input" placeholder="Email address" autofocus>
+	      <button type="submit" class="subscribe-submit">Subscribe</button>
+	    </form>
+		</div>
 
 		<footer class="footer">
+
 			<img src="{% static 'img/footer-eye.png' %}"" alt="" class="footer-img">
 			<div class="footer-text">
 				©<br>
