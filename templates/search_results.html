@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title}
+{% endblock title}
+
+{% block content %}
+	<h1>Your search term: "{{ query }}"</h1><a class="back-link" href="{% url 'home' %}"><- Back</a>
+
+	{% for post in posts %}
+
+		{% if post.post_type|stringformat:"s" == "article" %}
+			<div class="post">
+				<div class="post__number"><span class="big_num">{{ post.first_set_number }}</span><span class="small_num">/ {{ post.second_set_number }}</span></div>
+				<div class="post__title"><a href="{{ post.url }}" target="_blank">{{ post.title }}</a></div>
+				<div class="post__date">{{ post.publish|date:"d M, Y" }}</div>
+				<p class="post__description">{{ post.description }}</p>
+				<div class="post__info {% if not post.description %} post__info--no-description {% endif %}">
+					<div class="post__info__categories">
+						<a class="category-link" href="{% url 'level' slug=post.difficulty_level %}">{{ post.difficulty_level }}</a>
+						{% for category in post.categories.all %}
+							<img src="{% static 'img/category-separator.png' %}" alt="" class="category-separator"><a class="category-link" href="{% url 'category' slug=category %}">{{ category }}</a>
+						{% endfor %}
+					</div>
+					{% include "includes/social.html" %}
+				</div>
+				<div class="post__separator"></div>
+			</div>
+		{% endif %}
+
+		
+		{% if post.post_type|stringformat:"s" == "video" %}
+			<div class="post">
+				<div class="post__number"><span class="big_num">{{ post.first_set_number }}</span><span class="small_num">/ {{ post.second_set_number }}</span></div>
+				<div class="post__title post__title--media"><a href="{{ post.url }}" target="_blank">{{ post.title }}</a></div>
+				<div class="media__image">
+					<a href="{{ post.url }}">
+						<img class="video-play-overlay" src="{% static 'img/vid-play-overlay.png' %}" alt="">
+						<img class="thumb-image" src="{{ post.thumb_image.url }}" alt="">
+					</a>
+				</div>	
+				<div class="post__date">{{ post.publish|date:"d M, Y" }}</div>
+				<p class="post__description video__description">{{ post.description }}</p>
+				<div class="post__info {% if not post.description %} post__info--no-description {% endif %}">
+					<div class="post__info__categories">
+						<a class="category-link" href="{% url 'level' slug=post.difficulty_level %}">{{ post.difficulty_level }}</a>
+						{% for category in post.categories.all %}
+							<img src="{% static 'img/category-separator.png' %}" alt="" class="category-separator"><a class="category-link" href="{% url 'category' slug=category %}">{{ category }}</a>
+						{% endfor %}
+					</div>
+					{% include "includes/social.html" %}
+				</div>
+				<div class="post__separator"></div>
+			</div>
+		{% endif %}
+
+
+		{% if post.post_type|stringformat:"s" == "podcast" %}
+			<div class="post">
+				<div class="post__number"><span class="big_num">{{ post.first_set_number }}</span><span class="small_num">/ {{ post.second_set_number }}</span></div>
+				<div class="post__title post__title--media"><a href="{{ post.url }}" target="_blank">{{ post.title }}</a></div>
+				<div class="media__image">
+					<a href="{{ post.url }}">
+						<img class="thumb-image" src="{% static 'img/podcast-icon.png' %}" alt="">
+					</a>
+				</div>	
+				<div class="post__date">{{ post.publish|date:"d M, Y" }}</div>
+				<p class="post__description video__description">{{ post.description }}</p>
+				<div class="post__info {% if not post.description %} post__info--no-description {% endif %}">
+					<div class="post__info__categories">
+						<a class="category-link" href="{% url 'level' slug=post.difficulty_level %}">{{ post.difficulty_level }}</a>
+						{% for category in post.categories.all %}
+							<img src="{% static 'img/category-separator.png' %}" alt="" class="category-separator"><a class="category-link" href="{% url 'category' slug=category %}">{{ category }}</a>
+						{% endfor %}
+					</div>
+					{% include "includes/social.html" %}
+				</div>
+				<div class="post__separator"></div>
+			</div>
+		{% endif %}
+
+
+		{% if post.post_type|stringformat:"s" == "twitter" %}
+			<div class="post">
+				<div class="post__number"><span class="big_num">{{ post.first_set_number }}</span><span class="small_num">/ {{ post.second_set_number }}</span></div>
+				<div class="post__title post__title--media"><a href="{{ post.url }}" target="_blank">{{ post.title }}</a></div>
+				<div class="media__image">
+					<a href="{{ post.url }}">
+						<img class="thumb-image" src="{% static 'img/twitter-icon.png' %}" alt="">
+					</a>
+				</div>	
+				<div class="post__date">{{ post.publish|date:"d M, Y" }}</div>
+				<p class="post__description video__description">{{ post.description }}</p>
+				<div class="post__info {% if not post.description %} post__info--no-description {% endif %}">
+					<div class="post__info__categories">
+						<a class="original-author-url" href="#">{{ post.original_author_handle }}</a>
+						{% for category in post.categories.all %}
+							<img src="{% static 'img/category-separator.png' %}" alt="" class="category-separator"><a class="category-link" href="{% url 'category' slug=category %}">{{ category }}</a>
+						{% endfor %}
+					</div>
+					{% include "includes/social.html" %}
+				</div>
+				<div class="post__separator"></div>
+			</div>
+		{% endif %}
+	{% endfor %}
+
+	<div class="pagination">
+    <span class="step-links">
+    	
+        {% if posts.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ posts.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
+        </span>
+
+        {% if posts.has_next %}
+            <a href="?page={{ posts.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">next</a>
+            <a href="?page={{ posts.paginator.num_pages }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">last &raquo;</a>
+        {% endif %}
+    </span>
+	</div>
+
+{% endblock content %}

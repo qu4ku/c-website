@@ -5,6 +5,11 @@ About
 {% endblock title}
 
 {% block content %}
+	<form action="{% url 'search' %}" method="get">
+		<input name="q" value="{{ request.GET.g }}" placeholder="Search...">
+		<button type="submit">Search</button>
+	</form>
 	<h1>About.</h1>
 	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloremque eveniet sint temporibus animi facere optio, at hic quibusdam rem. Perspiciatis dolores aperiam a labore? Optio ratione, sequi autem officia nisi.</p>
+
 {% endblock content %}

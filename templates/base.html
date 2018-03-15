@@ -16,7 +16,10 @@
 		<header class="top">
 			<img class="top__logo" src="{% static 'img/logo.png' %}"></img>
 			<img class="top__logo top__logo--mobile" src="{% static 'img/logo-mobile.png' %}"></img>
-			<nav class="top__nav"><a href="#">Jobs</a><a href="#">About</a></nav>
+			<nav class="top__nav">
+				<a href="{% url 'jobs' %}">Jobs</a>
+				<a href="{% url 'about' %}">About</a>
+			</nav>
 		</header>
 		
 		<section class="content">
