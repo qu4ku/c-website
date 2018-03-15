@@ -8,7 +8,7 @@
 
 	{% for post in posts %}
 
-		{% if post.post_type|stringformat:"s" == "Article" %}
+		{% if post.post_type|stringformat:"s" == "article" %}
 			<div class="post">
 				<div class="post__number"><span class="big_num">{{ post.first_set_number }}</span><span class="small_num">/ {{ post.second_set_number }}</span></div>
 				<div class="post__title"><a href="{{ post.url }}" target="_blank">{{ post.title }}</a></div>
@@ -16,9 +16,9 @@
 				<p class="post__description">{{ post.description }}</p>
 				<div class="post__info {% if not post.description %} post__info--no-description {% endif %}">
 					<div class="post__info__categories">
-						<a class="category-link" href="/level/{{ post.difficulty_level }}">{{ post.difficulty_level }}</a>
+						<a class="category-link" href="{% url 'level' slug=post.difficulty_level %}">{{ post.difficulty_level }}</a>
 						{% for category in post.categories.all %}
-							<img src="{% static 'img/category-separator.png' %}" alt="" class="category-separator"><a class="category-link" href="category/{{ category }}">{{ category }}</a>
+							<img src="{% static 'img/category-separator.png' %}" alt="" class="category-separator"><a class="category-link" href="{% url 'category' slug=category %}">{{ category }}</a>
 						{% endfor %}
 					</div>
 					{% include "includes/social.html" %}
@@ -28,7 +28,7 @@
 		{% endif %}
 
 		
-		{% if post.post_type|stringformat:"s" == "Video" %}
+		{% if post.post_type|stringformat:"s" == "video" %}
 			<div class="post">
 				<div class="post__number"><span class="big_num">{{ post.first_set_number }}</span><span class="small_num">/ {{ post.second_set_number }}</span></div>
 				<div class="post__title post__title--media"><a href="{{ post.url }}" target="_blank">{{ post.title }}</a></div>
@@ -42,9 +42,9 @@
 				<p class="post__description video__description">{{ post.description }}</p>
 				<div class="post__info {% if not post.description %} post__info--no-description {% endif %}">
 					<div class="post__info__categories">
-						<a class="category-link" href="/level/{{ post.difficulty_level }}">{{ post.difficulty_level }}</a>
+						<a class="category-link" href="{% url 'level' slug=post.difficulty_level %}">{{ post.difficulty_level }}</a>
 						{% for category in post.categories.all %}
-							<img src="{% static 'img/category-separator.png' %}" alt="" class="category-separator"><a class="category-link" href="category/{{ category }}">{{ category }}</a>
+							<img src="{% static 'img/category-separator.png' %}" alt="" class="category-separator"><a class="category-link" href="{% url 'category' slug=category %}">{{ category }}</a>
 						{% endfor %}
 					</div>
 					{% include "includes/social.html" %}
@@ -54,7 +54,7 @@
 		{% endif %}
 
 
-		{% if post.post_type|stringformat:"s" == "Podcast" %}
+		{% if post.post_type|stringformat:"s" == "podcast" %}
 			<div class="post">
 				<div class="post__number"><span class="big_num">{{ post.first_set_number }}</span><span class="small_num">/ {{ post.second_set_number }}</span></div>
 				<div class="post__title post__title--media"><a href="{{ post.url }}" target="_blank">{{ post.title }}</a></div>
@@ -67,9 +67,9 @@
 				<p class="post__description video__description">{{ post.description }}</p>
 				<div class="post__info {% if not post.description %} post__info--no-description {% endif %}">
 					<div class="post__info__categories">
-						<a class="category-link" href="/level/{{ post.difficulty_level }}">{{ post.difficulty_level }}</a>
+						<a class="category-link" href="{% url 'level' slug=post.difficulty_level %}">{{ post.difficulty_level }}</a>
 						{% for category in post.categories.all %}
-							<img src="{% static 'img/category-separator.png' %}" alt="" class="category-separator"><a class="category-link" href="category/{{ category }}">{{ category }}</a>
+							<img src="{% static 'img/category-separator.png' %}" alt="" class="category-separator"><a class="category-link" href="{% url 'category' slug=category %}">{{ category }}</a>
 						{% endfor %}
 					</div>
 					{% include "includes/social.html" %}
@@ -79,7 +79,7 @@
 		{% endif %}
 
 
-		{% if post.post_type|stringformat:"s" == "Twitter" %}
+		{% if post.post_type|stringformat:"s" == "twitter" %}
 			<div class="post">
 				<div class="post__number"><span class="big_num">{{ post.first_set_number }}</span><span class="small_num">/ {{ post.second_set_number }}</span></div>
 				<div class="post__title post__title--media"><a href="{{ post.url }}" target="_blank">{{ post.title }}</a></div>
@@ -94,7 +94,7 @@
 					<div class="post__info__categories">
 						<a class="original-author-url" href="#">{{ post.original_author_handle }}</a>
 						{% for category in post.categories.all %}
-							<img src="{% static 'img/category-separator.png' %}" alt="" class="category-separator"><a class="category-link" href="category/{{ category }}">{{ category }}</a>
+							<img src="{% static 'img/category-separator.png' %}" alt="" class="category-separator"><a class="category-link" href="{% url 'category' slug=category %}">{{ category }}</a>
 						{% endfor %}
 					</div>
 					{% include "includes/social.html" %}
