@@ -12,6 +12,7 @@ class PostAdmin(admin.ModelAdmin):
 	class Meta:
 		model = Post
 
+
 admin.site.register(Post, PostAdmin)
 admin.site.register(DifficultyLevel)
 admin.site.register(PostType)

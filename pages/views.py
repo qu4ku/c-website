@@ -5,7 +5,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 
-from .models import Post
+from .models import Post, Category, DifficultyLevel
 from .forms import PostForm
 
 
@@ -90,4 +90,34 @@ def post_delete_view(request, slug=None):
 	post.delete()
 	messages.success(request, 'Deleted')
 	return redirect('home')
+
+def category_view(request, slug):
+	category = get_object_or_404(Category, slug=slug)
+	post_list = Post.objects.published().filter(categories=category).order_by('-publish')
+
+	paginator = Paginator(post_list, 20)  # Show 25 contacts per page
+	page = request.GET.get('page')
+	posts = paginator.get_page(page)
+
+	template = 'home.html'
+	context = {
+		'posts': posts,
+	}
+
+	return render(request, template, context)
+
+def level_view(request, slug):
+	level = get_object_or_404(DifficultyLevel, difficulty_level=slug.title())
+	post_list = Post.objects.published().filter(difficulty_level=level).order_by('-publish')
+
+	paginator = Paginator(post_list, 20)  # Show 25 contacts per page
+	page = request.GET.get('page')
+	posts = paginator.get_page(page)
+
+	template = 'home.html'
+	context = {
+		'posts': posts,
+	}
+
+	return render(request, template, context)
 

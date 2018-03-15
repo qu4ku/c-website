@@ -2,7 +2,6 @@ from django.contrib.auth.models import User
 from django.db import models
 
 
-import datetime
 from django.utils import timezone
 
 
@@ -10,7 +9,7 @@ class PublicManager(models.Manager):
 	"""Returns published posts that are not in the future."""
 
 	def published(self):
-		return self.get_queryset().filter(status='Public', publish__lte=timezone.now())
+		return self.get_queryset().filter(status='public', publish__lte=timezone.now())
 
 
 class Category(models.Model):
@@ -38,26 +37,26 @@ class DifficultyLevel(models.Model):
 	"""Difficulty option Foreign Key model."""
 
 	DIFFICULTY_CHOICES = (
-		('Beginner', 'Beginner'),
-		('Intermediate', 'Intermediate'),
-		('Advanced', 'Advanced'),
+		('beginner', 'Beginner'),
+		('intermediate', 'Intermediate'),
+		('advanced', 'Advanced'),
 	)
-	dificulty_level = models.CharField(max_length=20, choices=DIFFICULTY_CHOICES, default='Beginner')
+	difficulty_level = models.CharField(max_length=20, choices=DIFFICULTY_CHOICES, default='beginner')
 
 	def __str__(self):
-		return self.dificulty_level
+		return self.difficulty_level
 
 
 class PostType(models.Model):
 	"""Difficulty option Foreign Key model."""
 
 	TYPE_CHOICES = (
-		('Article', 'Article'),
-		('Twitter', 'Twitter'),
-		('Video', 'Video'),
-		('Podcast', 'Podcast'),
+		('article', 'Article'),
+		('twitter', 'Twitter'),
+		('video', 'Video'),
+		('podcast', 'Podcast'),
 	)
-	post_type = models.CharField(max_length=20, choices=TYPE_CHOICES, default='Article')
+	post_type = models.CharField(max_length=20, choices=TYPE_CHOICES, default='article')
 
 	def __str__(self):
 		"""Returns human-readable option in admin."""
@@ -68,13 +67,13 @@ class Post(models.Model):
 	"""Post model."""
 
 	STATUS_CHOICES = (
-		('Draft', 'Draft'),
-		('Public', 'Public'),
+		('draft', 'Draft'),
+		('public', 'Public'),
 	)
 
 	ACTIVE_CHOICES = (
-		('Dead', 'Dead'),
-		('Active', 'Active'),
+		('dead', 'Dead'),
+		('active', 'Active'),
 	)
 
 	title = models.CharField(max_length=280)
@@ -82,7 +81,7 @@ class Post(models.Model):
 	url = models.URLField(max_length=250)
 	description = models.TextField(null=True, blank=True)
 	set_number = models.CharField(max_length=2) # 14 means 1rst post out of 4 - max 9 posts per day
-	status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Draft')
+	status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='draft')
 	publish = models.DateTimeField(default=timezone.now)
 	categories = models.ManyToManyField(Category, blank=True)
 	difficulty_level = models.ForeignKey(DifficultyLevel, on_delete='SET_DEFAULT')
@@ -96,7 +95,7 @@ class Post(models.Model):
 	seo_title = models.CharField(max_length=60, blank=True, null=True)
 	seo_description = models.CharField(max_length=165, blank=True, null=True)
 
-	active = models.CharField(max_length=20, choices=ACTIVE_CHOICES, default='Active')
+	active = models.CharField(max_length=20, choices=ACTIVE_CHOICES, default='active')
 	
 	# Twitter case
 	original_author = models.CharField(max_length=250, blank=True)
