@@ -1,7 +1,7 @@
 from django import forms
 
 
-from .models import Post, NewsletterContact
+from .models import Post
 
 
 
@@ -30,7 +30,3 @@ class PostForm(forms.ModelForm):
 			'thumb_image',
 		]
 
-class NewsletterBoxForm(forms.ModelForm):
-	class Meta:
-		model = NewsletterContact
-		fields = ['email', 'ip']

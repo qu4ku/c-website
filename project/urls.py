@@ -4,10 +4,10 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 
-
 urlpatterns = [
-    path('my_admin/', admin.site.urls),
-    path('', include('pages.urls')),
+	path('my_admin/', admin.site.urls),
+	path('', include('core.urls')),
+	path('newsletter/', include('newsletter.urls')),
 ]
 
 if settings.DEBUG:
@@ -16,3 +16,4 @@ if settings.DEBUG:
 		path('__debug__/', include(debug_toolbar.urls)),
 	# Media files are not, by default, served during development.
 	] + urlpatterns + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

@@ -5,8 +5,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 
-from .models import Post, Category, DifficultyLevel, NewsletterContact
-from .forms import PostForm, NewsletterBoxForm
+from .models import Post, Category, DifficultyLevel
+from .forms import PostForm
 
 
 
@@ -151,26 +151,5 @@ def search_view(request):
 
 	return render(request, template, context)
 
-def newsletter_view(request):
-
-	template = 'newsletter/newsletter_thanks.html'
-	context = {}
-	ip = request.META.get('REMOTE_ADDR', None)
-
-	if request.method == 'POST':
-		form = NewsletterBoxForm(request.POST)
-
-		if form.is_valid():
-			contact = form.save(commit=False)
-
-			contact.ip = ip
-			contact.save()
-			# messages.success(request, 'Successfully Created')
-			# return HttpResponseRedirect(reverse('home'))
-			return render(request, template, context)
-		else:
-			messages.error(request, "Error")
-
-	return render(request, template, context)
 
 

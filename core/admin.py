@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Post, DifficultyLevel, PostType, Category, NewsletterContact
+from .models import Post, DifficultyLevel, PostType, Category
 
 
 class PostAdmin(admin.ModelAdmin):
@@ -14,12 +14,7 @@ class PostAdmin(admin.ModelAdmin):
 		model = Post
 
 
-class NewsletterContactAdmin(admin.ModelAdmin):
-	list_display = ['email', 'date_subscribed', 'is_active', 'ip']
-
-
-admin.site.register(Post, PostAdmin)
+admin.site.register(Post)
+admin.site.register(Category)
 admin.site.register(DifficultyLevel)
 admin.site.register(PostType)
-admin.site.register(Category)
-admin.site.register(NewsletterContact, NewsletterContactAdmin)
