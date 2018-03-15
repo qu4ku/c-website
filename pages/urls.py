@@ -15,4 +15,5 @@ urlpatterns = [
 	path('category/<slug:slug>', views.category_view, name='category'),
 	path('level/<slug:slug>', views.level_view, name='level'),
 	path('results/', views.search_view, name='search'),
+	path('newsletter/', views.newsletter_view, name='newsletter')
 ]

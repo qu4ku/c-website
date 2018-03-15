@@ -29,10 +29,14 @@
 		
 		<div class="newsletter">
 			<p>Subscribe to our newsletter to get the latest scoop right to your inbox.</p>
-			<form action="/get_newsletter/" method="post" class="subscribe-form">
-	      <input type="email" name="email" class="newsletter-input" placeholder="Email address" autofocus>
+			<form action="/newsletter/" method="post" class="subscribe-form">
+				{% csrf_token %}
+	      <input type="email" name="email" class="newsletter-input" placeholder="Your Email" autofocus>
 	      <button type="submit" class="newsletter-submit">Subscribe</button>
 	    </form>
+
+	   
+
 		</div>
 
 		<footer class="footer">

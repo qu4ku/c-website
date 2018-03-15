@@ -6,15 +6,17 @@ from django.utils import timezone
 
 
 class PublicManager(models.Manager):
-	"""Returns published posts that are not in the future."""
-
+	"""
+	Returns published posts that are not in the future.
+	"""
 	def published(self):
 		return self.get_queryset().filter(status='public', publish__lte=timezone.now())
 
 
 class Category(models.Model):
-	"""Category model."""
-
+	"""
+	Category model.
+	"""
 	title = models.CharField(max_length=100)
 	slug = models.SlugField(unique=True)
 	description = models.CharField(max_length=250, blank=True, null=True)
@@ -34,8 +36,9 @@ class Category(models.Model):
 
 
 class DifficultyLevel(models.Model):
-	"""Difficulty option Foreign Key model."""
-
+	"""
+	Difficulty option Foreign Key model.
+	"""
 	DIFFICULTY_CHOICES = (
 		('beginner', 'Beginner'),
 		('intermediate', 'Intermediate'),
@@ -48,8 +51,9 @@ class DifficultyLevel(models.Model):
 
 
 class PostType(models.Model):
-	"""Difficulty option Foreign Key model."""
-
+	"""
+	Difficulty option Foreign Key model.
+	"""
 	TYPE_CHOICES = (
 		('article', 'Article'),
 		('twitter', 'Twitter'),
@@ -64,8 +68,9 @@ class PostType(models.Model):
 
 
 class Post(models.Model):
-	"""Post model."""
-
+	"""
+	Post model.
+	"""
 	STATUS_CHOICES = (
 		('draft', 'Draft'),
 		('public', 'Public'),
@@ -80,7 +85,7 @@ class Post(models.Model):
 	slug = models.SlugField(max_length=280, unique_for_date='publish')
 	url = models.URLField(max_length=250)
 	description = models.TextField(null=True, blank=True)
-	set_number = models.CharField(max_length=2) # 14 means 1rst post out of 4 - max 9 posts per day
+	set_number = models.CharField(max_length=2) # 14 = 1 out of 4. max 9 posts per day.
 	status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='draft')
 	publish = models.DateTimeField(default=timezone.now)
 	categories = models.ManyToManyField(Category, blank=True)
@@ -88,7 +93,7 @@ class Post(models.Model):
 	post_type = models.ForeignKey(PostType, on_delete='SET_DEFAULT')
 
 	author = models.ForeignKey(User, blank=True, null=True, on_delete='SET_DEFAULT')
-	tease = models.TextField(blank=True, help_text='Concise text suggested. Does not appear in RSS feed.')
+	tease = models.CharField(max_length=280, blank=True, help_text='Concise text suggested. Does not appear in RSS feed.')
 	created = models.DateTimeField(auto_now_add=True)
 	modified = models.DateTimeField(auto_now=True)
 
@@ -96,7 +101,8 @@ class Post(models.Model):
 	seo_description = models.CharField(max_length=165, blank=True, null=True)
 
 	active = models.CharField(max_length=20, choices=ACTIVE_CHOICES, default='active')
-	
+	is_active = models.BooleanField(default=True)
+
 	# Twitter case
 	original_author = models.CharField(max_length=250, blank=True)
 	original_author_handle = models.CharField(max_length=250, blank=True)
@@ -109,12 +115,16 @@ class Post(models.Model):
 
 	@property
 	def first_set_number(self):
-		"""Gets post's number in a certain day."""
+		"""
+		Gets post's number in a certain day.
+		"""
 		return self.set_number[0]
 
 	@property
 	def second_set_number(self):
-		"""Gets number of posts in a certain day."""
+		"""
+		Gets number of posts in a certain day.
+		"""
 		return self.set_number[1]
 
 	class Meta:
@@ -136,13 +146,31 @@ class Post(models.Model):
 
 # 2do: LinkModel
 class Link(models.Model):
-	"""Link model."""
+	"""
+	Link model.
+	"""
 	ip = models.CharField(max_length=50, null=True)
 	url = models.URLField(max_length=250)
 
-class NewsletterContact(models.Model):
-	"""Newsletter client model."""
 
-	ip = models.CharField(max_length=50, null=True)
-	email = models.EmailField(max_length=70, null=True, unique=True)
+class NewsletterContact(models.Model):
+	"""
+	Newsletter contact model.
+	"""
+	ip = models.CharField(max_length=50, blank=True, null=True)
+	first_name = models.CharField(max_length=100, blank=True, null=True)
+	first_name = models.CharField(max_length=100, blank=True, null=True)
+	email = models.EmailField(max_length=70, unique=True)
+	date_subscribed = models.DateTimeField(auto_now_add=True)
+	date_unsubscribed = models.DateTimeField(null=True, blank=True)
+	is_active = models.BooleanField(default=True)
+
+	def __str__(self):
+		return self.email
+
+	class Meta:
+		verbose_name = 'Newsletter Contact'
+		verbose_name_plural = 'Newsletter Contacts'
+		db_table = 'newsletter_contacts'
+		ordering = ('-date_subscribed',)
 

@@ -1,7 +1,7 @@
 from django import forms
 
 
-from .models import Post
+from .models import Post, NewsletterContact
 
 
 
@@ -29,3 +29,8 @@ class PostForm(forms.ModelForm):
 			'original_author_url',
 			'thumb_image',
 		]
+
+class NewsletterBoxForm(forms.ModelForm):
+	class Meta:
+		model = NewsletterContact
+		fields = ['email', 'ip']

@@ -5,8 +5,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 
-from .models import Post, Category, DifficultyLevel
-from .forms import PostForm
+from .models import Post, Category, DifficultyLevel, NewsletterContact
+from .forms import PostForm, NewsletterBoxForm
 
 
 
@@ -100,7 +100,7 @@ def category_view(request, slug):
 	category = get_object_or_404(Category, slug=slug)
 	post_list = Post.objects.published().filter(categories=category).order_by('-publish')
 
-	paginator = Paginator(post_list, 20)  # Show 25 contacts per page
+	paginator = Paginator(post_list, 18)  # Show 25 contacts per page
 	page = request.GET.get('page')
 	posts = paginator.get_page(page)
 
@@ -150,4 +150,27 @@ def search_view(request):
 	}
 
 	return render(request, template, context)
+
+def newsletter_view(request):
+
+	template = 'newsletter/newsletter_thanks.html'
+	context = {}
+	ip = request.META.get('REMOTE_ADDR', None)
+
+	if request.method == 'POST':
+		form = NewsletterBoxForm(request.POST)
+
+		if form.is_valid():
+			contact = form.save(commit=False)
+
+			contact.ip = ip
+			contact.save()
+			# messages.success(request, 'Successfully Created')
+			# return HttpResponseRedirect(reverse('home'))
+			return render(request, template, context)
+		else:
+			messages.error(request, "Error")
+
+	return render(request, template, context)
+
 
