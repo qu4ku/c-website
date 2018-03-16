@@ -8,6 +8,7 @@ urlpatterns = [
 	path('my_admin/', admin.site.urls),
 	path('', include('core.urls')),
 	path('newsletter/', include('newsletter.urls')),
+	path('jobs/', include('jobs.urls')),
 ]
 
 if settings.DEBUG:
