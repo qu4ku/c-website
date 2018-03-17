@@ -9,6 +9,7 @@ class PublicManager(models.Manager):
 	"""
 	Returns published posts that are not in the future.
 	"""
+
 	def published(self):
 		return self.get_queryset().filter(status='public', publish__lte=timezone.now())
 
@@ -99,8 +100,6 @@ class Post(models.Model):
 
 	seo_title = models.CharField(max_length=60, blank=True, null=True)
 	seo_description = models.CharField(max_length=165, blank=True, null=True)
-
-	active = models.CharField(max_length=20, choices=ACTIVE_CHOICES, default='active')
 	is_active = models.BooleanField(default=True)
 
 	# Twitter case

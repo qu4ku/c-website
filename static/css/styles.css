@@ -5,10 +5,25 @@
 	--posts-width: 780px;
 	--main-text-color: #161c28;
 	--underline-color: #00ff78;
-	/*--underline-color: #f2b562;*/
 
 }
 
+@font-face {
+  font-family: 'DP-Light';
+  src:  url('/static/fonts/DP-Light.WOFF') format('woff');,
+}
+@font-face {
+  font-family: 'DP-Regular';
+  src:  url('/static/fonts/DP-Regular.WOFF') format('woff');,
+}
+@font-face {
+  font-family: 'B-Bold';
+  src:  url('/static/fonts/B-Bold.WOFF') format('woff');,
+}
+@font-face {
+  font-family: 'B-Regular';
+  src:  url('/static/fonts/B-Regular.WOFF') format('woff');,
+}
 
 /*------------------ RESET CSS ------------------*/
 
@@ -87,7 +102,7 @@ a {
 .patreon {
 	grid-area: patreon;
 
-	font-family: "Bebas Neue";
+	font-family: "B-Regular";
 	font-size: 15px;
 	letter-spacing: 2px;
 	color: white;
@@ -163,7 +178,7 @@ a {
 }
 
 .top__nav a {
-	font-family: "Bebas Neue";
+	font-family: "B-Regular";
 	font-size: 14px;
 
 	display: inline-block;
@@ -180,6 +195,7 @@ a {
 .content {
 	grid-area: content;
 	margin: auto;
+	width: 100%;
 }
 
 .post {
@@ -187,6 +203,7 @@ a {
 	grid-template-columns: 90px 120px minmax(200px, auto);
 	grid-template-rows: auto auto auto auto;
 	grid-auto-flow: column;
+
 }
 
 
@@ -199,7 +216,7 @@ a {
 	grid-template-columns: 1fr 1fr auto;
 	justify-content: start;
 
-	font-family: "DINPro-Light";
+	font-family: "DP-Light";
 	font-size: 20px;
 	color: #b5b5b5;
 }
@@ -225,7 +242,7 @@ a {
 	grid-row: 1 / 2;
 	margin-bottom: 40px;
 	
-	font-family: "DINPro";
+	font-family: "DP-Regular";
 	font-size: 40px;
 	line-height: 1.2em;
 }
@@ -269,7 +286,7 @@ a {
 
 .post__info__categories p {
 	display: block-inline;
-	font-family: "Bebas Neue";
+	font-family: "B-Regular";
 	font-size: 14px;
 	font-weight: bold;
 
@@ -314,7 +331,7 @@ a {
 }
 
 .category-link {
-	font-family: "Bebas Neue";
+	font-family: "B-Regular";
 	font-size: 14px;
 
 	display: inline-block;
@@ -386,17 +403,58 @@ a {
 .newsletter {
 	grid-area: newsletter;
 
-	font-family: "DINPro";
+	font-family: "DP-Regular";
 	font-size: 30px;
 	line-height: 1.2em;
 
-	/*width: 100vh;*/
-	background-color: var(--secondary-color);
 	background-color: var(--main-dark-color);
 	color: white;
 	margin-bottom: 50px;
 	padding: 40px;
 }
+
+/*------------------ FORM ------------------*/
+
+
+.form {
+	margin-bottom: 40px;
+	max-width: 500px;
+
+}
+
+.form__title {
+	margin-bottom: 40px;
+	
+	font-family: "DP-Regular";
+	font-size: 40px;
+	line-height: 1.2em;
+}
+
+.form__text-input {
+	height: 40px;
+	min-width: 100%;
+	margin-bottom: 10px;
+
+}
+
+.form__text-input {
+	height: 40px;
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+.form__text-input--multichoice {
+	min-height: 40px;
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+.form__text-area {
+	min-height: 200px;
+	width: 100%;
+	margin-bottom: 10px;
+}
+
 
 /*------------------ FOOTER ------------------*/
 
@@ -452,7 +510,7 @@ a {
 .patreon {
 	grid-area: patreon;
 
-	font-family: "Bebas Neue";
+	font-family: "B-Regular";
 	font-size: 15px;
 	letter-spacing: 2px;
 	color: white;
@@ -526,7 +584,7 @@ a {
 	grid-template-columns: 1fr auto auto 1fr;
 	justify-content: center;
 
-	font-family: "DINPro-Light";
+	font-family: "DP-Light";
 	font-size: 20px;
 	color: #b5b5b5;
 	/*transform: translateX(-20px);*/
@@ -555,7 +613,7 @@ a {
 	grid-row: 2 / 3;
 	margin-bottom: 10px;
 	
-	font-family: "DINPro";
+	font-family: "DP-Regular";
 	font-size: 30px;
 	line-height: 1.2em;
 }
@@ -600,7 +658,7 @@ a {
 
 .post__info__categories p {
 	display: block-inline;
-	font-family: "Bebas Neue";
+	font-family: "B-Regular";
 	font-size: 14px;
 	font-weight: bold;
 
@@ -636,8 +694,6 @@ a {
 .category-link {
 	margin-right: 10px;
 }
-
-
 
 
 .category-separator {

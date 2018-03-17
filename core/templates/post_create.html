@@ -5,8 +5,9 @@
 {% endblock title}
 
 {% block content %}
-	<h1>Form</h1>
-	<form method="post" action="" enctype="multipart/form-data">
+	<h2 class="form__title">Create New Post:</h2>
+
+	<form class="form" method="post" action="" enctype="multipart/form-data">
 		{% csrf_token %}
 		{{ form.as_p }}
 		<input type="submit" value="Create post" />

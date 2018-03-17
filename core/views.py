@@ -37,10 +37,6 @@ def about_view(request):
 	return render(request, 'about.html')
 
 
-def jobs_view(request):
-	return render(request, 'jobs.html')
-
-
 def post_detail_view(request, slug):
 	template = 'post_detail.html'
 	post = get_object_or_404(Post, slug=slug)  # 2do: use posted manager
@@ -58,6 +54,7 @@ def post_create_view(request):
 	if form.is_valid():
 		post = form.save(commit=False)
 		post.save()
+		# Messages are not used right now
 		messages.success(request, 'Successfully Created')
 		return HttpResponseRedirect(reverse('home'))
 	else:
