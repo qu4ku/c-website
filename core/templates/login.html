@@ -4,7 +4,7 @@
 <h1>Welcome</h1>
 <p>You can log in here!</p>
 <h2>Log In</h2>
-<form method="post" action="{% url 'home' %}">
+<form method="post">
 	{% csrf_token %}
 	{{ form.as_p }}
 	<button type="submit">Login</button>

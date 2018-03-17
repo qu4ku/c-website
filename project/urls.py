@@ -10,7 +10,7 @@ urlpatterns = [
 	path('', include('core.urls')),
 	path('newsletter/', include('newsletter.urls')),
 	path('jobs/', include('jobs.urls')),
-	path('login/', login, {'template_name': 'login.html'}, name='login')
+	path('login/', login, {'template_name': 'login.html'}, name='login'),
 ]
 
 if settings.DEBUG:

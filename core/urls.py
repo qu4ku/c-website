@@ -1,4 +1,5 @@
 from django.urls import path
+from django.contrib.auth.views import login
 
 from . import views
 
@@ -14,4 +15,5 @@ urlpatterns = [
 	path('category/<slug:slug>/', views.category_view, name='category'),
 	path('level/<slug:slug>/', views.level_view, name='level'),
 	path('results/', views.search_view, name='search'),
+	path('login/', login, {'template_name': 'login.html'}, name='login'),
 ]
