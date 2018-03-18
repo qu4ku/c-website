@@ -42,6 +42,6 @@ DEBUG_TOOLBAR_CONFIG = {
 
 try:
 	from .local import *
-	print('Local settings imoprted.')
+	print('Local settings imported.')
 except:
 	pass

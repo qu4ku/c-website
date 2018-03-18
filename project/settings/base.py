@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     'core',
     'newsletter',
     'jobs',
+    'account',
 ]
 
 MIDDLEWARE = [

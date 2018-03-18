@@ -2,7 +2,6 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from django.contrib.auth.views import login
 
 
 urlpatterns = [
@@ -10,7 +9,7 @@ urlpatterns = [
 	path('', include('core.urls')),
 	path('newsletter/', include('newsletter.urls')),
 	path('jobs/', include('jobs.urls')),
-	path('login/', login, {'template_name': 'login.html'}, name='login'),
+	path('account/', include('account.urls')),
 ]
 
 if settings.DEBUG:
