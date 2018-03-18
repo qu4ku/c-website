@@ -1,8 +1,9 @@
 from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.http import HttpResponseRedirect, Http404
-from django.contrib.auth.forms import UserCreationForm
-from .forms import RegistrationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 from django.contrib.auth.models import User
+
+from .forms import RegistrationForm, EditProfileForm
 
 
 def register_view(request):
@@ -25,5 +26,18 @@ def profile_view(request):
 	context = {'user': request.user}
 	return render(request, template, context)
 
+
 def profile_edit_view(request):
-	pass
+	if request.method == 'POST':
+		form = EditProfileForm(request.POST, instance=request.user)
+		
+		if form.is_valid():
+			form.save()
+
+			return redirect('profile')
+	else:
+		form = EditProfileForm(instance=request.user)
+		context = {'form': form}
+		template = 'profile_edit.html'
+
+		return render(request, template, context)

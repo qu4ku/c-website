@@ -8,6 +8,8 @@ from .models import Post
 class PostForm(forms.ModelForm):
 	class Meta:
 		model = Post
+
+		# 2do: Use exclude = () instead.
 		fields = [
 			'title',
 			'slug',
