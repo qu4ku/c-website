@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect, Http404
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 from django.contrib.auth.models import User
 from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.decorators import login_required
 
 from .forms import RegistrationForm, EditProfileForm
 
@@ -22,12 +23,14 @@ def register_view(request):
 		return render(request, template, context)
 
 
+@login_required
 def profile_view(request):
 	template = 'profile.html'
 	context = {'user': request.user}
 	return render(request, template, context)
 
 
+@login_required
 def profile_edit_view(request):
 	if request.method == 'POST':
 		form = EditProfileForm(request.POST, instance=request.user)
@@ -45,6 +48,7 @@ def profile_edit_view(request):
 		return render(request, template, context)
 
 
+@login_required
 def change_password_view(request):
 	if request.method == 'POST':
 		form = PasswordChangeForm(data=request.POST, user=request.user)
@@ -63,3 +67,4 @@ def change_password_view(request):
 	template = 'change_password.html'
 
 	return render(request, template, context)
+

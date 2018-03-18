@@ -46,7 +46,7 @@ def post_detail_view(request, slug):
 	return render(request, template, context)
 
 
-@login_required()
+@login_required
 def post_create_view(request):
 	form = PostForm(request.POST or None, request.FILES or None)
 	context = {'form': form}
@@ -64,7 +64,7 @@ def post_create_view(request):
 	return render(request, template, context)
 
 
-@login_required()
+@login_required
 def post_edit_view(request, slug=None):
 	post = get_object_or_404(Post, slug=slug)
 
@@ -86,7 +86,7 @@ def post_edit_view(request, slug=None):
 	return render(request, template, context)
 
 
-@login_required()
+@login_required
 def post_delete_view(request, slug=None):
 	post = get_object_or_404(Post, slug=slug)
 	post.delete()
@@ -148,20 +148,5 @@ def search_view(request):
 	}
 
 	return render(request, template, context)
-
-
-def register_view(request):
-	if request.method == 'POST':
-		form = UserCreationForm(request.POST)
-		if form.is_valid():
-			form.save()
-			return redirect('home')
-	else:
-		form = UserCreationForm()
-		context = {
-			'form': form
-		}
-		template = 'register.html'
-		return render(request, template, context)
 
 

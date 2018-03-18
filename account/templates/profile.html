@@ -4,5 +4,10 @@
 <h2>Profile</h2>
 <p>First name: {{ user.first_name }}</p>
 <p>Last Name: {{ user.last_name }}</p>
+<p>City: {{ user.userprofile.city }}</p>
+<p>Web: {{ user.userprofile.website }}</p>
 <p>Email: {{ user.email }}</p>
+<p>Description: {{ user.userprofile.description }}</p>
+<p>Phone: {{ user.userprofile.phone }}</p>
+<img src="{{ user.userprofile.image.url }}" alt="">
 {% endblock %}

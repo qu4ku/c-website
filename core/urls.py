@@ -15,7 +15,4 @@ urlpatterns = [
 	path('category/<slug:slug>/', views.category_view, name='category'),
 	path('level/<slug:slug>/', views.level_view, name='level'),
 	path('results/', views.search_view, name='search'),
-	path('login/', login, {'template_name': 'login.html'}, name='login'),
-	path('logout/', logout, {'template_name': 'logout.html'}, name='logout'),
-	path('register/', views.register_view, name='register'),
 ]

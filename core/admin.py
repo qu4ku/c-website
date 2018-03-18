@@ -13,8 +13,10 @@ class PostAdmin(admin.ModelAdmin):
 	class Meta:
 		model = Post
 
+class UserProfileAdmin(admin.ModelAdmin):
+	list_display = {'user', 'user_info'}
 
-admin.site.register(Post)
+admin.site.register(Post, PostAdmin)
 admin.site.register(Category)
 admin.site.register(DifficultyLevel)
 admin.site.register(PostType)
