@@ -34,8 +34,12 @@
 				<div class="post__title post__title--media"><a href="{{ post.url }}" target="_blank">{{ post.title }}</a></div>
 				<div class="media__image">
 					<a href="{{ post.url }}">
-						<img class="video-play-overlay" src="{% static 'img/vid-play-overlay.png' %}" alt="">
-						<img class="thumb-image" src="{{ post.thumb_image.url }}" alt="">
+						{% if post.thumb_image %}
+							<img class="video-play-overlay" src="{% static 'img/vid-play-overlay.png' %}" alt="">
+							<img class="thumb-image" src="{{ post.thumb_image.url }}" alt="">
+						{% else %}
+							<img class="thumb-image" src="{% static 'img/video-icon.png' %}" alt="">
+						{% endif %}
 					</a>
 				</div>	
 				<div class="post__date">{{ post.publish|date:"d M, Y" }}</div>

@@ -4,14 +4,6 @@ from django.db.models.signals import post_save
 from django.utils import timezone
 
 
-# class PublicManager(models.Manager):
-# 	"""
-# 	Returns published posts that are not in the future.
-# 	"""
-
-# 	def published(self):
-# 		return self.get_queryset().filter(status='public', publish__lte=timezone.now())
-
 class PublicManager(models.Manager):
 	"""
 	Returns published posts that are not in the future.
@@ -108,7 +100,7 @@ class Post(models.Model):
 	original_author_handle = models.CharField(max_length=250, blank=True)
 	original_author_url = models.URLField(max_length=250, blank=True)
 
-	thumb_image = models.ImageField(upload_to='thumbs/', blank=True)
+	thumb_image = models.ImageField(upload_to='thumbs/', blank=True, null=True)
 
 	objects = models.Manager()
 	published = PublicManager()
