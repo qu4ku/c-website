@@ -4,13 +4,20 @@ from django.db.models.signals import post_save
 from django.utils import timezone
 
 
+# class PublicManager(models.Manager):
+# 	"""
+# 	Returns published posts that are not in the future.
+# 	"""
+
+# 	def published(self):
+# 		return self.get_queryset().filter(status='public', publish__lte=timezone.now())
+
 class PublicManager(models.Manager):
 	"""
 	Returns published posts that are not in the future.
 	"""
-
-	def published(self):
-		return self.get_queryset().filter(status='public', publish__lte=timezone.now())
+	def get_queryset(self):
+		return super(PublicManager, self).get_queryset().filter(status='public', publish__lte=timezone.now())
 
 
 class Category(models.Model):
@@ -76,11 +83,6 @@ class Post(models.Model):
 		('public', 'Public'),
 	)
 
-	ACTIVE_CHOICES = (
-		('dead', 'Dead'),
-		('active', 'Active'),
-	)
-
 	title = models.CharField(max_length=280)
 	slug = models.SlugField(max_length=280, unique_for_date='publish')
 	url = models.URLField(max_length=250)
@@ -108,8 +110,8 @@ class Post(models.Model):
 
 	thumb_image = models.ImageField(upload_to='thumbs/', blank=True)
 
-	# tags = TagField()
-	objects = PublicManager()
+	objects = models.Manager()
+	published = PublicManager()
 
 	@property
 	def first_set_number(self):

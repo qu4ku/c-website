@@ -5,16 +5,14 @@ from .models import Post, DifficultyLevel, PostType, Category
 
 class PostAdmin(admin.ModelAdmin):
 
-	list_display = ['title', 'status', 'publish', 'set_number', 'post_type']
-	list_editable = ['set_number', 'publish']
+	list_display = ['title', 'set_number', 'publish', 'status', 'post_type']
+	list_editable = ['status','set_number', 'publish']
 	list_filter = ['status', 'publish', 'post_type', 'difficulty_level', 'categories']
 	search_fields = ['title', 'description']
 
 	class Meta:
 		model = Post
 
-class UserProfileAdmin(admin.ModelAdmin):
-	list_display = {'user', 'user_info'}
 
 admin.site.register(Post, PostAdmin)
 admin.site.register(Category)

@@ -432,16 +432,18 @@ a {
 
 .form__text-input {
 	height: 40px;
-	min-width: 100%;
+	width: 100%;
 	margin-bottom: 10px;
+	padding-left: 20px;
+	font-size: 16px;
 
 }
 
-.form__text-input {
+/*.form__text-input {
 	height: 40px;
 	width: 100%;
 	margin-bottom: 10px;
-}
+}*/
 
 .form__text-input--multichoice {
 	min-height: 40px;
@@ -453,6 +455,8 @@ a {
 	min-height: 200px;
 	width: 100%;
 	margin-bottom: 10px;
+	padding: 20px;
+	font-size: 16px;
 }
 
 
@@ -564,7 +568,8 @@ a {
 
 .content {
 	grid-area: content;
-	margin: auto;
+	/*margin: auto;*/
+	margin:0 20px;
 }
 
 .post {

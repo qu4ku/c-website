@@ -10,14 +10,13 @@ from .models import Post, Category, DifficultyLevel
 from .forms import PostForm
 
 
-
 def home_view(request):
-	post_list = Post.objects.published().order_by('-publish')
+	post_list = Post.published.all()
 	query = request.GET.get('q')  # Search
 
 	if query:
 		# Check both title and description for the query word
-		post_list = Post.objects.published().filter(
+		post_list = Post.published.filter(
 			Q(title__icontains=query) | 
 			Q(description__icontains=query)
 		).distinct()
@@ -96,7 +95,7 @@ def post_delete_view(request, slug=None):
 
 def category_view(request, slug):
 	category = get_object_or_404(Category, slug=slug)
-	post_list = Post.objects.published().filter(categories=category).order_by('-publish')
+	post_list = Post.published.filter(categories=category)
 
 	paginator = Paginator(post_list, 18)  # Show 25 contacts per page
 	page = request.GET.get('page')
@@ -112,7 +111,7 @@ def category_view(request, slug):
 
 def level_view(request, slug):
 	level = get_object_or_404(DifficultyLevel, difficulty_level=slug.title())
-	post_list = Post.objects.published().filter(difficulty_level=level).order_by('-publish')
+	post_list = Post.published.filter(difficulty_level=level)
 
 	paginator = Paginator(post_list, 18)
 	page = request.GET.get('page')
@@ -127,12 +126,12 @@ def level_view(request, slug):
 
 
 def search_view(request):
-	post_list = Post.objects.published().order_by('-publish')
+	post_list = Post.published.all()
 	query = request.GET.get('q')  # Search
 
 	if query:
 		# Check both title and description for the query word
-		post_list = Post.objects.published().filter(
+		post_list = Post.published.filter(
 			Q(title__icontains=query) | 
 			Q(description__icontains=query)
 		).distinct()
