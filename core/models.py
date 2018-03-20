@@ -136,10 +136,20 @@ class Post(models.Model):
 		return 'https://www.knowledgeprotocol.com/post/{}/'.format(self.slug)
 
 
+class Feedback(models.Model):
+	"""
+	Feedback model.
+	"""
+	body = models.TextField()
+
+	def __str__(self):
+		return self.body[:20]
+
+
 # 2do: LinkModel
 class Link(models.Model):
 	"""
 	Link model.
 	"""
-	ip = models.CharField(max_length=50, null=True)
+	ip = models.CharField(max_length=50, null=True, blank=True)
 	url = models.URLField(max_length=250)

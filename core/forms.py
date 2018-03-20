@@ -1,7 +1,7 @@
 from django import forms
 
 
-from .models import Post
+from .models import Post, Link
 
 
 
@@ -52,7 +52,13 @@ class PostForm(forms.ModelForm):
 		}
 
 
+class LinkForm(forms.ModelForm):
+	class Meta:
+		model = Link
 
+		fields = ('url',)
 
-
+		widgets = {
+			'url': forms.TextInput(attrs={'class': 'form__text-input'}),
+		}
 

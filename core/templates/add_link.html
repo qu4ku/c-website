@@ -1,10 +1,15 @@
 {% extends 'base.html' %}
 
 {% block title}
-About
+Add Link
 {% endblock title}
 
 {% block content %}
-	<h1>About.</h1>
-	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloremque eveniet sint temporibus animi facere optio, at hic quibusdam rem. Perspiciatis dolores aperiam a labore? Optio ratione, sequi autem officia nisi.</p>
+	<h2 class="form__title">Create New Post:</h2>
+
+	<form class="form" method="post" action="">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<input type="submit" value="Add Link" />
+	</form>
 {% endblock content %}

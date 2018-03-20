@@ -7,7 +7,7 @@ from django.db.models import Q
 from django.contrib.auth.forms import UserCreationForm
 
 from .models import Post, Category, DifficultyLevel
-from .forms import PostForm
+from .forms import PostForm, LinkForm
 
 
 def home_view(request):
@@ -148,4 +148,29 @@ def search_view(request):
 
 	return render(request, template, context)
 
+
+def add_link_view(request):
+	form = LinkForm(request.POST or None)
+	context = {'form': form}
+	template = 'add_link.html'
+
+	if form.is_valid():
+		post = form.save(commit=False)
+		ip = request.META.get('REMOTE_ADDR', None)
+		post.ip = ip
+		post.save()
+		# Messages are not used right now
+		messages.success(request, 'Link added.')
+		return HttpResponseRedirect(reverse('add_link_thanks'))
+	else:
+		messages.error(request, "Error")
+
+	return render(request, template, context)
+
+
+def add_link_thanks_view(request):
+	context = {}
+	template = 'add_link_thanks.html'
+
+	return render(request, template, context)
 

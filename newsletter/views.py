@@ -12,14 +12,14 @@ def newsletter_signup_view(request):
 
 	template = 'newsletter_thanks.html'
 	context = {}
-	ip = request.META.get('REMOTE_ADDR', None)
+	
 
 	if request.method == 'POST':
 		form = NewsletterBoxForm(request.POST)
 
 		if form.is_valid():
 			contact = form.save(commit=False)
-
+			ip = request.META.get('REMOTE_ADDR', None)
 			contact.ip = ip
 			contact.save()
 			# messages.success(request, 'Successfully Created')
