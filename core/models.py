@@ -108,7 +108,7 @@ class Post(models.Model):
 	@property
 	def first_set_number(self):
 		"""
-		Gets post's number in a certain day.
+		Gets post number in a certain day.
 		"""
 		return self.set_number[0]
 
