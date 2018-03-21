@@ -78,6 +78,7 @@ class Post(models.Model):
 	title = models.CharField(max_length=280)
 	slug = models.SlugField(max_length=280, unique_for_date='publish')
 	url = models.URLField(max_length=250)
+	source_url = models.URLField(max_length=250, null=True, blank=True)
 	description = models.TextField(null=True, blank=True)
 	set_number = models.CharField(max_length=2) # 14 = 1 out of 4. max 9 posts per day.
 	status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='draft')
