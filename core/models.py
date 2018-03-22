@@ -18,7 +18,7 @@ class Category(models.Model):
 	"""
 	title = models.CharField(max_length=100)
 	slug = models.SlugField(unique=True)
-	description = models.CharField(max_length=250, blank=True, null=True)
+	description = models.TextField(null=True, blank=True)
 	seo_title = models.CharField(max_length=60, blank=True, null=True)
 	seo_description = models.CharField(max_length=165, blank=True, null=True)
 	created = models.DateTimeField(auto_now_add=True)
@@ -76,7 +76,7 @@ class Post(models.Model):
 	)
 
 	title = models.CharField(max_length=280)
-	slug = models.SlugField(max_length=280, unique_for_date='publish')
+	slug = models.SlugField(max_length=280, unique=True)
 	url = models.URLField(max_length=250)
 	source_url = models.URLField(max_length=250, null=True, blank=True)
 	description = models.TextField(null=True, blank=True)
@@ -141,16 +141,19 @@ class Feedback(models.Model):
 	"""
 	Feedback model.
 	"""
+	ip = models.GenericIPAddressField(blank=True, null=True)
 	body = models.TextField()
+	created = models.DateTimeField(auto_now_add=True)
 
 	def __str__(self):
-		return self.body[:20]
+		return '{}: {}'.format(self.ip, self.body[:20])
 
 
-# 2do: LinkModel
 class Link(models.Model):
 	"""
 	Link model.
 	"""
-	ip = models.CharField(max_length=50, null=True, blank=True)
+	ip = models.GenericIPAddressField(blank=True, null=True)
 	url = models.URLField(max_length=250)
+	description = models.TextField(null=True, blank=True)
+	created = models.DateTimeField(auto_now_add=True)

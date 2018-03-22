@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Post, DifficultyLevel, PostType, Category
+from .models import Post, DifficultyLevel, PostType, Category, Link, Feedback
 
 
 class PostAdmin(admin.ModelAdmin):
@@ -18,3 +18,5 @@ admin.site.register(Post, PostAdmin)
 admin.site.register(Category)
 admin.site.register(DifficultyLevel)
 admin.site.register(PostType)
+admin.site.register(Link)
+admin.site.register(Feedback)

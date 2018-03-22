@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title}
+Add Feedback
+{% endblock title}
+
+{% block content %}
+	<h2 class="form__title">Add feedback. Be nice:</h2>
+
+	<form class="form" method="post" action="">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<input type="submit" value="Add Feedback" />
+	</form>
+{% endblock content %}

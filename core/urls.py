@@ -16,5 +16,8 @@ urlpatterns = [
 	path('level/<slug:slug>/', views.level_view, name='level'),
 	path('results/', views.search_view, name='search'),
 	path('add-link/', views.add_link_view, name='add_link'),
-	path('add-link/thanks', views.add_link_thanks_view, name='add_link_thanks')
+	path('add-link/thanks', views.add_link_thanks_view, name='add_link_thanks'),
+	path('add-feedback/', views.add_feedback_view, name='add_feedback'),
+	path('feedback/thanks', views.feedback_thanks_view, name='feedback_thanks'),
+	path('feedbacks/', views.feedbacks_view, name='feedbacks'),
 ]
