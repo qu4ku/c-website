@@ -12,7 +12,6 @@ def newsletter_signup_view(request):
 
 	template = 'newsletter_thanks.html'
 	context = {}
-	
 
 	if request.method == 'POST':
 		form = NewsletterBoxForm(request.POST)

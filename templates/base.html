@@ -51,7 +51,7 @@
 			<p>Subscribe to our newsletter - get a weekly round-up right to your inbox.</p>
 			<form action="{% url 'newsletter_signup' %}" method="post" class="subscribe-form">
 				{% csrf_token %}
-				<input type="email" name="email" class="newsletter-input" placeholder="Your Email" autofocus>
+				<input type="email" name="email" class="newsletter-input" placeholder="Your Email">
 				<button type="submit" class="newsletter-submit">Subscribe</button>
 			</form>
 
