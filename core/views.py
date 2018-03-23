@@ -196,21 +196,7 @@ def add_feedback_view(request):
 
 login_required
 def feedbacks_view(request):
-	form = FeedbackForm(request.POST or None)
-	context = {'form': form}
-	template = 'add_feedback.html'
-
-	if form.is_valid():
-		post = form.save(commit=False)
-		ip = request.META.get('REMOTE_ADDR', None)
-		post.ip = ip
-		post.save()
-		# Messages are not used right now
-		messages.success(request, 'Feedback added.')
-		message = 'Feedback added.'
-		return HttpResponseRedirect(reverse('thanks', kwargs={'message': message}))
-	else:
-		messages.error(request, "Error")
+	feedbacks = Feedback.objects.all()
 
 	return render(request, template, context)
 
