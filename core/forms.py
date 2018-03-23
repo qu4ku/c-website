@@ -56,10 +56,11 @@ class LinkForm(forms.ModelForm):
 	class Meta:
 		model = Link
 
-		fields = ('url',)
+		fields = ('url', 'description')
 
 		widgets = {
 			'url': forms.TextInput(attrs={'class': 'form__text-input'}),
+			'description': forms.Textarea(attrs={'class': 'form__text-area'}),
 		}
 
 
