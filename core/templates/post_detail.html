@@ -23,7 +23,7 @@
 			<div class="post__info__categories">
 				<a class="category-link" href="{% url 'level' slug=post.difficulty_level %}">{{ post.difficulty_level }}</a>
 				{% for category in post.categories.all %}
-					<img src="{% static 'img/category-separator.png' %}" alt="" class="category-separator"><a class="category-link" href="{% url 'category' slug=category %}">{{ category }}</a>
+					<img src="{% static 'img/category-separator.png' %}" alt="" class="category-separator"><a class="category-link" href="{% url 'category' slug=category|lower %}">{{ category }}</a>
 				{% endfor %}
 			</div>
 			{% include "includes/social.html" %}
@@ -53,7 +53,7 @@
 					<div class="post__info__categories">
 						<a class="category-link" href="{% url 'level' slug=post.difficulty_level %}">{{ post.difficulty_level }}</a>
 						{% for category in post.categories.all %}
-							<img src="{% static 'img/category-separator.png' %}" alt="" class="category-separator"><a class="category-link" href="{% url 'category' slug=category %}">{{ category }}</a>
+							<img src="{% static 'img/category-separator.png' %}" alt="" class="category-separator"><a class="category-link" href="{% url 'category' slug=category|lower %}">{{ category }}</a>
 						{% endfor %}
 					</div>
 					{% include "includes/social.html" %}
@@ -78,7 +78,7 @@
 			<div class="post__info__categories">
 				<a class="category-link" href="{% url 'level' slug=post.difficulty_level %}">{{ post.difficulty_level }}</a>
 				{% for category in post.categories.all %}
-					<img src="{% static 'img/category-separator.png' %}" alt="" class="category-separator"><a class="category-link" href="{% url 'category' slug=category %}">{{ category }}</a>
+					<img src="{% static 'img/category-separator.png' %}" alt="" class="category-separator"><a class="category-link" href="{% url 'category' slug=category|lower %}">{{ category }}</a>
 				{% endfor %}
 			</div>
 			{% include "includes/social.html" %}
@@ -103,7 +103,7 @@
 			<div class="post__info__categories">
 				<a class="original-author-url" href="#">{{ post.original_author_handle }}</a>
 				{% for category in post.categories.all %}
-					<img src="{% static 'img/category-separator.png' %}" alt="" class="category-separator"><a class="category-link" href="{% url 'category' slug=category %}">{{ category }}</a>
+					<img src="{% static 'img/category-separator.png' %}" alt="" class="category-separator"><a class="category-link" href="{% url 'category' slug=category|lower %}">{{ category }}</a>
 				{% endfor %}
 			</div>
 			{% include "includes/social.html" %}
@@ -112,6 +112,7 @@
 	</div>
 {% endif %}
 
-<a class="back-link" href="{% url 'home' %}"><- Back</a>
+<!-- <div class="subpage__separator"></div> -->
+<a class="button-standard" href="{% url 'home' %}"><- Back</a>
 
 {% endblock content %}

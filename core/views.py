@@ -110,7 +110,7 @@ def category_view(request, slug):
 
 
 def level_view(request, slug):
-	level = get_object_or_404(DifficultyLevel, difficulty_level=slug.title())
+	level = get_object_or_404(DifficultyLevel, difficulty_level=slug)
 	post_list = Post.published.filter(difficulty_level=level)
 
 	paginator = Paginator(post_list, 18)

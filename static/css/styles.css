@@ -205,11 +205,8 @@ a {
 
 .content {
 	display: grid;
-	grid-auto-flow: rows;
 	grid-area: content;
-	margin: auto;
-	width: 100%;
-	height: 100%;
+	/*max-width: 100%;*/
 }
 
 .post {
@@ -360,7 +357,11 @@ a {
 }
 
 .category-link:hover {
-	bbox-shadow: inset 0 -6px 0 var(--secondary-color);
+	box-shadow: inset 0 -6px 0 var(--main-dark-color);
+	/*box-shadow: inset 0 -6px 0 green;*/
+	/*color: var(--secondary-color);*/
+
+	transition-duration: 0.2s;
 }
 
 
@@ -564,9 +565,7 @@ a {
 
 /*------------------ SUBPAGES ------------------*/
 
-.subpage-content {
 
-}
 
 .subpage-header {
 	font-size: 40px;
@@ -581,4 +580,32 @@ a {
 	/*margin: 50px 0;*/
 	grid-column: 1 / -1;
 }
+
+/*------------------ ABOUT ------------------*/
+
+.about__text-section {
+	margin-bottom: 40px;
+}
+
+.about__text-section h2 {
+	font-size: 40px;
+	margin-bottom: 20px;
+}
+
+.about__text-section p {
+	margin-bottom: 20px;
+}
+
+.grayed-out {
+	color: grey;
+}
+
+
+/*------------------ ABOUT ------------------*/
+
+.jobs {
+	width: 100%;
+}
+
+
 

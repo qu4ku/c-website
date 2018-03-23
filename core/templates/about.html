@@ -1,15 +1,38 @@
 {% extends 'base.html' %}
 
 {% block title}
-Newsletter
+About | Knowledge Protocol
 {% endblock title}
 
 {% block content %}
 	<form action="{% url 'search' %}" method="get">
 		<input name="q" value="{{ request.GET.g }}" placeholder="Search...">
-		<button type="submit">Search</button>
-	</form>
-	<h1>About.</h1>
-	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloremque eveniet sint temporibus animi facere optio, at hic quibusdam rem. Perspiciatis dolores aperiam a labore? Optio ratione, sequi autem officia nisi.</p>
+	<div class="about">
+		<div class="about__text-section">
+			<h2>We believe.</h2>
+			<p>Cryptocurrencies never will be most valuable currencies around. Time was, is and will be. The second one is knowledge. 
+			<p>Cryptocurrencies and underlying technologies like blockchain and smart contract will redefine reality, changing in profound way economies, human interactions and lives. </p>
+			<p>We believe that to land in the top percentile of any discipline one need to maximise time spent gaining knowledge multiplied by the quality of content consumed. </p>
+		</div>
+		
+		<div class="about__text-section">
+			<h2>The problem.</h2>
+			<p>We are experiencing a crisis of information quality. We believe it is one of the most important problems to solve in today's internet. Cryptocurrencies’ space is especially prone to that - novelty, the speed of change, and monetary incentives are main reasons this space if full of low-quality content, misinformation and scams. We are here to change that.</p>
+		</div>
+
+		<div class="about__text-section">
+			<h2>We do.</h2>
+			<p>We are aiming to build a deep understanding of reality in the space of blockchain, bitcoin, tokens, cryptocurrencies and protocols. We read hundreds of articles so you don’t need to.</p>
+			<p>We serve highly curated links to articles, videos and podcast. A few pieces a day. Every day.</p>
+		</div>
+
+		<div class="about__text-section">
+			<h2>You?</h2>
+			<p>Consider supporting Knowledge Protocol project on <a class="category-link" href="https://www.patreon.com/knowledgeprotocol">Patreon</a>.</p>
+	</div>
+
+
+
+	
 
 {% endblock content %}
