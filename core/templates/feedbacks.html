@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title}
+Feedbacks | Knowledge Protocol
+{% endblock title}
+
+{% block content %}
+
+{% for feedback in feedbacks %}
+	<div class="feedback">
+		<p class="feedback-date">DATE: {{ feedback.created }}</p>
+		<p class="feedback-ip">IP: {{ feedback.ip }}</p>
+		<p class="feedback">{{ feedback.body }}</p>
+		
+	</div>
+{% endfor %}
+	
+
+{% endblock content %}
+
+ip, body, created

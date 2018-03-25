@@ -65,9 +65,18 @@
 			<img src="{% static 'img/footer-eye.png' %}"" alt="" class="footer-img">
 			<div class="footer-text">
 				©<br>
-				Copyright Knowledge Protocol.<br>
+				Knowledge Protocol.<br>
 				All rights reserved.<br>
 				2018
+			</div>
+			<div class="footer__links">
+				<a href="{% url 'about' %}">About</a>
+				<a href="{% url 'jobs' %}">Jobs</a>
+				<a href="{% url 'add_link' %}">Submit Link</a>
+				<a href="{% url 'add_feedback' %}">Feedback</a>
+				<a href="mailto:knowledgeprotocols@gmail.com">Contact</a>
+				
+
 			</div>
 		</footer>
 
