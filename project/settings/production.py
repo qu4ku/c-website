@@ -19,3 +19,5 @@ DATABASES = {
     }
 }
 
+MEDIA_ROOT = '/var/www/knowledgeprotocol/media/'
+STATIC_ROOT = '/var/www/knowledgeprotocol/static/'
