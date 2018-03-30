@@ -1,7 +1,6 @@
 from .base import *
 import os
 
-
 # Override base.py settings here
 DEBUG = False
 ALLOWED_HOSTS = ['*']
