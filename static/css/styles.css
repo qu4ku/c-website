@@ -110,7 +110,7 @@ a {
 	height: 100%;
 	writing-mode: vertical-rl;
 
-	transition-duration: 2s;
+	/*transition-duration: 2s;*/
 }
 
 .patreon:hover {
