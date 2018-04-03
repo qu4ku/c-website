@@ -17,10 +17,19 @@
 }
 
 .patreon {
+	grid-area: patreon;
+
+	font-family: "B-Regular";
+	font-size: 15px;
+	letter-spacing: 2px;
+	color: white;
+	background-color: var(--secondary-color) ;
+	height: 100%;
 	writing-mode: horizontal-tb;;
 }
 
 .patreon p {
+	position: relative;
 	top: unset;
 	transform: translateY(0px);
 	left: unset;
@@ -33,6 +42,7 @@
 
 
 .top {
+
 	grid-template-columns: 50px auto 50px;
 	grid-template-rows: 1fr;
 	grid-template-areas: "left-side logo nav";
@@ -78,6 +88,7 @@
 
 
 .post__number {
+
 	grid-column: 1 / 2;
 	grid-row: 1 / 2;
 	
@@ -88,6 +99,7 @@
 	font-family: "DP-Light";
 	font-size: 20px;
 	color: #b5b5b5;
+	/*transform: translateX(-20px);*/
 	transform: translateY(+20px);
 }
 
