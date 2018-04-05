@@ -10,24 +10,24 @@
 
 @font-face {
   font-family: 'DP-Light';
-  src:  url('/static/fonts/DP-Light.WOFF') format('woff');,
+  src:  url('/static/fonts/DP-Light.WOFF') format('woff');
 }
 @font-face {
   font-family: 'DP-Regular';
-  src:  url('/static/fonts/DP-Regular.WOFF') format('woff');,
+  src:  url('/static/fonts/DP-Regular.WOFF') format('woff');
 }
 @font-face {
   font-family: 'B-Bold';
-  src:  url('/static/fonts/B-Bold.WOFF') format('woff');,
+  src:  url('/static/fonts/B-Bold.WOFF') format('woff');
 }
 @font-face {
   font-family: 'B-Regular';
-  src:  url('/static/fonts/B-Regular.WOFF') format('woff');,
+  src:  url('/static/fonts/B-Regular.WOFF') format('woff');
 }
 
 @font-face {
   font-family: 'IUI-Regular';
-  src:  url('/static/fonts/IUI.WOFF') format('woff');,
+  src:  url('/static/fonts/IUI.WOFF') format('woff');
 }
 
 /*------------------ RESET CSS ------------------*/
