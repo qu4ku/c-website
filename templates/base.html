@@ -5,21 +5,31 @@
 <head>
 	<meta charset="UTF-8">
 	<title>{% block title %}Knowledge Protocol | Blockchain, bitcoin, tokens, cryptocurrencies and protocols daily.{% endblock %}</title>
-	<meta name="description" content="{% block seo_description %}{% endblock %}">
+	<meta name="description" content="{% block seo_description %}Daily curated links from the space of blockchain, bitcoin, tokens, cryptocurrencies and protocols. No news, no bullshit deep knowledge only.{% endblock %}">
+	
 	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
-	<!-- <meta name="viewport" content="width=device-width,initial-scale=1" /> -->
-	<!-- <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"> -->
-	<!-- <meta name = "viewport" content = "user-scalable=no, width=device-width"> -->
-	<!-- <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"> -->
-	<!-- <meta name="viewport" content="width=device-width"> -->
-	<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
-	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" /> -->
-	<!-- <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1"> -->
-	<meta name="viewport" content="user-scalable=0, width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> -->
+	<!-- <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width, height=device-height, minimal-ui"> -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="x-apple-disable-message-reformatting" />
 
-
+	<meta name="referrer" content="origin">
+	<meta http-equiv="Content-Language" content="en-us">
+	<meta name="google" value="notranslate">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta http-equiv="cleartype" content="on">
+	<meta name="HandheldFriendly" content="true">
+	<meta name='robots' content='index,follow'>
+	<!-- bing seo -->
+	<meta name="geo.placename" content="United States" />
+	<meta name="geo.position" content="x;x" />
+	<meta name="geo.region" content="usa" />
+	<meta name="ICBM" content="x,x" />
+	
 	<link rel="stylesheet" href="{% static 'css/styles.css' %}">
 	<link rel="stylesheet" href="{% static 'css/styles-mobile.css' %}">
+	
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116898524-1"></script>
 	<script>
@@ -69,7 +79,7 @@
 							</div>
 					{% endfor %}
 			{% endif %}
-			<p>Subscribe to our newsletter - get a weekly round-up right to your inbox.</p>
+			<p><span>Subscribe</span> to our newsletter - get a weekly round-up right to your inbox.</p>
 			<form action="{% url 'newsletter_signup' %}" method="post" class="subscribe-form">
 				{% csrf_token %}
 				<input type="email" name="email" class="newsletter-input" placeholder="Your Email">

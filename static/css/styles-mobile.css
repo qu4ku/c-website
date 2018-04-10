@@ -2,7 +2,6 @@
 
 @media only screen and (max-width: 600px) {
 .wrapper {
-	/*max-width: 100%;*/
 	max-width: 100%;
 	display: grid;
 	grid-template-columns: 1fr;
@@ -34,21 +33,19 @@
 
 
 .top {
-	/*width: 100%;*/
-	background: yellow;
-	grid-template-columns: 50px 1fr 50px;
-	/*grid-template-columns: auto 1fr auto;*/
+	grid-template-columns: 100px 1fr 100px;
+	align-self: stretch;
 	grid-template-rows: 1fr;
-	grid-template-areas: "left-side logo nav";
+	grid-template-areas: "left logo nav";
 	grid-auto-flow: columns;
 
 	margin-bottom: 0;
 }
 
 .top__nav {
-	margin-right: 10px;
-	background: green;
-	/*position: absoulute;*/
+	margin-right: 20px;
+	justify-self: end;
+	text-align: right;
 }
 
 
@@ -59,8 +56,9 @@
 
 .top__logo--mobile {
 	grid-area: logo;
-	margin: 10px auto;
+	margin: 10px 0;
 	display: grid;
+	justify-self: center;
 
 }
 
