@@ -73,7 +73,7 @@ table {
 /*------------------ CSS ------------------*/
 
 body {
-	font-family: "Lucida Grande", sans-serif;
+	font-family: "Lucida Grande", "Helvetica", sans-serif;
 	line-height: 1.8;
 	font-size: 14px;
 	background: #f2f2f2;
