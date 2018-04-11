@@ -75,33 +75,33 @@ class Post(models.Model):
 		('public', 'Public'),
 	)
 
-	title = models.CharField(max_length=280)
-	slug = models.SlugField(max_length=280, unique=True)
-	url = models.URLField(max_length=250)
-	source_url = models.URLField(max_length=250, null=True, blank=True)
-	description = models.TextField(null=True, blank=True)
-	set_number = models.CharField(max_length=2) # 14 = 1 out of 4. max 9 posts per day.
-	status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='draft')
 	publish = models.DateTimeField(default=timezone.now)
-	categories = models.ManyToManyField(Category, blank=True)
-	difficulty_level = models.ForeignKey(DifficultyLevel, on_delete='SET_DEFAULT')
-	post_type = models.ForeignKey(PostType, on_delete='SET_DEFAULT')
+	status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='draft')
+	set_number = models.CharField(max_length=2) # 14 = 1 out of 4. max 9 posts per day.
+	title = models.CharField(max_length=280)
+	url = models.URLField(max_length=250)
+	slug = models.SlugField(max_length=280, unique=True)
+	description = models.TextField(null=True, blank=True)
 
-	author = models.ForeignKey(User, blank=True, null=True, on_delete='SET_DEFAULT')
-	tease = models.CharField(max_length=280, blank=True, help_text='Concise text suggested. Does not appear in RSS feed.')
-	created = models.DateTimeField(auto_now_add=True)
-	modified = models.DateTimeField(auto_now=True)
+	post_type = models.ForeignKey(PostType, on_delete='SET_DEFAULT', default=0)
+	difficulty_level = models.ForeignKey(DifficultyLevel, on_delete='SET_DEFAULT', default=0)
+	categories = models.ManyToManyField(Category, blank=True)
+
+	original_author_url = models.URLField(max_length=250, blank=True)
+	original_author_handle = models.CharField(max_length=250, blank=True)
 
 	seo_title = models.CharField(max_length=60, blank=True, null=True)
 	seo_description = models.CharField(max_length=165, blank=True, null=True)
 	is_active = models.BooleanField(default=True)
 
-	# Twitter case
+	# Additional 
 	original_author = models.CharField(max_length=250, blank=True)
-	original_author_handle = models.CharField(max_length=250, blank=True)
-	original_author_url = models.URLField(max_length=250, blank=True)
-
 	thumb_image = models.ImageField(upload_to='thumbs/', blank=True, null=True)
+	source_url = models.URLField(max_length=250, null=True, blank=True)
+	created = models.DateTimeField(auto_now_add=True)
+	modified = models.DateTimeField(auto_now=True)
+	tease = models.CharField(max_length=280, blank=True, help_text='Concise text suggested. Does not appear in RSS feed.')
+	author = models.ForeignKey(User, blank=True, null=True, on_delete='SET_DEFAULT')
 
 	objects = models.Manager()
 	published = PublicManager()
