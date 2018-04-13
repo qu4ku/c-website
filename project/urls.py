@@ -4,11 +4,13 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.sitemaps.views import sitemap
 
-from .sitemaps import PostsSitemap
+from .sitemaps import PostsSitemap, StaticSitemap, HomeSitemap
 
 
 sitemaps = {
 	'posts': PostsSitemap,
+	'pages': StaticSitemap,
+	'home': HomeSitemap
 }
 
 
