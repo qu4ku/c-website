@@ -17,6 +17,7 @@ INSTALLED_APPS = [
     'newsletter',
     'jobs',
     'account',
+    'django.contrib.sitemaps',
 ]
 
 MIDDLEWARE = [
