@@ -1,9 +1,13 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title}
-	{{ post.title }}  | Knowledge Protocol
-{% endblock title}
+{% block title %}
+	{% if post.seo_title %} 
+		{{ post.seo_title }} | Knowledge Protocol
+	{% else %}
+		{{ post.title }} | Knowledge Protocol
+	{% endif %}
+{% endblock title %}
 
 {% block seo_description %}
 	{% if post.seo_description %} {{ post.seo_description }}
@@ -113,6 +117,6 @@
 {% endif %}
 
 <!-- <div class="subpage__separator"></div> -->
-<a class="button-standard" href="{% url 'home' %}"><- Back</a>
+<a class="button-standard" href="{% url 'home' %}">Back</a>
 
 {% endblock content %}
