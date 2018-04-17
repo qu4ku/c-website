@@ -347,7 +347,7 @@ a {
 	margin-left: 5px;
 }
 
-.category-link {
+.link-standard {
 	font-family: "B-Regular", sans-serif;
 	font-size: 14px;
 
@@ -362,7 +362,7 @@ a {
 	transition-duration: 1s;
 }
 
-.category-link:hover {
+.link-standard:hover {
 	box-shadow: inset 0 -6px 0 #43af8d;
 
 
@@ -432,9 +432,9 @@ a {
   white-space: nowrap;
   border-radius:40px;
   background: none;
-  border: 3px solid var(--underline-color);
+  border: 4px solid var(--underline-color);
   margin: 20px 0;
-  padding: 5px 15px;
+  padding: 5px 15px 4px 15px;
 
   font-family: "B-Regular", sans-serif;
   font-size: 14px;
@@ -667,3 +667,9 @@ a {
 	font-size: 10px;
 	margin-bottom: 10px;
 } 
+
+/*------------------ PAGINATION ------------------*/
+
+.link-pagination {
+	margin: 0 3px;
+}

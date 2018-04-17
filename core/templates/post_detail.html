@@ -25,9 +25,9 @@
 		<p class="post__description">{{ post.description }}</p>
 		<div class="post__info {% if not post.description %} post__info--no-description {% endif %}">
 			<div class="post__info__categories">
-				<a class="category-link" href="{% url 'level' slug=post.difficulty_level %}">{{ post.difficulty_level }}</a>
+				<a class="link-standard" href="{% url 'level' slug=post.difficulty_level %}">{{ post.difficulty_level }}</a>
 				{% for category in post.categories.all %}
-					<img src="{% static 'img/category-separator.png' %}" alt="" class="category-separator"><a class="category-link" href="{% url 'category' slug=category|lower %}">{{ category }}</a>
+					<img src="{% static 'img/category-separator.png' %}" alt="" class="category-separator"><a class="link-standard" href="{% url 'category' slug=category|lower %}">{{ category }}</a>
 				{% endfor %}
 			</div>
 			{% include "includes/social.html" %}
@@ -55,9 +55,9 @@
 				<p class="post__description video__description">{{ post.description }}</p>
 				<div class="post__info {% if not post.description %} post__info--no-description {% endif %}">
 					<div class="post__info__categories">
-						<a class="category-link" href="{% url 'level' slug=post.difficulty_level %}">{{ post.difficulty_level }}</a>
+						<a class="link-standard" href="{% url 'level' slug=post.difficulty_level %}">{{ post.difficulty_level }}</a>
 						{% for category in post.categories.all %}
-							<img src="{% static 'img/category-separator.png' %}" alt="" class="category-separator"><a class="category-link" href="{% url 'category' slug=category|lower %}">{{ category }}</a>
+							<img src="{% static 'img/category-separator.png' %}" alt="" class="category-separator"><a class="link-standard" href="{% url 'category' slug=category|lower %}">{{ category }}</a>
 						{% endfor %}
 					</div>
 					{% include "includes/social.html" %}
@@ -80,9 +80,9 @@
 		<p class="post__description video__description">{{ post.description }}</p>
 		<div class="post__info {% if not post.description %} post__info--no-description {% endif %}">
 			<div class="post__info__categories">
-				<a class="category-link" href="{% url 'level' slug=post.difficulty_level %}">{{ post.difficulty_level }}</a>
+				<a class="link-standard" href="{% url 'level' slug=post.difficulty_level %}">{{ post.difficulty_level }}</a>
 				{% for category in post.categories.all %}
-					<img src="{% static 'img/category-separator.png' %}" alt="" class="category-separator"><a class="category-link" href="{% url 'category' slug=category|lower %}">{{ category }}</a>
+					<img src="{% static 'img/category-separator.png' %}" alt="" class="category-separator"><a class="link-standard" href="{% url 'category' slug=category|lower %}">{{ category }}</a>
 				{% endfor %}
 			</div>
 			{% include "includes/social.html" %}
@@ -107,7 +107,7 @@
 			<div class="post__info__categories">
 				<a class="original-author-url" href="{{ post.original_author_url }}">{{ post.original_author_handle }}</a>
 				{% for category in post.categories.all %}
-					<img src="{% static 'img/category-separator.png' %}" alt="" class="category-separator"><a class="category-link" href="{% url 'category' slug=category|lower %}">{{ category }}</a>
+					<img src="{% static 'img/category-separator.png' %}" alt="" class="category-separator"><a class="link-standard" href="{% url 'category' slug=category|lower %}">{{ category }}</a>
 				{% endfor %}
 			</div>
 			{% include "includes/social.html" %}
