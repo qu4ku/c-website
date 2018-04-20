@@ -194,7 +194,7 @@ def add_feedback_view(request):
 	return render(request, template, context)
 
 
-login_required
+@login_required
 def feedbacks_view(request):
 	feedbacks = Feedback.objects.all()
 	context = {'feedbacks': feedbacks}
