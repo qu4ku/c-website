@@ -36,7 +36,7 @@
 	grid-template-columns: 100px 1fr 100px;
 	align-self: stretch;
 	grid-template-rows: 1fr;
-	grid-template-areas: "left logo nav";
+	grid-template-areas: "left-nav logo nav";
 	grid-auto-flow: columns;
 
 	margin-bottom: 0;

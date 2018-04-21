@@ -19,7 +19,7 @@
 	<meta name="HandheldFriendly" content="true">
 
 	<meta name='robots' content='index,follow'>
-	<!-- <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" /> -->
+	<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
 	<!-- bing seo -->
 	<meta name="geo.placename" content="United States" />
 	<meta name="geo.position" content="x;x" />
@@ -50,6 +50,7 @@
 			<a class="top__logo top__logo--mobile" href="{% url 'home' %}"><img src="{% static 'img/logo-mobile.png' %}"></img></a>
 			<nav class="top__nav">
 				<ul>
+					<li class="search-icon" id="mobile-hide"><a href="#" ><img src="{% static 'img/search-icon.png' %}" alt=""></a></li>
 					<li id="mobile-hide"><a href="{% url 'home' %}">Home</a></li>
 					<li><a href="{% url 'jobs' %}">Jobs</a></li>
 					<li><a href="{% url 'about' %}">About</a></li>
