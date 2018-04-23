@@ -51,25 +51,34 @@
 			<a class="top__logo top__logo--mobile" href="{% url 'home' %}"><img src="{% static 'img/logo-mobile.png' %}"></img></a>
 			
 			<input id="toggle-menu" type="checkbox">
-			<!-- <input id="toggle-search" type="checkbox"> -->
+			<input id="toggle-search" type="checkbox">
 
 			<div class="menu-overlay">
 				<ul class="menu-container">
-					<li><label for="toggle-menu" class="menu-off">&#215</label></li>
 					<li><a href="{% url 'home' %}">Home</a></li>
 					<li><a href="{% url 'jobs' %}">Jobs</a></li>
 					<li><a href="{% url 'about' %}">About</a></li>
-					<li><a href="#">Search</a></li>
+					<li class="mobile-search"><label for="toggle-search">Search</a></li>
+					<li><label for="toggle-menu" class="search-off">&#215</label></li>
 				</ul>
+			</div>
+
+			<div class="search-overlay">
+				<label for="toggle-search" class="search-off">&#215</label>
+				<form action="{% url 'search' %}" method="get">
+					<input name="q" value="{{ request.GET.g }}" type="search" autofocus class="search-input" autofocus placeholder="Start typing and press enter.">
+				</form>
 			</div>
 
 
 			<nav class="top__nav">
 				<ul class="web-nav">
-					<li class="search-icon"><a href="#" ><img src="{% static 'img/search-icon.png' %}" alt=""></a></li>
+					<li><label for="toggle-search"><img class="search-icon" src="{% static 'img/search-icon-small.png' %}" alt=""></a></li>
+
 					<li><a href="{% url 'home' %}">Home</a></li>
 					<li><a href="{% url 'jobs' %}">Jobs</a></li>
 					<li><a href="{% url 'about' %}">About</a></li>
+
 				</ul>
 				<ul class="mobile-nav">
 				
