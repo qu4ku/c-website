@@ -137,7 +137,6 @@ a {
 	max-height: 200px;
 }
 
-
 /*------------------ TOP ------------------*/
 
 .intro-text {
@@ -215,6 +214,77 @@ a {
 .search-icon {
 	transform: translateY(3px);
 }
+
+.menu-on {
+
+	z-index: 99;
+	display: none;
+	cursor: pointer;
+}
+
+
+#toggle-menu {
+	display: none;
+}
+
+.mobile-nav {
+	display: none;
+}
+.menu-overlay {
+	display: none;
+}
+
+.menu-container {
+	margin: auto;
+}
+
+.menu-off {
+	/*margin-top: 100px;*/
+	color: red;
+	font-size: 30px;
+
+	/*margin-top: 40px;*/
+	position: 102;
+	cursor: pointer;
+	/*margin-bottom: 100px;*/
+	height: 100px;
+}
+
+
+#toggle-menu:checked ~ .menu-overlay {
+	padding-top: 40px;
+	position: fixed;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(17,21,30, 0.9);
+	z-index: 100;
+
+	display: grid;
+	height: 100vh;
+	width: 100vw;
+	z-index: 101;
+	margin: auto auto;
+	text-align: center;
+}
+
+#toggle-menu:checked ~ .menu-overlay li a {
+	font-family: "B-Regular", sans-serif;
+	font-size: 30px;
+
+
+	text-decoration: none;
+	color: white;
+	
+	text-transform: uppercase;
+	letter-spacing: 2px;
+
+
+	
+}
+
+
 /*------------------ CONTENT ------------------*/
 
 .content {
