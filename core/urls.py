@@ -14,6 +14,7 @@ urlpatterns = [
 	path('post/<slug:slug>/delete/', views.post_delete_view, name='post_delete'),
 	path('category/<slug:slug>/', views.category_view, name='category'),
 	path('level/<slug:slug>/', views.level_view, name='level'),
+	path('type/<slug:slug>/', views.type_view, name='type'),
 	path('results/', views.search_view, name='search'),
 	path('add-link/', views.add_link_view, name='add_link'),
 	path('add-link/thanks', views.add_link_thanks_view, name='add_link_thanks'),

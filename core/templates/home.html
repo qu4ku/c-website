@@ -33,7 +33,7 @@
 				<div class="post__number"><span class="big_num">{{ post.first_set_number }}</span><span class="small_num">/ {{ post.second_set_number }}</span></div>
 				<div class="post__title post__title--media"><a href="{{ post.url }}" target="_blank">{{ post.title }}</a></div>
 				<div class="media__image">
-					<a href="{{ post.url }}">
+					<a href="{% url 'type' slug=post.post_type %}">
 						{% if post.thumb_image %}
 							<img class="video-play-overlay" src="{% static 'img/vid-play-overlay.png' %}" alt="">
 							<img class="thumb-image" src="{{ post.thumb_image.url }}" alt="">
@@ -63,7 +63,7 @@
 				<div class="post__number"><span class="big_num">{{ post.first_set_number }}</span><span class="small_num">/ {{ post.second_set_number }}</span></div>
 				<div class="post__title post__title--media"><a href="{{ post.url }}" target="_blank">{{ post.title }}</a></div>
 				<div class="media__image">
-					<a href="{{ post.url }}">
+					<a href="{% url 'type' slug=post.post_type %}">
 						<img class="thumb-image" src="{% static 'img/podcast-icon.png' %}" alt="">
 					</a>
 				</div>	
@@ -88,7 +88,7 @@
 				<div class="post__number"><span class="big_num">{{ post.first_set_number }}</span><span class="small_num">/ {{ post.second_set_number }}</span></div>
 				<div class="post__title post__title--media"><a href="{{ post.url }}" target="_blank">{{ post.title }}</a></div>
 				<div class="media__image">
-					<a href="{{ post.url }}">
+					<a href="{% url 'type' slug=post.post_type %}">
 						<img class="thumb-image" src="{% static 'img/twitter-icon.png' %}" alt="">
 					</a>
 				</div>	

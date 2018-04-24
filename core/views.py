@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.contrib.auth.forms import UserCreationForm
 
-from .models import Post, Category, DifficultyLevel, Feedback
+from .models import Post, Category, DifficultyLevel, Feedback, PostType
 from .forms import PostForm, LinkForm, FeedbackForm
 
 
@@ -95,13 +95,14 @@ def post_delete_view(request, slug=None):
 
 def category_view(request, slug):
 	category = get_object_or_404(Category, slug=slug)
+	print(category)
 	post_list = Post.published.filter(categories=category)
 
 	paginator = Paginator(post_list, 18)  # Show 25 contacts per page
 	page = request.GET.get('page')
 	posts = paginator.get_page(page)
 
-	template = 'home.html'
+	template = 'search_results.html'
 	context = {
 		'posts': posts,
 	}
@@ -117,7 +118,24 @@ def level_view(request, slug):
 	page = request.GET.get('page')
 	posts = paginator.get_page(page)
 
-	template = 'home.html'
+	template = 'search_results.html'
+	context = {
+		'posts': posts,
+	}
+
+	return render(request, template, context)
+
+
+def type_view(request, slug):
+
+	post_type = get_object_or_404(PostType, post_type=slug)
+	post_list = Post.published.filter(post_type=post_type)
+
+	paginator = Paginator(post_list, 18)  # Show 25 contacts per page
+	page = request.GET.get('page')
+	posts = paginator.get_page(page)
+
+	template = 'search_results.html'
 	context = {
 		'posts': posts,
 	}
