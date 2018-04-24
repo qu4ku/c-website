@@ -552,6 +552,7 @@ input[type=search] {
 
 .button-standard {
 	display: inline-block;
+	
 	outline:none;
   text-align: center;
   vertical-align: middle;
