@@ -9,5 +9,8 @@
 	<a class="social-link" href="http://www.linkedin.com/shareArticle?mini=true&url={{ post.get_url_for_social }}&title={{ post.title|urlencode }}&source=www.knowledgeprotocol.com" target="_blank">
 		<img src="{% static 'img/icons/linkedin.png' %}" alt="Social share Linkedin icon">
 	</a>
+	<a class="social-link" href="{{ post.get_absolute_url }}" target="_self">
+		<img src="{% static 'img/icons/inner-link-icon.png' %}" alt="">
+	</a>
 </div>
 
