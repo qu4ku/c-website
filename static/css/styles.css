@@ -570,17 +570,31 @@ input[type=search] {
 
   transition-duration: 1s;
 }
-.button-back {
-	width: 50px;
-	height: 25px;
-}
 
 .button-standard:hover {
 	background: var(--underline-color);
 	color: white;
 	transition-duration: .2s;
-	/*border: none;*/
 }
+
+.button-grey {
+	border: 4px solid var(--light-gray);
+
+
+}
+
+.button-grey:hover {
+	background: var(--light-gray);
+	color: var(--main-dark-color);
+
+}
+
+.button-back {
+	width: 50px;
+	height: 25px;
+}
+
+
 
 
 .button-important {
