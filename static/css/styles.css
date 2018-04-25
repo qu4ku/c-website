@@ -662,7 +662,7 @@ input[type=search] {
 	background-color: var(--main-dark-color);
 	color: white;
 	margin-bottom: 40px;
-	padding: 40px 40px 35px 40px;
+	padding: 35px 40px 30px 40px;
 }
 
 .newsletter span {
