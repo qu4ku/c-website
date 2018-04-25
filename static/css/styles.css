@@ -466,6 +466,8 @@ input[type=search] {
 }
 
 .post__info__social {
+	/*display: inline-block;*/
+	position: relative;
 	justify-self: right;
 	transition: transformX(+30px);
 
@@ -473,6 +475,37 @@ input[type=search] {
 
 .social-link {
 	margin-left: 5px;
+}
+
+/* -- TOOLTIPS --*/
+.social-link::before {
+	position: absolute;
+	top: -50px;
+	left: -33px;
+	background-color: #cecfcf;
+	border-radius: 5px;
+	color: white;
+	content: attr(aria-label);
+	padding: 10px;
+	text-transform: none;
+	width: 120px;
+
+}
+
+/*Setting up the transition*/
+.social-link::before {
+	font-family: "Lucida Grande", "Helvetica", sans-serif;
+	font-size: 12px;
+	opacity: 0;
+	pointer-events: none;
+	text-align: center;
+}
+
+.social-link:focus::before,
+.social-link:hover::before 
+{
+	opacity: 1;
+	transition: all 0.75s ease;
 }
 
 .link-standard {
