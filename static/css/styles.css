@@ -470,6 +470,8 @@ input[type=search] {
 	position: relative;
 	justify-self: right;
 	transition: transformX(+30px);
+	background-color: red;
+	min-width: 120px;
 
 }
 
@@ -618,7 +620,6 @@ input[type=search] {
 .button-grey:hover {
 	background: var(--light-gray);
 	color: var(--main-dark-color);
-
 }
 
 .button-back {
@@ -867,10 +868,26 @@ input[type=email] {
 .feedback-ip {
 	font-size: 10px;
 	margin-bottom: 10px;
+	padding-left: 2px;
+	padding-right: 2px;
 } 
 
 /*------------------ PAGINATION ------------------*/
 
-.link-pagination {
+.button-pagination {
 	margin: 0 3px;
+	width: 35px;
+	height: 25px;
+	padding-left: 0;
+	padding-right: 0;
+
+	border: 3px solid var(--light-gray);
 }
+
+.button-pagination:hover {
+	background: var(--light-gray);
+	color: var(--main-dark-color);
+
+}
+
+

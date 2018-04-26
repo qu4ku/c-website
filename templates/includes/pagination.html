@@ -1,9 +1,17 @@
+{% load static %}
+
 <div class="pagination">
 <span class="step-links">
 	
     {% if posts.has_previous %}
-        <a href="?page=1" class="button-standard link-pagination mobile-hide button-grey">first</a>
-        <a href="?page={{ posts.previous_page_number }}" class="button-standard link-pagination">previous</a>
+        <a  href="?page=1" 
+            class="button-standard button-pagination">
+            <img src="{% static 'img/arrow-first.png' %}" alt="first page">
+        </a>
+        <a  href="?page={{ posts.previous_page_number }}" 
+            class="button-standard button-pagination">
+            <img src="{% static 'img/arrow-prev.png' %}" alt="previous page">
+        </a>
     {% endif %}
 
     <span class="current">
@@ -11,8 +19,15 @@
     </span>
 
     {% if posts.has_next %}
-        <a href="?page={{ posts.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" class="button-standard link-pagination">next</a>
-        <a href="?page={{ posts.paginator.num_pages }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" class="button-standard link-pagination mobile-hide button-grey">last</a>
+        
+        <a  href="?page={{ posts.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" 
+            class="button-standard button-pagination">
+            <img src="{% static 'img/arrow-next.png' %}" alt="next page">
+        </a>
+        <a  href="?page={{ posts.paginator.num_pages }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" 
+            class="button-standard button-pagination">
+            <img src="{% static 'img/arrow-last.png' %}" 
+            alt="last page"></a>
     {% endif %}
 </span>
 </div>

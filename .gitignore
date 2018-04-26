@@ -6,3 +6,4 @@ arch_db.sqlite3
 settings.py
 settings_original.py
 local.py
+**/.DS_Store
