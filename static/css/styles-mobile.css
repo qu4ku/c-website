@@ -206,6 +206,7 @@
 .post__info__social {
 	justify-self: right;
 	transition: transformX(+30px);
+	width: 124px;
 
 }
 
