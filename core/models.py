@@ -156,3 +156,6 @@ class Link(models.Model):
 	url = models.URLField(max_length=250)
 	description = models.TextField(null=True, blank=True)
 	created = models.DateTimeField(auto_now_add=True)
+
+	def __str__(self):
+		 return self.url

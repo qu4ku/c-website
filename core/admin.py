@@ -14,9 +14,14 @@ class PostAdmin(admin.ModelAdmin):
 		model = Post
 
 
+class LinkAdmin(admin.ModelAdmin):
+
+	list_display = ['url', 'description']
+
+
 admin.site.register(Post, PostAdmin)
 admin.site.register(Category)
 admin.site.register(DifficultyLevel)
 admin.site.register(PostType)
-admin.site.register(Link)
+admin.site.register(Link, LinkAdmin)
 admin.site.register(Feedback)
