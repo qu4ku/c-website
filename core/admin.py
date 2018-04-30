@@ -9,6 +9,7 @@ class PostAdmin(admin.ModelAdmin):
 	list_editable = ['status','set_number', 'publish']
 	list_filter = ['status', 'publish', 'post_type', 'difficulty_level', 'categories']
 	search_fields = ['title', 'description']
+	list_per_page = 30
 
 	class Meta:
 		model = Post
