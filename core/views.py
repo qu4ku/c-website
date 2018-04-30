@@ -95,7 +95,6 @@ def post_delete_view(request, slug=None):
 
 def category_view(request, slug):
 	category = get_object_or_404(Category, slug=slug)
-	print(category)
 	post_list = Post.published.filter(categories=category)
 
 	paginator = Paginator(post_list, 18)  # Show 25 contacts per page
@@ -105,6 +104,7 @@ def category_view(request, slug):
 	template = 'search_results.html'
 	context = {
 		'posts': posts,
+		'category': slug.title(),
 	}
 
 	return render(request, template, context)

@@ -1,12 +1,18 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title}
-	{{ query }} | Knowledge Protocol
-{% endblock title}
+{% block title %}
+	{% if query %} 
+		{{ query }} | Blockchain, bitcoin, tokens, cryptocurrencies and protocols daily links.
+	{% elif category %}
+		{{ category }} | Daily curated links | Knowledge Protocol
+	{% else %}
+		Knowledge Protocol | Blockchain, bitcoin, tokens, cryptocurrencies and protocols daily links.
+	{% endif %}
+
+{% endblock %}
 
 {% block content %}
-	<!-- <h1>Your search term: "{{ query }}"</h1><a class="back-link" href="{% url 'home' %}"><Back</a> -->
 	
 	{% if posts %}
 
