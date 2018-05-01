@@ -5,7 +5,7 @@
 	{% if query %} 
 		{{ query }} | Blockchain, bitcoin, tokens, cryptocurrencies and protocols daily links.
 	{% elif category %}
-		{{ category }} | Daily curated links | Knowledge Protocol
+		{{ category.title }} | Daily curated links | Knowledge Protocol
 	{% else %}
 		Knowledge Protocol | Blockchain, bitcoin, tokens, cryptocurrencies and protocols daily links.
 	{% endif %}
@@ -13,9 +13,25 @@
 {% endblock %}
 
 {% block content %}
-	
-	{% if posts %}
+	{% if category %}
+		<div class="search-info">
+		<h3>{{ category }}</h3>
+		{% if category_description %}
+			<p>{{ category_description }}</p>
+		{% endif %}
+		</div>
+	{% elif query %}
+		<div class="search-info">
+			<h3><span>Results for: </span>{{ query }}</h3>
+		</div>
+	{% elif level %}
+		<div class="search-info">
+			<h3>{{ level }}</h3>
+		</div>
+	{% endif %}
 
+
+	{% if posts %}
 	{% for post in posts %}
 
 		{% if post.post_type|stringformat:"s" == "article" %}

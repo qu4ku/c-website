@@ -590,6 +590,7 @@ input[type=search] {
 	color: white;
 	margin-bottom: 40px;
 	padding: 35px 40px 30px 40px;
+	border-radius: 10px;
 }
 
 .newsletter span {
@@ -770,6 +771,32 @@ input[type=email] {
 	padding-left: 2px;
 	padding-right: 2px;
 } 
+
+/*------------------ SEARCH SUB ------------------*/
+
+.search-info {
+	background-color: #e3e4e4;
+	padding: 10px;
+	margin-bottom: 20px;
+	border-radius: 5px;
+}
+
+.search-info h3 {
+	font-family: "B-Regular", sans-serif;
+	font-size: 15px;
+	letter-spacing: 2px;
+	float: left;
+	margin-right: 10px;
+}
+
+.search-info p {
+	font-size: 12px;
+	color: #6f6f73;
+}
+
+.search-info h3 span {
+	color: #959698;
+}
 
 /*------------------ PAGINATION ------------------*/
 

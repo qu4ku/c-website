@@ -97,14 +97,15 @@ def category_view(request, slug):
 	category = get_object_or_404(Category, slug=slug)
 	post_list = Post.published.filter(categories=category)
 
-	paginator = Paginator(post_list, 18)  # Show 25 contacts per page
+	paginator = Paginator(post_list, 18)
 	page = request.GET.get('page')
 	posts = paginator.get_page(page)
 
 	template = 'search_results.html'
 	context = {
 		'posts': posts,
-		'category': slug.title(),
+		'category': category,
+		'category_description': category.description,
 	}
 
 	return render(request, template, context)
@@ -121,6 +122,7 @@ def level_view(request, slug):
 	template = 'search_results.html'
 	context = {
 		'posts': posts,
+		'level': level,
 	}
 
 	return render(request, template, context)
@@ -138,6 +140,7 @@ def type_view(request, slug):
 	template = 'search_results.html'
 	context = {
 		'posts': posts,
+		'type': post_type,
 	}
 
 	return render(request, template, context)

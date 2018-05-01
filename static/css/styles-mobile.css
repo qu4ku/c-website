@@ -260,11 +260,18 @@
 
 
 
-/*------------------ FOOTER ------------------*/
 
 
+/*------------------ SEARCH SUB ------------------*/
 
+.search-info {
+	background-color: #e3e4e4;
+	padding: 10px;
+	margin-bottom: 0px;
+	border-radius: 5px;
+}
 
+/*------------------ PAGINATION ------------------*/
 .pagination {
 	margin-bottom: 20px;
 }
