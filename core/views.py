@@ -228,3 +228,13 @@ def feedback_thanks_view(request):
 	template = 'feedback_thanks.html'
 
 	return render(request, template)
+
+
+def tags_view(request):
+	tags = Category.objects.all()
+	template = 'tags.html'
+	context = {
+		'tags': tags,
+	}
+
+	return render(request, template, context)

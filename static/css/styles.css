@@ -556,6 +556,35 @@ input[type=search] {
 	background: var(--light-gray);
 	color: var(--main-dark-color);
 }
+.tags {
+	justify-content: start;
+	float: left;
+	clear: left;
+}
+
+.button-tag {
+	/*height: 25px;*/
+	outline:none;
+	display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  border-radius:40px;
+  background: none;
+  border: 4px solid var(--light-gray);
+  margin: 0 15px 15px 0;
+  padding: 5px 15px 4px 15px;
+  font-family: "B-Regular", sans-serif;
+  font-size: 14px;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition-duration: 1s;
+}
+
+.button-tag:hover {
+	background: var(--light-gray);
+	color: var(--main-dark-color);
+}
 
 .button-back {
 	width: 50px;

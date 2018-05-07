@@ -21,4 +21,5 @@ urlpatterns = [
 	path('add-feedback/', views.add_feedback_view, name='add_feedback'),
 	path('feedback/thanks', views.feedback_thanks_view, name='feedback_thanks'),
 	path('feedbacks/', views.feedbacks_view, name='feedbacks'),
+	path('tags/', views.tags_view, name='tags'),
 ]
