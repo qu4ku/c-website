@@ -350,6 +350,11 @@ input[type=search] {
 	line-height: 1.2em;
 }
 
+.post__title a:visited {
+	color: #89898c;
+	text-decoration: ;
+}
+
 .post__title--twitter {
 	font-style: italic;
 }
@@ -564,7 +569,6 @@ input[type=search] {
 }
 
 .button-tag {
-	/*height: 25px;*/
 	outline:none;
 	display: inline-block;
   text-align: center;
@@ -817,7 +821,7 @@ input[type=email] {
 	font-size: 15px;
 	letter-spacing: 2px;
 	float: left;
-	margin-right: 10px;
+	margin: 0px 10px 0 4px;
 }
 
 .search-info p {
