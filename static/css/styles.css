@@ -560,6 +560,7 @@ input[type=search] {
 	justify-content: start;
 	float: left;
 	clear: left;
+	margin-bottom: 40px;
 }
 
 .button-tag {
