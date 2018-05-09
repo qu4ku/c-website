@@ -741,6 +741,11 @@ input:focus {
 	transform: translateX(-5px);
 }
 
+.footer__links {
+	text-align: center;
+	margin-bottom: 10px;
+}
+
 .footer__links a {
 	text-decoration: underline;
 	font-size: 10px;

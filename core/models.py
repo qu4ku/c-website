@@ -82,7 +82,7 @@ class Post(models.Model):
 	url = models.URLField(max_length=250)
 	slug = models.SlugField(max_length=280, unique=True)
 	post_type = models.ForeignKey(PostType, on_delete='SET_DEFAULT', default=0)
-	difficulty_level = models.ForeignKey(DifficultyLevel, on_delete='SET_DEFAULT', default=1) 
+	difficulty_level = models.ForeignKey(DifficultyLevel, on_delete='SET_DEFAULT', default=2)
 	categories = models.ManyToManyField(Category, blank=True)
 	description = models.TextField(null=True, blank=True)
 
