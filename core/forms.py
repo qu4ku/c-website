@@ -9,30 +9,19 @@ class PostForm(forms.ModelForm):
 	class Meta:
 		model = Post
 
-		# 2do: Use exclude = () instead.
-		fields = [
-			'title',
-			'slug',
-			'url',
-			'description',
-			'set_number',
-			'status',
-			'publish',
-			'categories',
-			'difficulty_level',
-			'post_type',
-			'author',
-			# 'tease',
-			# 'created',
-			# 'modified',
+		exclude = [
+			'tease',
+			'created',
+			'modified',
+			'is_active',
+			'original_author',
+			'thumb_image',
 			'seo_title',
 			'seo_description',
-			# 'is_active',
-			# 'original_author',
-			'original_author_handle',
-			'original_author_url',
-			'thumb_image',
+			'author',
+			'source_url',
 		]
+
 		widgets = {
 			'title': forms.TextInput(attrs={'class': 'form__text-input'}),
 			'slug': forms.TextInput(attrs={'class': 'form__text-input'}),
@@ -41,6 +30,8 @@ class PostForm(forms.ModelForm):
 			'set_number': forms.TextInput(attrs={'class': 'form__text-input'}),
 			'status': forms.Select(attrs={'class': 'form__text-input'}),
 			# 'publish': forms.SelectDateWidget(attrs={'class': 'form__text-input'}),
+			# 'publish': forms.DateTimeInput(attrs={'class': 'form__text-input'}, format='%Y %m %d - %H:%M:%S'),
+			'publish': forms.DateTimeInput(attrs={'class': 'form__text-input'}),
 			'categories': forms.SelectMultiple(attrs={'class': 'form__text-input--multichoice'}),
 			'difficulty_level': forms.Select(attrs={'class': 'form__text-input'}),
 			'post_type': forms.Select(attrs={'class': 'form__text-input'}),

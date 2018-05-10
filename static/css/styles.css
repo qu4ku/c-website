@@ -701,12 +701,23 @@ input:focus {
 }
 
 .form__text-area {
-	min-height: 200px;
+	height: 100px;
 	width: 100%;
 	margin-bottom: 10px;
 	padding: 20px;
 	font-size: 16px;
 }
+
+.form__text-input--multichoice {
+	min-height: 250px;
+}
+
+.button-container {
+	display: block;
+	height: 200px;
+}
+
+
 
 /*------------------ PAGINATION ------------------*/
 

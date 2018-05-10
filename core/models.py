@@ -2,6 +2,13 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save
 from django.utils import timezone
+from datetime import datetime
+
+
+def default_start_time():
+    now = datetime.now()
+    start = now.replace(hour=6, minute=0, second=0, microsecond=0)
+    return start
 
 
 class PublicManager(models.Manager):
@@ -76,7 +83,7 @@ class Post(models.Model):
 	)
 
 	status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='draft')
-	publish = models.DateTimeField(default=timezone.now)
+	publish = models.DateTimeField(default=default_start_time)
 	set_number = models.CharField(max_length=2) # 14 = 1 out of 4. max 9 posts per day.
 	title = models.CharField(max_length=280)
 	url = models.URLField(max_length=250)

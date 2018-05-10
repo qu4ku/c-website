@@ -5,11 +5,13 @@ Create New Post | Knowledge Protocol
 {% endblock title %}
 
 {% block content %}
-	<h2 class="form__title">Create New Post:</h2>
+	<h2 class="subpage-header">Create New Post:</h2>
 
 	<form class="form" method="post" action="" enctype="multipart/form-data">
 		{% csrf_token %}
 		{{ form.as_p }}
-		<input type="submit" value="Create post" />
+
+		<input class="button-standard" type="submit" value="Create post" />
+
 	</form>
 {% endblock content %}
