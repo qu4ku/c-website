@@ -712,11 +712,11 @@ input:focus {
 	min-height: 250px;
 }
 
-.button-container {
-	display: block;
-	height: 200px;
+.form__text-input--multichoice option {
+	/*font-family: "B-Regular", sans-serif;*/
+	font-size: 14px;
+	margin: 5px auto -4px 5px;
 }
-
 
 
 /*------------------ PAGINATION ------------------*/
