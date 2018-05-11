@@ -6,8 +6,9 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.contrib.auth.forms import UserCreationForm
 
-from .models import Post, Category, DifficultyLevel, Feedback, PostType
-from .forms import PostForm, LinkForm, FeedbackForm
+from .models import (Post, Category, DifficultyLevel, Feedback, PostType,
+	ReviewedLink, Link)
+from .forms import PostForm, LinkForm, FeedbackForm, ReviewedLinkForm
 
 
 def home_view(request):
@@ -238,3 +239,34 @@ def tags_view(request):
 	}
 
 	return render(request, template, context)
+
+
+@login_required
+def review_link_view(request):
+	# form = PostForm(request.POST or None)
+	# context = {'form': form}
+	template = 'link_review.html'
+
+	if request.method == 'GET':
+		return render(request, template)
+	elif request.method == 'POST':
+		link_to_review = request.POST.get('url', None)
+		is_posted = Post.objects.filter(url=link_to_review).exists()
+		is_listed = Link.objects.filter(url=link_to_review).exists()
+		is_reviewed = ReviewedLink.objects.filter(url=link_to_review).exists()
+
+		if is_posted:
+			msg = 'Link already in posted links.'
+		elif is_listed:
+			msg = 'Link already in submitted links.'
+		elif is_reviewed:
+			msg = 'Link already in reviewed links.'
+		else:
+			new_link = ReviewedLinkForm(request.POST)
+			new_link.save()
+			msg = 'New link. Added to the reviewed.'
+		context = {
+			'msg': msg,
+		}
+		return render(request, template, context)
+

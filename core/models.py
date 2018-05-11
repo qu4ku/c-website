@@ -6,7 +6,7 @@ from datetime import datetime
 
 
 def default_start_time():
-    now = datetime.now()
+    now = timezone.now()
     start = now.replace(hour=6, minute=0, second=0, microsecond=0)
     return start
 
@@ -165,4 +165,15 @@ class Link(models.Model):
 	created = models.DateTimeField(auto_now_add=True)
 
 	def __str__(self):
-		 return self.url
+		return self.url
+
+
+class ReviewedLink(models.Model):
+	"""
+	Reviewed Link model.
+	"""
+	url = models.URLField(max_length=250)
+	created = models.DateTimeField(auto_now_add=True)
+
+	def __str__(self):
+		return self.url

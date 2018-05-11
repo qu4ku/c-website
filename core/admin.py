@@ -1,10 +1,9 @@
 from django.contrib import admin
 
-from .models import Post, DifficultyLevel, PostType, Category, Link, Feedback
+from .models import Post, DifficultyLevel, PostType, Category, Link, Feedback, ReviewedLink
 
 
 class PostAdmin(admin.ModelAdmin):
-
 	list_display = ['title', 'set_number', 'publish', 'status', 'post_type']
 	list_editable = ['status','set_number', 'publish']
 	list_filter = ['status', 'publish', 'post_type', 'difficulty_level', 'categories']
@@ -16,9 +15,11 @@ class PostAdmin(admin.ModelAdmin):
 
 
 class LinkAdmin(admin.ModelAdmin):
-
 	list_display = ['url', 'description']
 
+
+class ReviewedLinkAdmin(admin.ModelAdmin):
+	list_display = ['url']
 
 admin.site.register(Post, PostAdmin)
 admin.site.register(Category)
@@ -26,3 +27,4 @@ admin.site.register(DifficultyLevel)
 admin.site.register(PostType)
 admin.site.register(Link, LinkAdmin)
 admin.site.register(Feedback)
+admin.site.register(ReviewedLink, ReviewedLinkAdmin)

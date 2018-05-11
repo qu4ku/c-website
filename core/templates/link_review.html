@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Review the Link | Knowledge Protocol
+{% endblock title %}
+
+{% block content %}
+	<h2 class="subpage-header">Check the link:</h2>
+	<form action="{% url 'review_link' %}" method="post" class="">
+		{% csrf_token %}
+		<input type="url" name="url" class="search-input" placeholder="link goes here">
+		<button type="submit" class="button-standard">Submit</button>
+	</form>		
+
+	<!-- <form class="form" method="post" action="">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<input type="submit" value="Add Link" />
+	</form> -->
+	<h3>{{ msg }}</h3>
+{% endblock content %}
