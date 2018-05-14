@@ -788,6 +788,10 @@ input:focus {
 	grid-column: 1 / -1;
 }
 
+.post-container {
+	margin-top: 40px;
+}
+
 /*------------------ ABOUT ------------------*/
 
 .about__text-section {

@@ -16,7 +16,13 @@
 {% endblock %}
 
 {% block content %}
-
+<div class="subpage__separator"></div>
+	<div class="button-container">		
+		<a class="button-standard" href="" onclick="if (document.referrer.indexOf(window.location.host) !== -1) { history.go(-1); return false; } else { window.location.href = '/'; }">Back</a>
+		<a class="button-standard" href="/">Home</a>
+	</div>
+<div class="subpage__separator"></div>
+<div class="post-container">
 {% if post.post_type|stringformat:"s" == "article" %}
 	<div class="post">
 		<div class="post__number"><span class="big_num">{{ post.first_set_number }}</span><span class="small_num">/ {{ post.second_set_number }}</span></div>
@@ -115,7 +121,7 @@
 		<div class="post__separator"></div>
 	</div>
 {% endif %}
+</div>
 
-<a class="button-standard" href="javascript:history.go(-1)">Back</a>
 
 {% endblock content %}
