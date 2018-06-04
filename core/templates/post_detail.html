@@ -118,10 +118,29 @@
 			</div>
 			{% include "includes/social.html" %}
 		</div>
-		<div class="post__separator"></div>
+		<!-- <div class="post__separator"></div> -->
 	</div>
 {% endif %}
 </div>
+
+
+<div id="disqus_thread"></div>
+<script>
+	var disqus_config = function () {
+		this.page.url = '{{ post.get_url_for_social }}';  
+		this.page.identifier = '{{ post.slug }}'; 
+		this.disqus_title = '{{ post.title }}';
+		this.disqus_developer = 1;   
+	};
+
+	(function() {
+		var d = document, s = d.createElement('script');
+		s.src = 'https://knowledgeprotocol.disqus.com/embed.js';
+		s.setAttribute('data-timestamp', +new Date());
+		(d.head || d.body).appendChild(s);
+	})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 
 
 {% endblock content %}

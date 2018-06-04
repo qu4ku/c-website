@@ -881,3 +881,10 @@ input:focus {
 	background: var(--light-gray);
 	color: var(--main-dark-color);
 }
+
+
+/*------------------ DISQUS ------------------*/
+
+#disqus_thread {
+	margin-bottom: 40px;
+}
