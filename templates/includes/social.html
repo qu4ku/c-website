@@ -11,14 +11,14 @@
 	<a class="social-link" 
 			aria-label="Share on Twitter" 
 			tabindex="0" 
-			href="http://twitter.com/home?status={{ post.title|urlencode }}+{{ post.get_url_for_social }}%20via%20https%3A%2F%2Ftwitter.com%2Fknown_protocol" 
+			href="http://twitter.com/home?status={{ post.title|urlencode }}+{{ post.url }}%20via%20https%3A%2F%2Fknowledgeprotocol.com" 
 			target="_blank">
 		<img src="{% static 'img/icons/twitter.png' %}" alt="Social share Twitter icon">
 	</a>
 	<a class="social-link" 
 			aria-label="Share on LinkedIn" 
 			tabindex="0" 
-			href="http://www.linkedin.com/shareArticle?mini=true&url={{ post.get_url_for_social }}&title={{ post.title|urlencode }}&source=www.knowledgeprotocol.com" 
+			href="http://www.linkedin.com/shareArticle?mini=true&url={{ post.get_url_for_social }}&title={{ post.title|urlencode }}&source=www.knowledgeprotocol.com"
 			target="_blank">
 		<img src="{% static 'img/icons/linkedin.png' %}" alt="Social share Linkedin icon">
 	</a>
