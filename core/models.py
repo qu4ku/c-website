@@ -40,6 +40,10 @@ class Category(models.Model):
 	def __str__(self):
 		return self.title
 
+	def get_absolute_url(self):
+		return '/tag/{}/'.format(self.slug)
+
+
 
 class DifficultyLevel(models.Model):
 	"""
@@ -54,6 +58,9 @@ class DifficultyLevel(models.Model):
 
 	def __str__(self):
 		return self.difficulty_level
+
+	def get_absolute_url(self):
+		return '/level/{}/'.format(self.difficulty_level)
 
 
 class PostType(models.Model):
@@ -71,6 +78,9 @@ class PostType(models.Model):
 	def __str__(self):
 		"""Returns human-readable option in admin."""
 		return self.post_type
+
+	def get_absolute_url(self):
+		return '/type/{}/'.format(self.post_type)
 
 
 class Post(models.Model):
