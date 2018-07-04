@@ -888,3 +888,41 @@ input:focus {
 #disqus_thread {
 	margin-bottom: 40px;
 }
+
+
+/*---- check link*/
+input[type=url] {
+	background-color: white;
+	border: none;
+	margin: auto;
+	font-size: 12px;
+	padding: 16px 16px 16px 20px;
+	font-family: "B-Regular", sans-serif;
+	font-size: 16px;
+	background-color: none;
+	border-radius: 50px;
+	width: 70%;
+}
+
+.button-check-link {
+	height: 50px;
+}
+
+.check-response-msg {
+	font-size: 18px;
+	background-color: var(--secondary-color);
+	background-color: grey;
+	color: white;
+	padding: 20px 20px 0px 20px;
+	border-radius: 10px;
+	margin-bottom: 20px;
+}
+
+.check-response-msg span {
+	font-size: 14px;
+	color: var(--main-dark-color);
+
+	background-color: white;
+	padding: 2px 5px;
+	border-radius: 5px;
+}

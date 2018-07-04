@@ -10,10 +10,11 @@ Review the Link | Knowledge Protocol
 
 {% block content %}
 	<h2 class="subpage-header">Check the link:</h2>
+	
 	<form action="{% url 'review_link' %}" method="post" class="">
 		{% csrf_token %}
 		<input type="url" name="url" class="search-input" placeholder="link goes here">
-		<button type="submit" class="button-standard">Submit</button>
+		<button type="submit" class="button-standard button-check-link">Submit</button>
 	</form>		
 
 	<!-- <form class="form" method="post" action="">
@@ -21,5 +22,8 @@ Review the Link | Knowledge Protocol
 		{{ form.as_p }}
 		<input type="submit" value="Add Link" />
 	</form> -->
-	<h3>{{ msg }}</h3>
+	{% if link_to_review %}
+	<h3 class="check-response-msg"><span>{{ link_to_review}}</span><br>{{ msg }}</h3>
+	{% endif %}
+	
 {% endblock content %}
