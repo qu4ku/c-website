@@ -44,7 +44,7 @@
 					<div class="post__info__categories">
 						<a class="link-standard" href="{% url 'level' slug=post.difficulty_level %}">{{ post.difficulty_level }}</a>
 						{% for category in post.categories.all %}
-							<img src="{% static 'img/category-separator.png' %}" alt="" class="category-separator"><a class="link-standard" href="{% url 'category' slug=category|lower %}">{{ category }}</a>
+							<img src="{% static 'img/category-separator.png' %}" alt="Category separator" class="category-separator"><a class="link-standard" href="{% url 'category' slug=category|lower %}">{{ category }}</a>
 						{% endfor %}
 					</div>
 					{% include "includes/social.html" %}
@@ -64,7 +64,7 @@
 							<img class="video-play-overlay" src="{% static 'img/vid-play-overlay.png' %}" alt="">
 							<img class="thumb-image" src="{{ post.thumb_image.url }}" alt="">
 						{% else %}
-							<img class="thumb-image" src="{% static 'img/video-icon.png' %}" alt="">
+							<img class="thumb-image" src="{% static 'img/video-icon.png' %}" alt="Video content icon">
 						{% endif %}
 					</a>
 				</div>	
@@ -74,7 +74,7 @@
 					<div class="post__info__categories">
 						<a class="link-standard" href="{% url 'level' slug=post.difficulty_level %}">{{ post.difficulty_level }}</a>
 						{% for category in post.categories.all %}
-							<img src="{% static 'img/category-separator.png' %}" alt="" class="category-separator"><a class="link-standard" href="{% url 'category' slug=category|lower %}">{{ category }}</a>
+							<img src="{% static 'img/category-separator.png' %}" alt="Category separator" class="category-separator"><a class="link-standard" href="{% url 'category' slug=category|lower %}">{{ category }}</a>
 						{% endfor %}
 					</div>
 					{% include "includes/social.html" %}
@@ -90,7 +90,7 @@
 				<div class="post__title post__title--media"><a href="{{ post.url }}" target="_blank">{{ post.title }}</a></div>
 				<div class="media__image">
 					<a href="{% url 'type' slug=post.post_type %}">
-						<img class="thumb-image" src="{% static 'img/podcast-icon.png' %}" alt="">
+						<img class="thumb-image" src="{% static 'img/podcast-icon.png' %}" alt="Podcast content icon">
 					</a>
 				</div>	
 				<div class="post__date">{{ post.publish|date:"d M, Y" }}</div>
@@ -99,7 +99,7 @@
 					<div class="post__info__categories">
 						<a class="link-standard" href="{% url 'level' slug=post.difficulty_level %}">{{ post.difficulty_level }}</a>
 						{% for category in post.categories.all %}
-							<img src="{% static 'img/category-separator.png' %}" alt="" class="category-separator"><a class="link-standard" href="{% url 'category' slug=category|lower %}">{{ category }}</a>
+							<img src="{% static 'img/category-separator.png' %}" alt="Category separator" class="category-separator"><a class="link-standard" href="{% url 'category' slug=category|lower %}">{{ category }}</a>
 						{% endfor %}
 					</div>
 					{% include "includes/social.html" %}
@@ -115,7 +115,7 @@
 				<div class="post__title post__title--media"><a href="{{ post.url }}" target="_blank">{{ post.title }}</a></div>
 				<div class="media__image">
 					<a href="{% url 'type' slug=post.post_type %}">
-						<img class="thumb-image" src="{% static 'img/twitter-icon.png' %}" alt="">
+						<img class="thumb-image" src="{% static 'img/twitter-icon.png' %}" alt="Twitter content icon">
 					</a>
 				</div>	
 				<div class="post__date">{{ post.publish|date:"d M, Y" }}</div>
@@ -124,7 +124,7 @@
 					<div class="post__info__categories">
 						<a class="original-author-url" href="{{ post.original_author_url }}" target='_blank'>{{ post.original_author_handle }}</a>
 						{% for category in post.categories.all %}
-							<img src="{% static 'img/category-separator.png' %}" alt="" class="category-separator"><a class="link-standard" href="{% url 'category' slug=category|lower %}">{{ category }}</a>
+							<img src="{% static 'img/category-separator.png' %}" alt="Category separator" class="category-separator"><a class="link-standard" href="{% url 'category' slug=category|lower %}">{{ category }}</a>
 						{% endfor %}
 					</div>
 					{% include "includes/social.html" %}
