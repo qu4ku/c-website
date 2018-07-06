@@ -266,7 +266,7 @@ def review_link_view(request):
 			new_link.save()
 			msg = 'New link. Added to the reviewed.'
 		context = {
-			'link_to_review': link_to_review,
+			'link_to_review ': link_to_review,
 			'msg': msg,
 		}
 		return render(request, template, context)

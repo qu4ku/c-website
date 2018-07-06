@@ -7,3 +7,6 @@ settings.py
 settings_original.py
 local.py
 **/.DS_Store
+
+gunicorn_start
+acivate
