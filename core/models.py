@@ -41,7 +41,7 @@ class Category(models.Model):
 		return self.title
 
 	def get_absolute_url(self):
-		return '/tag/{}/'.format(self.slug)
+		return '/category/{}/'.format(self.slug)
 
 
 
