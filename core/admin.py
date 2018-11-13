@@ -5,11 +5,12 @@ from .models import Post, DifficultyLevel, PostType, Category, Link, Feedback, R
 
 
 class PostAdminForm(forms.ModelForm):
+
 	class Meta:
 		model = Post
 		fields = '__all__'
 		widgets = {
-			'categories': forms.SelectMultiple(attrs={'size': 20}),
+			'categories': forms.SelectMultiple(attrs={'size': 28}),
 		}
 
 class PostAdmin(admin.ModelAdmin):
@@ -17,7 +18,7 @@ class PostAdmin(admin.ModelAdmin):
 	list_editable = ['status','set_number', 'publish']
 	list_filter = ['status', 'publish', 'post_type', 'difficulty_level', 'categories']
 	search_fields = ['title', 'description']
-	list_per_page = 28
+	list_per_page = 30
 
 	form = PostAdminForm
 
