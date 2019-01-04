@@ -1,8 +1,9 @@
+# django 2.1 - new syntax
 from django.urls import path
-from django.contrib.auth.views import (
-	login, logout, password_reset, password_reset_done, password_reset_confirm, 
-	password_reset_complete
+from django.contrib.auth.views import(
+	PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView,
 )
+from django.contrib.auth import login, logout 
 
 from . import views
 
@@ -15,8 +16,8 @@ urlpatterns = [
 	path('profile/edit/', views.profile_edit_view, name='profile_edit'),
 	path('password-change/', views.change_password_view, name='password_change'),
 
-	path('password-reset/', password_reset, name='password_reset'),
-	path('password-reset/done/', password_reset_done, name='password_reset_done'),
-	path('password-reset/<uidb64>/<token>/', password_reset_confirm, name='password_reset_confirm'),
-	path('password-reset/complete/', password_reset_complete, name='password_reset_complete'),
+	path('password-reset/', PasswordResetView.as_view(template_name='registration/password_reset_form.html')),
+	path('password-reset/done/', PasswordResetDoneView.as_view(template_name='registration/password_reset_done_form.html')),
+	path('password-reset/<uidb64>/<token>/', PasswordResetConfirmView.as_view(template_name='registration/password_reset_confirm_form.html')),
+	path('password-reset/complete/', PasswordResetCompleteView.as_view(template_name='registration/password_reset_complete_form.html')),
 ]

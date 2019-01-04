@@ -3,12 +3,15 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.utils import timezone
 from datetime import datetime
+from django.utils.text import slugify
+from unidecode import unidecode
+import re
 
 
 def default_start_time():
-    now = timezone.now()
-    start = now.replace(hour=6, minute=0, second=0, microsecond=0)
-    return start
+	now = timezone.now()
+	start = now.replace(hour=6, minute=0, second=0, microsecond=0)
+	return start
 
 
 class PublicManager(models.Manager):
@@ -97,7 +100,7 @@ class Post(models.Model):
 	set_number = models.CharField(max_length=2) # 14 = 1 out of 4. max 9 posts per day.
 	title = models.CharField(max_length=280)
 	url = models.URLField(max_length=250)
-	slug = models.SlugField(max_length=280, unique=True)
+	slug = models.SlugField(max_length=280, unique=True, blank=True, default='')
 	post_type = models.ForeignKey(PostType, on_delete='SET_DEFAULT', default=0)
 	difficulty_level = models.ForeignKey(DifficultyLevel, on_delete='SET_DEFAULT', default=2)
 	categories = models.ManyToManyField(Category, blank=True)
@@ -151,6 +154,23 @@ class Post(models.Model):
 
 	def get_url_for_social(self):
 		return 'https://www.knowledgeprotocol.com/post/{}/'.format(self.slug)
+
+	def save(self):
+		if not self.slug:
+			self.slug = slugify(unidecode(self.title))
+
+		print(self.url)
+
+		if 'twitter' in self.url:
+			author_url_re = re.findall(r'https://twitter.com/.*?/', self.url)
+			if author_url_re:
+				self.original_author_url = author_url_re[0]
+			# outhor_handle = re.
+			author_handle_re = re.findall(r'(?<=https://twitter.com/).*?(?=/)', self.url)
+			if author_handle_re:
+				self.original_author_handle = author_handle_re[0]
+
+		super(Post, self).save()
 
 
 class Feedback(models.Model):
