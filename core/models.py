@@ -3,6 +3,7 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.utils import timezone
 from datetime import datetime
+from datetime import timedelta
 from django.utils.text import slugify
 from unidecode import unidecode
 import re
@@ -155,22 +156,35 @@ class Post(models.Model):
 	def get_url_for_social(self):
 		return 'https://www.knowledgeprotocol.com/post/{}/'.format(self.slug)
 
-	def save(self):
+	def save(self, *args, **kwargs):
 		if not self.slug:
-			self.slug = slugify(unidecode(self.title))
+			base_slug = slugify(unidecode(self.title))
+			new_slug = base_slug
+			counter = 0
+			while Post.objects.filter(slug=new_slug).exists():
+				counter += 1
+				new_slug = '{}-cp-{}'.format(base_slug, str(counter))
+				print(new_slug)
 
-		print(self.url)
+			self.slug = new_slug
+
 
 		if 'twitter' in self.url:
 			author_url_re = re.findall(r'https://twitter.com/.*?/', self.url)
 			if author_url_re:
 				self.original_author_url = author_url_re[0]
-			# outhor_handle = re.
 			author_handle_re = re.findall(r'(?<=https://twitter.com/).*?(?=/)', self.url)
 			if author_handle_re:
 				self.original_author_handle = author_handle_re[0]
 
-		super(Post, self).save()
+		# Sets publish date based on number
+		if self.set_number == '13':
+			self.publish += timedelta(seconds=3)
+		elif self.set_number == '23':
+			self.publish += timedelta(seconds=2)
+
+
+		super(Post, self).save(*args, **kwargs)
 
 
 class Feedback(models.Model):
