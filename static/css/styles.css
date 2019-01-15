@@ -207,6 +207,8 @@ a {
 	transition-duration: 0.2s;
 }
 
+
+
 .search-icon {
 	transform: translateY(2px);
 	margin-right: 10px;
@@ -359,6 +361,21 @@ input[type=search] {
 .post__title a:visited {
 	color: #89898c;
 	text-decoration: ;
+}
+
+
+/* animated underline to be done*/
+
+.post__title a {
+	/*transition-duration: 0.5s;*/
+
+}
+
+.post__title a:hover {
+	/*box-shadow: inset 0 -6px 0 var(--underline-color);*/
+	/*box-shadow: inset 0 -6px 0 #d8f2e3;*/
+	/*background-color: #d8f2e3;*/
+	/*transition-duration: 0.2s;*/
 }
 
 .post__title--twitter {

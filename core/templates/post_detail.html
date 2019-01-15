@@ -30,7 +30,7 @@
 {% if post.post_type|stringformat:"s" == "article" %}
 	<div class="post">
 		<div class="post__number"><span class="big_num">{{ post.first_set_number }}</span><span class="small_num">/ {{ post.second_set_number }}</span></div>
-		<div class="post__title"><a href="{{ post.url }}" target="_blank">{{ post.title }}</a></div>
+		<h2 class="post__title"><a href="{{ post.url }}" target="_blank">{{ post.title }}</a></h2>
 		<div class="post__date">{{ post.publish|date:"d M, Y" }}</div>
 		<p class="post__description">{{ post.description }}</p>
 		<div class="post__info {% if not post.description %} post__info--no-description {% endif %}">
@@ -50,7 +50,7 @@
 {% if post.post_type|stringformat:"s" == "video" %}
 			<div class="post">
 				<div class="post__number"><span class="big_num">{{ post.first_set_number }}</span><span class="small_num">/ {{ post.second_set_number }}</span></div>
-				<div class="post__title post__title--media"><a href="{{ post.url }}" target="_blank">{{ post.title }}</a></div>
+				<h2 class="post__title post__title--media"><a href="{{ post.url }}" target="_blank">{{ post.title }}</a></h2>
 				<div class="media__image">
 					<a href="{{ post.url }}">
 						{% if post.thumb_image %}
@@ -80,7 +80,7 @@
 {% if post.post_type|stringformat:"s" == "podcast" %}
 	<div class="post">
 		<div class="post__number"><span class="big_num">{{ post.first_set_number }}</span><span class="small_num">/ {{ post.second_set_number }}</span></div>
-		<div class="post__title post__title--media"><a href="{{ post.url }}" target="_blank">{{ post.title }}</a></div>
+		<h2 class="post__title post__title--media"><a href="{{ post.url }}" target="_blank">{{ post.title }}</a></h2>
 		<div class="media__image">
 			<a href="{{ post.url }}">
 				<img class="thumb-image" src="{% static 'img/podcast-icon.png' %}" alt="Podcast content image">
@@ -105,7 +105,7 @@
 {% if post.post_type|stringformat:"s" == "twitter" %}
 	<div class="post">
 		<div class="post__number"><span class="big_num">{{ post.first_set_number }}</span><span class="small_num">/ {{ post.second_set_number }}</span></div>
-		<div class="post__title post__title--media"><a href="{{ post.url }}" target="_blank">{{ post.title }}</a></div>
+		<h2 class="post__title post__title--media"><a href="{{ post.url }}" target="_blank">{{ post.title }}</a></h2>
 		<div class="media__image">
 			<a href="{{ post.url }}">
 				<img class="thumb-image" src="{% static 'img/twitter-icon.png' %}" alt="Twitter content image">
