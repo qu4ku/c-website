@@ -157,6 +157,7 @@ class Post(models.Model):
 		return 'https://www.knowledgeprotocol.com/post/{}/'.format(self.slug)
 
 	def save(self, *args, **kwargs):
+		# Slugify the title if slug not provided
 		if not self.slug:
 			base_slug = slugify(unidecode(self.title))
 			new_slug = base_slug
@@ -168,7 +169,7 @@ class Post(models.Model):
 
 			self.slug = new_slug
 
-
+		# Get autor_url and autor_handle from url + set post_type  
 		if 'twitter' in self.url:
 			author_url_re = re.findall(r'https://twitter.com/.*?/', self.url)
 			if author_url_re:
@@ -176,13 +177,17 @@ class Post(models.Model):
 			author_handle_re = re.findall(r'(?<=https://twitter.com/).*?(?=/)', self.url)
 			if author_handle_re:
 				self.original_author_handle = author_handle_re[0]
+			self.post_type = PostType.objects.get(post_type='twitter')
 
-		# Sets publish date based on number
+		# Set pos_type to video if youtube in an url
+		if 'youtube' in self.url:
+			self.post_type = PostType.objects.get(post_type='video')
+
+		# Set publish date based on number
 		if self.set_number == '13':
 			self.publish += timedelta(seconds=3)
 		elif self.set_number == '23':
 			self.publish += timedelta(seconds=2)
-
 
 		super(Post, self).save(*args, **kwargs)
 

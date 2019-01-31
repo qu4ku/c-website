@@ -12,7 +12,6 @@ from .sitemaps import (
 
 sitemaps = {
 	'posts': PostSitemap,
-
 	'pages': StaticSitemap,
 	'home': HomeSitemap,
 	'tags': CategorySitemap,
