@@ -14,6 +14,26 @@ def default_start_time():
 	start = now.replace(hour=6, minute=0, second=0, microsecond=0)
 	return start
 
+def get_default_day():
+	"""
+	Gets default day for a publish field. 
+	Checks last updated day in the database and returns either the same date,
+	or next day if there are 3 posts with such date.
+	"""
+	posts = Post.objects.all()
+	if not posts:
+		return timezone.now()
+
+	last_date = posts[0].publish
+	
+	# If three last posts have the same publish days means current post is for
+	# the next day
+	if posts[0].publish.day == posts[1].publish.day == posts[2].publish.day:
+		date = last_date + timedelta(days=1)
+		return date
+	else: 
+		return last_date
+
 
 class PublicManager(models.Manager):
 	"""
@@ -97,7 +117,8 @@ class Post(models.Model):
 	)
 
 	status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='draft')
-	publish = models.DateTimeField(default=default_start_time)
+	# publish = models.DateTimeField(default=default_start_time)
+	publish = models.DateTimeField(default=get_default_day)
 	set_number = models.CharField(max_length=2) # 14 = 1 out of 4. max 9 posts per day.
 	title = models.CharField(max_length=280)
 	url = models.URLField(max_length=250)
