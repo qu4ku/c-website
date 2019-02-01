@@ -59,6 +59,25 @@ def get_default_number():
 	else:
 		return ''
 
+def get_default_difficulty():
+	"""
+	Gets default difficulty. 
+	"""
+	posts = Post.objects.all()
+	if not posts:
+		return ''
+	day0 = posts[0].publish.day
+	day1 = posts[1].publish.day
+	day2 = posts[2].publish.day
+
+	
+	if day0 != day1 == day2:  # Set default difficulty to intermediate for a second day
+		intermediate = DifficultyLevel.objects.get(difficulty_level='intermediate')
+		return intermediate
+	else:
+		beginner = DifficultyLevel.objects.get(difficulty_level='beginner')
+		return beginner
+
 
 class PublicManager(models.Manager):
 	"""
@@ -142,14 +161,13 @@ class Post(models.Model):
 	)
 
 	status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='draft')
-	# publish = models.DateTimeField(default=default_start_time)
 	publish = models.DateTimeField(default=get_default_day)
 	set_number = models.CharField(max_length=2, default=get_default_number) # 14 = 1 out of 4. max 9 posts per day.
 	title = models.CharField(max_length=280)
 	url = models.URLField(max_length=250)
 	slug = models.SlugField(max_length=280, unique=True, blank=True, default='')
 	post_type = models.ForeignKey(PostType, on_delete='SET_DEFAULT', default=0)
-	difficulty_level = models.ForeignKey(DifficultyLevel, on_delete='SET_DEFAULT', default=2)
+	difficulty_level = models.ForeignKey(DifficultyLevel, on_delete='SET_DEFAULT', default=get_default_difficulty)
 	categories = models.ManyToManyField(Category, blank=True)
 	description = models.TextField(null=True, blank=True)
 
