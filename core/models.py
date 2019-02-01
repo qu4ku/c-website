@@ -25,14 +25,39 @@ def get_default_day():
 		return timezone.now()
 
 	last_date = posts[0].publish
+	last_date = last_date.replace(hour=6, minute=0, second=0, microsecond=0)
 	
 	# If three last posts have the same publish days means current post is for
 	# the next day
 	if posts[0].publish.day == posts[1].publish.day == posts[2].publish.day:
 		date = last_date + timedelta(days=1)
+		date = date.replace(hour=6, minute=0, second=0, microsecond=0)
 		return date
 	else: 
 		return last_date
+
+
+def get_default_number():
+	"""
+	Gets default number for set_number field.
+	"""
+	posts = Post.objects.all()
+	if not posts:
+		return ''
+	day0 = posts[0].publish.day
+	day1 = posts[1].publish.day
+	day2 = posts[2].publish.day
+
+	
+	# Last three days have the same day, mans current post if first one in the next day 
+	if day0 == day1 == day2:
+		return '13'
+	elif day0 == day1 != day2:  #  Two the same days means current is third one
+		return '33'
+	elif day0 != day1 == day2:
+		return '23'
+	else:
+		return ''
 
 
 class PublicManager(models.Manager):
@@ -119,7 +144,7 @@ class Post(models.Model):
 	status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='draft')
 	# publish = models.DateTimeField(default=default_start_time)
 	publish = models.DateTimeField(default=get_default_day)
-	set_number = models.CharField(max_length=2) # 14 = 1 out of 4. max 9 posts per day.
+	set_number = models.CharField(max_length=2, default=get_default_number) # 14 = 1 out of 4. max 9 posts per day.
 	title = models.CharField(max_length=280)
 	url = models.URLField(max_length=250)
 	slug = models.SlugField(max_length=280, unique=True, blank=True, default='')
