@@ -14,8 +14,8 @@ class PostAdminForm(forms.ModelForm):
 		}
 
 class PostAdmin(admin.ModelAdmin):
-	list_display = ['title', 'set_number', 'publish', 'status', 'post_type']
-	list_editable = ['status','set_number', 'publish']
+	list_display = ['title', 'status', 'publish', 'set_number', 'post_type', 'difficulty_level']
+	list_editable = ['status', 'publish']
 	list_filter = ['status', 'publish', 'post_type', 'difficulty_level', 'categories']
 	search_fields = ['title', 'description']
 	list_per_page = 30

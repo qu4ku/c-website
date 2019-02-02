@@ -160,16 +160,20 @@ class Post(models.Model):
 		('public', 'Public'),
 	)
 
-	status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='draft')
-	publish = models.DateTimeField(default=get_default_day)
-	set_number = models.CharField(max_length=2, default=get_default_number) # 14 = 1 out of 4. max 9 posts per day.
 	title = models.CharField(max_length=280)
 	url = models.URLField(max_length=250)
-	slug = models.SlugField(max_length=280, unique=True, blank=True, default='')
+	description = models.TextField(null=True, blank=True)
 	post_type = models.ForeignKey(PostType, on_delete='SET_DEFAULT', default=0)
 	difficulty_level = models.ForeignKey(DifficultyLevel, on_delete='SET_DEFAULT', default=get_default_difficulty)
 	categories = models.ManyToManyField(Category, blank=True)
-	description = models.TextField(null=True, blank=True)
+	
+	status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='draft')
+	publish = models.DateTimeField(default=get_default_day)
+	
+	set_number = models.CharField(max_length=2, default=get_default_number) # 14 = 1 out of 4. max 9 posts per day.
+	
+	slug = models.SlugField(max_length=280, unique=True, blank=True, default='')
+
 
 	original_author_url = models.URLField(max_length=250, blank=True)
 	original_author_handle = models.CharField(max_length=250, blank=True)

@@ -27,7 +27,7 @@ class PostForm(forms.ModelForm):
 			'slug': forms.TextInput(attrs={'class': 'form__text-input'}),
 			'url': forms.TextInput(attrs={'class': 'form__text-input'}),
 			'description': forms.Textarea(attrs={'class': 'form__text-area'}),
-			'set_number': forms.TextInput(attrs={'class': 'form__text-input'}),
+			'set_number': forms.TextInput(attrs={'class': 'form__text-input', 'cols': 1}),
 			'status': forms.Select(attrs={'class': 'form__text-input'}),
 			# 'publish': forms.SelectDateWidget(attrs={'class': 'form__text-input'}),
 			# 'publish': forms.DateTimeInput(attrs={'class': 'form__text-input'}, format='%Y %m %d - %H:%M:%S'),
