@@ -122,10 +122,28 @@
 			</div>
 			{% include "includes/social.html" %}
 		</div>
-		<!-- <div class="post__separator"></div> -->
+		<div class="post__separator"></div>
 	</div>
 {% endif %}
+
 </div>
+
+<div class="categories">
+	{% for category, posts in categories.items %}
+
+	<div class="categories__title">Newest posts in: <strong>{{ category }}</strong></div>
+		<!-- <p>{{ value }}</p> -->
+		{% for post in posts %}
+			<a href="{{ post.url }}">{{ post.title }}</a>
+		{% endfor %}
+	
+	{% endfor %}
+
+
+	
+</div>
+<div class="post__separator"></div>
+
 
 
 <div id="disqus_thread"></div>

@@ -40,8 +40,25 @@ def about_view(request):
 
 def post_detail_view(request, slug):
 	template = 'post_detail.html'
-	post = get_object_or_404(Post, slug=slug)  # 2do: use posted manager
-	context = {'post': post}
+	post = get_object_or_404(Post, slug=slug, status='public')
+	categories = post.categories.all() # Get categories objects
+	
+	categories_dict = {}
+	post_cap = 5
+	for category in categories:
+		# print(type(category.title))
+		top_posts =  Post.objects.all().filter(categories=category)[:post_cap]
+		categories_dict[category.title] = top_posts
+
+	print(categories_dict)
+	# print(p)
+	# for x in p:
+		# print(x)
+
+	context = {
+		'post': post,
+		'categories': categories_dict,
+		}
 
 	return render(request, template, context)
 
