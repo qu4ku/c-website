@@ -503,6 +503,7 @@ input[type=search] {
 	transition-duration: 0.4s;
 }
 
+
 .category-separator {
 	margin: 0 10px;
 }
@@ -808,6 +809,25 @@ input:focus {
 .post-container {
 	margin-top: 40px;
 }
+
+.link-detail-post {
+	text-decoration: underline;
+}
+
+.link-detail-post:hover {
+	color: black;
+}
+
+.categories__header {
+	font-size: 32px;
+	line-height: 38px;
+}
+
+.categories__title {
+	margin-top: 20px;
+}
+
+
 
 /*------------------ ABOUT ------------------*/
 

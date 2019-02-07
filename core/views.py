@@ -44,16 +44,11 @@ def post_detail_view(request, slug):
 	categories = post.categories.all() # Get categories objects
 	
 	categories_dict = {}
-	post_cap = 5
+	post_cap = 3
 	for category in categories:
-		# print(type(category.title))
+
 		top_posts =  Post.objects.all().filter(categories=category)[:post_cap]
 		categories_dict[category.title] = top_posts
-
-	print(categories_dict)
-	# print(p)
-	# for x in p:
-		# print(x)
 
 	context = {
 		'post': post,
