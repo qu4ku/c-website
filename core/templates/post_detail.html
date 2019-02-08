@@ -133,8 +133,7 @@
 	<div class="categories__header">You may be interested in:</div>
 	{% for category, posts in categories.items %}
 
-	<div class="categories__title">Newest in: <span class="link-standard">{{ category }}</span></div>
-		<!-- <p>{{ value }}</p> -->
+	<div class="categories__title">Newest in: <a class="link-standard" href="{% url 'category' slug=category.slug %}">{{ category.title }}</a></div>
 		{% for post in posts %}
 			<p><a class="link-detail-post" href="{{ post.url }}" target="_blank">{{ post.title }}</a> ({{ post.post_type }})</p>
 		{% endfor %}

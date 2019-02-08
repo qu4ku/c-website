@@ -48,7 +48,7 @@ def post_detail_view(request, slug):
 	for category in categories:
 
 		top_posts =  Post.objects.all().filter(categories=category)[:post_cap]
-		categories_dict[category.title] = top_posts
+		categories_dict[category] = top_posts
 
 	context = {
 		'post': post,
