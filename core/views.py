@@ -230,14 +230,14 @@ def add_feedback_view(request):
 
 @login_required
 def feedbacks_view(request):
-	feedbacks = Feedback.objects.all()
+	feedbacks = Feedback.objects.all()[::-1]
 	context = {'feedbacks': feedbacks}
 	template = 'feedbacks.html'
 
 	return render(request, template, context)
 
 
-def feedback_thanks_view(request):
+def add_feedback_thanks_view(request):
 	template = 'feedback_thanks.html'
 
 	return render(request, template)
