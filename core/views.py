@@ -41,18 +41,18 @@ def about_view(request):
 def post_detail_view(request, slug):
 	template = 'post_detail.html'
 	post = get_object_or_404(Post, slug=slug, status='public')
-	categories = post.categories.all() # Get categories objects
+	tags = post.tags.all() # Get categories objects
 	
-	categories_dict = {}
+	tags_dict = {}
 	post_cap = 3
-	for category in categories:
+	for tag in tags:
 
-		top_posts =  Post.objects.all().filter(categories=category)[:post_cap]
-		categories_dict[category] = top_posts
+		top_posts =  Post.objects.all().filter(tags=tag)[:post_cap]
+		tags_dict[tag] = top_posts
 
 	context = {
 		'post': post,
-		'categories': categories_dict,
+		'categories': tags_dict,
 		}
 
 	return render(request, template, context)
