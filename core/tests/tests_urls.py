@@ -80,7 +80,7 @@ class TestUrlsResolves(SimpleTestCase):
 	def test_feedbacks_resolves(self):
 		url = reverse('feedbacks')
 		self.assertEquals(resolve(url).func, feedbacks_view)
-
+		
 	def test_tags_resolves(self):
 		url = reverse('tags')
 		self.assertEquals(resolve(url).func, tags_view)

@@ -43,7 +43,7 @@ def get_default_number():
 	"""
 	posts = Post.objects.all()
 	if not posts:
-		return ''
+		return '00'
 	day0 = posts[0].publish.day
 	day1 = posts[1].publish.day
 	day2 = posts[2].publish.day
@@ -65,7 +65,7 @@ def get_default_difficulty():
 	"""
 	posts = Post.objects.all()
 	if not posts:
-		return ''
+		return 0
 	day0 = posts[0].publish.day
 	day1 = posts[1].publish.day
 	day2 = posts[2].publish.day
