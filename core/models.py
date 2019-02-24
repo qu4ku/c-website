@@ -63,17 +63,16 @@ def get_default_number():
 		return ''
 
 
-# 2do case when there are no difficulty levels: objects.get_or_crate
 def get_default_difficulty():
 	"""
 	Gets default difficulty. 
 	"""
 	posts = Post.objects.all()
-	if not posts:
-		beginner = DifficultyLevel.objects.get(difficulty_level='beginner')
+	if not posts:  # Beginner level for the first post
+		beginner, is_created = DifficultyLevel.objects.get_or_create(difficulty_level='beginner')
 		return beginner
-	elif len(posts) == 2:
-		intermediate = DifficultyLevel.objects.get(difficulty_level='intermediate')
+	elif len(posts) == 2:  # Intermediate level for the second post
+		intermediate, is_created = DifficultyLevel.objects.get_or_create(difficulty_level='intermediate')
 		return intermediate
 
 	day0 = posts[0].publish.day
@@ -82,10 +81,10 @@ def get_default_difficulty():
 
 	
 	if day0 != day1 == day2:  # Set default difficulty to intermediate for a second day
-		intermediate = DifficultyLevel.objects.get(difficulty_level='intermediate')
+		intermediate, is_created = DifficultyLevel.objects.get_or_create(difficulty_level='intermediate')
 		return intermediate
 	else:
-		beginner = DifficultyLevel.objects.get(difficulty_level='beginner')
+		beginner, is_created = DifficultyLevel.objects.get_or_create(difficulty_level='beginner')
 		return beginner
 
 

@@ -11,19 +11,18 @@ class TestViews(TestCase):
 		self.client = Client()
 
 		# Test Post
-		post_type, created = PostType.objects.get_or_create(post_type='twitter')
-		difficulty_level, created = DifficultyLevel.objects.get_or_create(difficulty_level='beginner')
-		try:
-			self.test_post = Post.objects.create(
-				title='project',
-				slug='subpage',
-				publish = timezone.now(),
-				url='http://some.pl',
-				difficulty_level=difficulty_level,
-				post_type=post_type,
-			)
-		except:
-			print('no')
+		post_type, is_created = PostType.objects.get_or_create(post_type='twitter')
+		difficulty_level, is_created = DifficultyLevel.objects.get_or_create(difficulty_level='beginner')
+
+		self.test_post = Post.objects.create(
+			title='project',
+			slug='subpage',
+			publish = timezone.now(),
+			url='http://some.pl',
+			difficulty_level=difficulty_level,
+			post_type=post_type,
+		)
+
 		# print(self.test_post.get_absolute_url())
 		# print(self.test_post.slug)
 
