@@ -42,8 +42,11 @@ def get_default_number():
 	Gets default number for set_number field.
 	"""
 	posts = Post.objects.all()
-	if not posts:
-		return '00'
+
+	# 2do: handle less than 3 posts in the database case:
+	if not posts or len(posts) < 3:
+		return ''
+	
 	day0 = posts[0].publish.day
 	day1 = posts[1].publish.day
 	day2 = posts[2].publish.day
@@ -59,13 +62,20 @@ def get_default_number():
 	else:
 		return ''
 
+
+# 2do case when there are no difficulty levels: objects.get_or_crate
 def get_default_difficulty():
 	"""
 	Gets default difficulty. 
 	"""
 	posts = Post.objects.all()
 	if not posts:
-		return 0
+		beginner = DifficultyLevel.objects.get(difficulty_level='beginner')
+		return beginner
+	elif len(posts) == 2:
+		intermediate = DifficultyLevel.objects.get(difficulty_level='intermediate')
+		return intermediate
+
 	day0 = posts[0].publish.day
 	day1 = posts[1].publish.day
 	day2 = posts[2].publish.day
