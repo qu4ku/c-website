@@ -1,6 +1,10 @@
 from django.test import TestCase, Client
 from django.urls import reverse
+
+
 from ..models import Post, PostType, DifficultyLevel
+from django.contrib.auth.models import User
+
 from datetime import datetime
 from django.utils import timezone
 
@@ -10,6 +14,11 @@ class TestViews(TestCase):
 	def setUp(self):
 		self.client = Client()
 
+		# Log in a user
+		self.user = User.objects.create_user('test', 'test', 'test')
+		self.user.save()
+		self.client.login(username='test', password='test')
+
 		# Test Post
 		post_type, is_created = PostType.objects.get_or_create(post_type='twitter')
 		difficulty_level, is_created = DifficultyLevel.objects.get_or_create(difficulty_level='beginner')
@@ -18,16 +27,11 @@ class TestViews(TestCase):
 			title='project',
 			slug='subpage',
 			publish = timezone.now(),
+			status='public',
 			url='http://some.pl',
 			difficulty_level=difficulty_level,
 			post_type=post_type,
 		)
-
-		# print(self.test_post.get_absolute_url())
-		# print(self.test_post.slug)
-
-		# test = Post.objects.get(slug='some-slug')
-		print(self.test_post)
 
 	def test_home_view_GET(self):
 		response = self.client.get(reverse('home'))
@@ -42,36 +46,20 @@ class TestViews(TestCase):
 		self.assertTemplateUsed(response, 'about.html')
 
 	def test_post_detail_view_GET(self):
-		post_type, created = PostType.objects.get_or_create(post_type='twitter')
-		difficulty_level, created = DifficultyLevel.objects.get_or_create(difficulty_level='beginner')
-		self.test_post = Post.objects.create(
-			title='project',
-			slug='subpage',
-			publish = timezone.now(),
-			url='http://some.pl',
-			difficulty_level=difficulty_level,
-			post_type=post_type,
-		)
 
-		print()
-		# test = Post.objects.get(slug='some-slug')
-		# print(test.slug)
-		print(self.client.get('post/subpage'))
-		url = reverse('post_detail', kwargs={'slug': 'subpage'})
-		print(url)
+		url = reverse('post_detail', kwargs={'slug': self.test_post.slug})
 		response = self.client.get(url)
-		print(response)
+
 		self.assertEquals(response.status_code, 200)
 		self.assertTemplateUsed(response, 'post_detail.html')
 
-	# def test_post_detail_view_edit_GET(self):
-	# 	response = self.client.get(reverse('post_edit', args=['some-slug']))
+	def test_post_detail_view_edit_GET(self):
+		response = self.client.get(reverse('post_edit', kwargs={'slug': self.test_post.slug}))
 
-	# 	self.assertEquals(response.status_code, 200)
-	# 	self.assertTemplateUsed(response, 'post_edit.html', args=['some-slug'])
+		self.assertEquals(response.status_code, 200)
+		self.assertTemplateUsed(response, 'post_edit.html')
 
-	# def test_post_delete_view_GET(self):
-	# 	response = self.client.get(reverse('post_delete', args=['some-slug']))
+	def test_post_delete_view_GET(self):
+		response = self.client.get(reverse('post_delete', kwargs={'slug': self.test_post.slug}), follow=True)
 
-	# 	self.assertEquals(response.status_code, 200)
-	# 	self.assertTemplateUsed(response, 'post_delete.html')
+		self.assertEquals(response.status_code, 200)

@@ -45,7 +45,7 @@ def get_default_number():
 
 	# 2do: handle less than 3 posts in the database case:
 	if not posts or len(posts) < 3:
-		return ''
+		return '00'
 	
 	day0 = posts[0].publish.day
 	day1 = posts[1].publish.day
@@ -60,7 +60,7 @@ def get_default_number():
 	elif day0 != day1 == day2:
 		return '23'
 	else:
-		return ''
+		return '00'
 
 
 def get_default_difficulty():
