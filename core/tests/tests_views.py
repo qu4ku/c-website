@@ -2,7 +2,7 @@ from django.test import TestCase, Client
 from django.urls import reverse
 
 
-from ..models import Post, PostType, DifficultyLevel
+from ..models import Post, PostType, DifficultyLevel, Category
 from django.contrib.auth.models import User
 
 from datetime import datetime
@@ -22,6 +22,7 @@ class TestViews(TestCase):
 		# Test Post
 		self.post_type, is_created = PostType.objects.get_or_create(post_type='twitter')
 		self.difficulty_level, is_created = DifficultyLevel.objects.get_or_create(difficulty_level='beginner')
+		self.category, is_created = Category.objects.get_or_create(title='testcategory', slug='testcategory')
 
 		self.test_post = Post.objects.create(
 			title='project',
@@ -63,3 +64,91 @@ class TestViews(TestCase):
 		response = self.client.get(reverse('post_delete', kwargs={'slug': self.test_post.slug}), follow=True)
 
 		self.assertEquals(response.status_code, 200)
+
+	def test_category_view_GET(self):
+		url = reverse('category', kwargs={'slug': self.category.slug})
+		response = self.client.get(url)
+
+		self.assertEquals(response.status_code, 200)
+		self.assertTemplateUsed(response, 'search_results.html')
+
+	def test_level_view_GET(self):
+		url = reverse('level', kwargs={'slug': self.difficulty_level})
+		response = self.client.get(url)
+
+		self.assertEquals(response.status_code, 200)
+		self.assertTemplateUsed(response, 'search_results.html')
+
+
+	def test_type_view_GET(self):
+		url = reverse('type', kwargs={'slug': self.post_type})
+		response = self.client.get(url)
+
+		self.assertEquals(response.status_code, 200)
+		self.assertTemplateUsed(response, 'search_results.html')
+
+	def test_search_GET(self):
+		url = reverse('search')
+		response = self.client.get(url)
+
+		self.assertEquals(response.status_code, 200)
+		self.assertTemplateUsed(response, 'search_results.html')
+
+	def test_add_link_GET(self):
+		url = reverse('add_link')
+		response = self.client.get(url)
+
+		self.assertEquals(response.status_code, 200)
+		self.assertTemplateUsed(response, 'add_link.html')
+
+	def test_add_link_thanks_GET(self):
+		url = reverse('add_link_thanks')
+		response = self.client.get(url)
+
+		self.assertEquals(response.status_code, 200)
+		self.assertTemplateUsed(response, 'add_link_thanks.html')
+
+	def test_add_feedback_GET(self):
+		url = reverse('add_feedback')
+		response = self.client.get(url)
+
+		self.assertEquals(response.status_code, 200)
+		self.assertTemplateUsed(response, 'add_feedback.html')
+
+	def test_feedback_thanks_GET(self):
+		url = reverse('add_feedback_thanks')
+		response = self.client.get(url)
+
+		self.assertEquals(response.status_code, 200)
+		self.assertTemplateUsed(response, 'feedback_thanks.html')
+
+	def test_feedbacks_GET(self):
+		url = reverse('feedbacks')
+		response = self.client.get(url)
+
+		self.assertEquals(response.status_code, 200)
+		self.assertTemplateUsed(response, 'feedbacks.html')
+
+	def test_tags_GET(self):
+		url = reverse('tags')
+		response = self.client.get(url)
+
+		self.assertEquals(response.status_code, 200)
+		self.assertTemplateUsed(response, 'tags.html')
+
+	def test_review_link_GET(self):
+		url = reverse('review_link')
+		response = self.client.get(url)
+
+		self.assertEquals(response.status_code, 200)
+		self.assertTemplateUsed(response, 'link_review.html')
+
+
+
+	# def test_post_create_view(self):
+	# 	url = reverse('post_create')
+	# 	response = self.client.get(url)
+
+	# 	self.assertEquals(response.status_code, 200)
+	# 	self.assertTemplateUsed(response, 'post_create.html')
+

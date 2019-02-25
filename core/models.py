@@ -21,7 +21,7 @@ def get_default_day():
 	or next day if there are 3 posts with such date.
 	"""
 	posts = Post.objects.all()
-	if not posts:
+	if not posts or len(posts) < 3:
 		return timezone.now()
 
 	last_date = posts[0].publish
@@ -74,6 +74,7 @@ def get_default_difficulty():
 	elif len(posts) == 2:  # Intermediate level for the second post
 		intermediate, is_created = DifficultyLevel.objects.get_or_create(difficulty_level='intermediate')
 		return intermediate
+
 
 	day0 = posts[0].publish.day
 	day1 = posts[1].publish.day
@@ -252,9 +253,11 @@ class Post(models.Model):
 				self.original_author_handle = author_handle_re[0]
 			self.post_type = PostType.objects.get(post_type='twitter')
 
-		# Set pos_type to video if youtube in an url
+		# Set post_type to video if youtube in an url
 		if 'youtube' in self.url:
 			self.post_type = PostType.objects.get(post_type='video')
+		elif 'soundcloud' in self.url:
+			self.post_type = PostType.objects.get(post_type='podcast')  # Perhaps .get_or_create
 
 		# Set publish date based on number
 		if self.set_number == '13':
