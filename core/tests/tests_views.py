@@ -20,8 +20,8 @@ class TestViews(TestCase):
 		self.client.login(username='test', password='test')
 
 		# Test Post
-		post_type, is_created = PostType.objects.get_or_create(post_type='twitter')
-		difficulty_level, is_created = DifficultyLevel.objects.get_or_create(difficulty_level='beginner')
+		self.post_type, is_created = PostType.objects.get_or_create(post_type='twitter')
+		self.difficulty_level, is_created = DifficultyLevel.objects.get_or_create(difficulty_level='beginner')
 
 		self.test_post = Post.objects.create(
 			title='project',
@@ -29,8 +29,8 @@ class TestViews(TestCase):
 			publish = timezone.now(),
 			status='public',
 			url='http://some.pl',
-			difficulty_level=difficulty_level,
-			post_type=post_type,
+			difficulty_level=self.difficulty_level,
+			post_type=self.post_type,
 		)
 
 	def test_home_view_GET(self):
