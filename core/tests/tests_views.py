@@ -2,7 +2,7 @@ from django.test import TestCase, Client
 from django.urls import reverse
 
 
-from ..models import Post, PostType, DifficultyLevel, Category
+from ..models import Post, PostType, DifficultyLevel, Category, Link, ReviewedLink
 from django.contrib.auth.models import User
 
 from datetime import datetime
@@ -64,7 +64,8 @@ class TestViews(TestCase):
 		response = self.client.get(reverse('post_delete', kwargs={'slug': self.test_post.slug}), follow=True)
 
 		self.assertEquals(response.status_code, 200)
-
+		self.assertEquals(Post.objects.filter(slug=self.test_post).exists(), False)
+	
 	def test_category_view_GET(self):
 		url = reverse('category', kwargs={'slug': self.category.slug})
 		response = self.client.get(url)
@@ -143,12 +144,72 @@ class TestViews(TestCase):
 		self.assertEquals(response.status_code, 200)
 		self.assertTemplateUsed(response, 'link_review.html')
 
+	def test_review_link_POST_post_new_url(self):
+		url = reverse('review_link')
+		url_to_review = 'https://twitter.com/muneeb/status/1082413835179474945'
+		response = self.client.post(url, {
+				'url': url_to_review, 
+			})
+
+		self.assertEquals(response.status_code, 200)
+		self.assertEquals(ReviewedLink.objects.first().url, url_to_review)
+
+	def test_review_link_POST_post_no_url(self):
+		url = reverse('review_link')
+		url_to_review = ''
+		response = self.client.post(url, {
+				'url': url_to_review, 
+			})
+
+		self.assertEquals(response.status_code, 302)
+
+	def test_review_link_POST_post_url_in_posted(self):
+		url = reverse('review_link')
+		url_to_review = 'http://some.pl'
+		response = self.client.post(url, {
+				'url': url_to_review, 
+			})
+
+		self.assertEquals(response.status_code, 200)
+		self.assertEquals(Post.objects.filter(url=url_to_review).first().url, url_to_review)
+		self.assertContains(response, 'Link already in posted links.')
+
+	def test_review_link_POST_post_url_in_listed(self):
+		url = reverse('review_link')
+		url_to_review = 'http://inlink.pl'
+
+		Link.objects.create(url=url_to_review)
+
+		response = self.client.post(url, {
+				'url': url_to_review, 
+			})
+
+		self.assertEquals(response.status_code, 200)
+		self.assertContains(response, 'Link already in submitted links.')
+
+	def test_review_link_POST_post_url_in_reviewed(self):
+		url = reverse('review_link')
+		url_to_review = 'http://inreviewed.pl'
+
+		ReviewedLink.objects.create(url=url_to_review)
+
+		response = self.client.post(url, {
+				'url': url_to_review, 
+			})
+
+		self.assertEquals(response.status_code, 200)
+		self.assertContains(response, 'Link already in reviewed links.')
+
+	# to be done
+	def post_edit_view_POST_valid(self):
+		url = reverse('edit_post', {'slug': self.test_post.slug})
+
+		response = self.client.post(url, {
+
+			})
+		self.assertEquals(response.status_code, 200)
+
+	# def post_edit_view_POST_invalid(self):
 
 
-	# def test_post_create_view(self):
-	# 	url = reverse('post_create')
-	# 	response = self.client.get(url)
-
-	# 	self.assertEquals(response.status_code, 200)
-	# 	self.assertTemplateUsed(response, 'post_create.html')
 

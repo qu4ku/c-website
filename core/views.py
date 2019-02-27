@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, reverse, redirect
-from django.http import HttpResponseRedirect, Http404
+# from django.http import HttpResponseRedirect, Http404
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
@@ -69,7 +69,7 @@ def post_create_view(request):
 		post.save()
 		# Messages are not used right now
 		messages.success(request, 'Successfully Created')
-		return HttpResponseRedirect(reverse('home'))
+		return redirect(reverse('home'))
 	else:
 		messages.error(request, "Error")
 
@@ -86,7 +86,7 @@ def post_edit_view(request, slug=None):
 		if form.is_valid():
 			post.save()
 			messages.success(request, 'Saved')
-			return HttpResponseRedirect(post.get_absolute_url())
+			return redirect(post.get_absolute_url())
 	else:
 		form = PostForm(instance=post)
 
@@ -195,7 +195,7 @@ def add_link_view(request):
 		post.save()
 		# Messages are not used right now
 		messages.success(request, 'Link added.')
-		return HttpResponseRedirect(reverse('add_link_thanks'))
+		return redirect(reverse('add_link_thanks'))
 	else:
 		messages.error(request, "Error")
 
@@ -221,7 +221,7 @@ def add_feedback_view(request):
 		post.save()
 		# Messages are not used right now
 		messages.success(request, 'Feedback added.')
-		return HttpResponseRedirect(reverse('feedback_thanks'))
+		return redirect(reverse('add_feedback_thanks'))
 	else:
 		messages.error(request, "Error")
 
@@ -255,14 +255,14 @@ def tags_view(request):
 
 @login_required
 def review_link_view(request):
-	# form = PostForm(request.POST or None)
-	# context = {'form': form}
 	template = 'link_review.html'
 
 	if request.method == 'GET':
 		return render(request, template)
 	elif request.method == 'POST':
 		link_to_review = request.POST.get('url', None)
+		if not link_to_review:
+			return redirect(reverse('review_link'), template)
 		is_posted = Post.objects.filter(url=link_to_review).exists()
 		is_listed = Link.objects.filter(url=link_to_review).exists()
 		is_reviewed = ReviewedLink.objects.filter(url=link_to_review).exists()

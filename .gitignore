@@ -7,3 +7,5 @@ settings.py
 settings_original.py
 local.py
 **/.DS_Store
+htmlcov/
+.coverage
