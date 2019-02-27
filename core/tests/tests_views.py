@@ -1,12 +1,13 @@
 from django.test import TestCase, Client
 from django.urls import reverse
-
+from django.forms.models import model_to_dict
 
 from ..models import Post, PostType, DifficultyLevel, Category, Link, ReviewedLink
 from django.contrib.auth.models import User
 
 from datetime import datetime
 from django.utils import timezone
+
 
 
 class TestViews(TestCase):
@@ -34,6 +35,24 @@ class TestViews(TestCase):
 			post_type=self.post_type,
 		)
 
+	def test_all_views_that_need_logged_user_GET(self):
+		self.client.logout()
+
+		response = self.client.get(reverse('post_create'))
+		self.assertEquals(response.status_code, 302)
+		response = self.client.get(reverse(
+			'post_edit',
+			kwargs={'slug': self.test_post.slug}))
+		self.assertEquals(response.status_code, 302)
+		response = self.client.get(reverse(
+			'post_delete',
+			kwargs={'slug': self.test_post.slug}))
+		self.assertEquals(response.status_code, 302)
+		response = self.client.get(reverse('feedbacks'))
+		self.assertEquals(response.status_code, 302)
+		response = self.client.get(reverse('review_link'))
+		self.assertEquals(response.status_code, 302)
+		
 	def test_home_view_GET(self):
 		response = self.client.get(reverse('home'))
 
@@ -171,7 +190,8 @@ class TestViews(TestCase):
 			})
 
 		self.assertEquals(response.status_code, 200)
-		self.assertEquals(Post.objects.filter(url=url_to_review).first().url, url_to_review)
+		self.assertEquals(Post.objects.filter(url=url_to_review)
+			.first().url, url_to_review)
 		self.assertContains(response, 'Link already in posted links.')
 
 	def test_review_link_POST_post_url_in_listed(self):
@@ -200,16 +220,30 @@ class TestViews(TestCase):
 		self.assertEquals(response.status_code, 200)
 		self.assertContains(response, 'Link already in reviewed links.')
 
-	# to be done
-	def post_edit_view_POST_valid(self):
-		url = reverse('edit_post', {'slug': self.test_post.slug})
-
+	def test_post_edit_view_POST_invalid(self):
+		url = reverse('post_edit', kwargs={'slug': self.test_post.slug})
 		response = self.client.post(url, {
-
+			'title': 'sometitle',
+			'url': 'https://newurl.pl'
 			})
-		self.assertEquals(response.status_code, 200)
 
-	# def post_edit_view_POST_invalid(self):
+		self.assertEquals(response.status_code, 200)
+		self.assertEquals(Post.objects.filter(slug=self.test_post.slug).first().title, 'project')
+
+	def test_post_edit_view_POST_non_existent_slug(self):
+		url = reverse('post_edit', kwargs={'slug': 'doesnt-exist'})
+		response = self.client.post(url, {})
+
+		self.assertEquals(response.status_code, 404)
+
+	def test_post_edit_view_POST_valid(self):
+		url = reverse('post_edit', kwargs={'slug': self.test_post.slug})
+		new_instance_dict = model_to_dict(self.test_post)
+		del new_instance_dict['thumb_image']
+		response = self.client.post(url, new_instance_dict)
+
+		self.assertEquals(response.status_code, 200)
+		self.assertEquals(Post.objects.filter(slug=self.test_post.slug).first().title, 'project')
 
 
 
