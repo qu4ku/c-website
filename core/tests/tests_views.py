@@ -2,7 +2,7 @@ from django.test import TestCase, Client
 from django.urls import reverse
 from django.forms.models import model_to_dict
 
-from ..models import Post, PostType, DifficultyLevel, Category, Link, ReviewedLink
+from core.models import Post, PostType, DifficultyLevel, Category, Link, ReviewedLink
 from django.contrib.auth.models import User
 
 from datetime import datetime
@@ -52,7 +52,7 @@ class TestViews(TestCase):
 		self.assertEquals(response.status_code, 302)
 		response = self.client.get(reverse('review_link'))
 		self.assertEquals(response.status_code, 302)
-		
+
 	def test_home_view_GET(self):
 		response = self.client.get(reverse('home'))
 

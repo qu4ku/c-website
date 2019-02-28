@@ -4,7 +4,6 @@ from django import forms
 from .models import Post, Link, Feedback, ReviewedLink
 
 
-
 class PostForm(forms.ModelForm):
 	class Meta:
 		model = Post
@@ -23,23 +22,36 @@ class PostForm(forms.ModelForm):
 		]
 
 		widgets = {
-			'title': forms.TextInput(attrs={'class': 'form__text-input'}),
-			'slug': forms.TextInput(attrs={'class': 'form__text-input'}),
-			'url': forms.TextInput(attrs={'class': 'form__text-input'}),
-			'description': forms.Textarea(attrs={'class': 'form__text-area'}),
-			'set_number': forms.TextInput(attrs={'class': 'form__text-input', 'cols': 1}),
-			'status': forms.Select(attrs={'class': 'form__text-input'}),
-			# 'publish': forms.SelectDateWidget(attrs={'class': 'form__text-input'}),
-			# 'publish': forms.DateTimeInput(attrs={'class': 'form__text-input'}, format='%Y %m %d - %H:%M:%S'),
-			'publish': forms.DateTimeInput(attrs={'class': 'form__text-input'}),
-			'categories': forms.SelectMultiple(attrs={'class': 'form__text-input--multichoice'}),
-			'difficulty_level': forms.Select(attrs={'class': 'form__text-input'}),
-			'post_type': forms.Select(attrs={'class': 'form__text-input'}),
-			'author': forms.Select(attrs={'class': 'form__text-input'}),
-			'seo_title': forms.TextInput(attrs={'class': 'form__text-input'}),
-			'seo_description': forms.TextInput(attrs={'class': 'form__text-input'}),
-			'original_author_handle': forms.TextInput(attrs={'class': 'form__text-input'}),
-			'original_author_url': forms.TextInput(attrs={'class': 'form__text-input'}),
+			'title': forms.TextInput(
+				attrs={'class': 'form__text-input'}),
+			'slug': forms.TextInput(
+				attrs={'class': 'form__text-input'}),
+			'url': forms.TextInput(
+				attrs={'class': 'form__text-input'}),
+			'description': forms.Textarea(
+				attrs={'class': 'form__text-area'}),
+			'set_number': forms.TextInput(
+				attrs={'class': 'form__text-input', 'cols': 1}),
+			'status': forms.Select(
+				attrs={'class': 'form__text-input'}),
+			'publish': forms.DateTimeInput(
+				attrs={'class': 'form__text-input'}),
+			'categories': forms.SelectMultiple(
+				attrs={'class': 'form__text-input--multichoice'}),
+			'difficulty_level': forms.Select(
+				attrs={'class': 'form__text-input'}),
+			'post_type': forms.Select(
+				attrs={'class': 'form__text-input'}),
+			'author': forms.Select(
+				attrs={'class': 'form__text-input'}),
+			'seo_title': forms.TextInput(
+				attrs={'class': 'form__text-input'}),
+			'seo_description': forms.TextInput(
+				attrs={'class': 'form__text-input'}),
+			'original_author_handle': forms.TextInput(
+				attrs={'class': 'form__text-input'}),
+			'original_author_url': forms.TextInput(
+				attrs={'class': 'form__text-input'}),
 		}
 
 
@@ -54,6 +66,7 @@ class LinkForm(forms.ModelForm):
 			'description': forms.Textarea(attrs={'class': 'form__text-area'}),
 		}
 
+
 class ReviewedLinkForm(forms.ModelForm):
 	class Meta:
 		model = ReviewedLink
@@ -63,6 +76,7 @@ class ReviewedLinkForm(forms.ModelForm):
 		widgets = {
 			'url': forms.TextInput(attrs={'class': 'form__text-input'}),
 		}
+
 
 class FeedbackForm(forms.ModelForm):
 	class Meta:

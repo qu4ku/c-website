@@ -68,7 +68,7 @@ def get_default_difficulty():
 	Gets default difficulty. 
 	"""
 	posts = Post.objects.all()
-	if not posts:  # Beginner level for the first post
+	if not posts or len(posts) < 3:  # Beginner level for the first post
 		beginner, is_created = DifficultyLevel.objects.get_or_create(difficulty_level='beginner')
 		return beginner
 	elif len(posts) == 2:  # Intermediate level for the second post
@@ -174,28 +174,31 @@ class Post(models.Model):
 	url = models.URLField(max_length=250)
 	description = models.TextField(null=True, blank=True)
 	post_type = models.ForeignKey(PostType, on_delete='SET_DEFAULT', default=0)
-	difficulty_level = models.ForeignKey(DifficultyLevel, on_delete='SET_DEFAULT', default=get_default_difficulty)
+	difficulty_level = models.ForeignKey(
+		DifficultyLevel, on_delete='SET_DEFAULT', default=get_default_difficulty)
 	categories = models.ManyToManyField(Category, blank=True)
-	status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='draft')
+	status = models.CharField(
+		max_length=20, choices=STATUS_CHOICES, default='draft')
 	publish = models.DateTimeField(default=get_default_day)
-	set_number = models.CharField(max_length=2, default=get_default_number) # 14 = 1 out of 4. max 9 posts per day.
-	
+	# 14 = 1 out of 4. max 9 posts per day.
+	set_number = models.CharField(max_length=2, default=get_default_number)
 	slug = models.SlugField(max_length=280, unique=True, blank=True, default='')
 	original_author_url = models.URLField(max_length=250, blank=True)
 	original_author_handle = models.CharField(max_length=250, blank=True)
-
 	seo_title = models.CharField(max_length=60, blank=True, null=True)
 	seo_description = models.CharField(max_length=165, blank=True, null=True)
 	is_active = models.BooleanField(default=True)
-
 	# Additional 
 	original_author = models.CharField(max_length=250, blank=True)
 	thumb_image = models.ImageField(upload_to='thumbs/', blank=True, null=True)
 	source_url = models.URLField(max_length=250, null=True, blank=True)
 	created = models.DateTimeField(auto_now_add=True)
 	modified = models.DateTimeField(auto_now=True)
-	tease = models.CharField(max_length=280, blank=True, help_text='Concise text suggested. Does not appear in RSS feed.')
-	author = models.ForeignKey(User, blank=True, null=True, on_delete='SET_DEFAULT')
+	tease = models.CharField(
+		max_length=280, blank=True, 
+		help_text='Concise text suggested. Does not appear in RSS feed.')
+	author = models.ForeignKey(
+		User, blank=True, null=True, on_delete='SET_DEFAULT')
 
 	objects = models.Manager()
 	published = PublicManager()
