@@ -14,27 +14,32 @@ def default_start_time():
 	start = now.replace(hour=6, minute=0, second=0, microsecond=0)
 	return start
 
-def get_default_day():
+
+def get_default_publish_date():
 	"""
 	Gets default day for a publish field. 
 	Checks last updated day in the database and returns either the same date,
 	or next day if there are 3 posts with such date.
 	"""
 	posts = Post.objects.all()
-	if not posts or len(posts) < 3:
-		return timezone.now()
-
-	last_date = posts[0].publish
-	last_date = last_date.replace(hour=6, minute=0, second=0, microsecond=0)
-	
-	# If three last posts have the same publish days means current post is for
-	# the next day
-	if posts[0].publish.day == posts[1].publish.day == posts[2].publish.day:
-		date = last_date + timedelta(days=1)
-		date = date.replace(hour=6, minute=0, second=0, microsecond=0)
-		return date
-	else: 
+	# If no posts, return current day:
+	if not posts:
+		return timezone.now().replace(hour=6, minute=0, second=0, microsecond=0)
+	elif posts.count() < 3:
+		last_date = posts[0].publish
+		last_date = last_date.replace(hour=6, minute=0, second=0, microsecond=0)
 		return last_date
+	else:
+		last_date = posts[0].publish
+		last_date = last_date.replace(hour=6, minute=0, second=0, microsecond=0)
+		# If three last posts have the same publish days means current post is for
+		# the next day
+		if posts[0].publish.day == posts[1].publish.day == posts[2].publish.day:
+			date = last_date + timedelta(days=1)
+			date = date.replace(hour=6, minute=0, second=0, microsecond=0)
+			return date
+		else: 
+			return last_date
 
 
 def get_default_number():
@@ -44,14 +49,13 @@ def get_default_number():
 	posts = Post.objects.all()
 
 	# 2do: handle less than 3 posts in the database case:
-	if not posts or len(posts) < 3:
+	if not posts or posts.count() < 3:
 		return '00'
-	
+
 	day0 = posts[0].publish.day
 	day1 = posts[1].publish.day
 	day2 = posts[2].publish.day
 
-	
 	# Last three days have the same day, mans current post if first one in the next day 
 	if day0 == day1 == day2:
 		return '13'
@@ -68,11 +72,13 @@ def get_default_difficulty():
 	Gets default difficulty. 
 	"""
 	posts = Post.objects.all()
-	if not posts or len(posts) < 3:  # Beginner level for the first post
-		beginner, is_created = DifficultyLevel.objects.get_or_create(difficulty_level='beginner')
+	if not posts or posts.count() < 3:  # Beginner level for the first post
+		beginner, is_created = DifficultyLevel.objects.get_or_create(
+			difficulty_level='beginner')
 		return beginner
-	elif len(posts) == 2:  # Intermediate level for the second post
-		intermediate, is_created = DifficultyLevel.objects.get_or_create(difficulty_level='intermediate')
+	elif posts.count() == 2:  # Intermediate level for the second post
+		intermediate, is_created = DifficultyLevel.objects.get_or_create(
+			difficulty_level='intermediate')
 		return intermediate
 
 
@@ -80,12 +86,14 @@ def get_default_difficulty():
 	day1 = posts[1].publish.day
 	day2 = posts[2].publish.day
 
-	
-	if day0 != day1 == day2:  # Set default difficulty to intermediate for a second day
-		intermediate, is_created = DifficultyLevel.objects.get_or_create(difficulty_level='intermediate')
+	# Set default difficulty to intermediate for a second day	
+	if day0 != day1 == day2:  
+		intermediate, is_created = DifficultyLevel.objects.get_or_create(
+			difficulty_level='intermediate')
 		return intermediate
 	else:
-		beginner, is_created = DifficultyLevel.objects.get_or_create(difficulty_level='beginner')
+		beginner, is_created = DifficultyLevel.objects.get_or_create(
+			difficulty_level='beginner')
 		return beginner
 
 
@@ -94,7 +102,8 @@ class PublicManager(models.Manager):
 	Returns published posts that are not in the future.
 	"""
 	def get_queryset(self):
-		return super(PublicManager, self).get_queryset().filter(status='public', publish__lte=timezone.now())
+		return super(PublicManager, self).get_queryset().filter(
+			status='public', publish__lte=timezone.now())
 
 
 class Category(models.Model):
@@ -122,7 +131,6 @@ class Category(models.Model):
 		return '/category/{}/'.format(self.slug)
 
 
-
 class DifficultyLevel(models.Model):
 	"""
 	Difficulty option Foreign Key model.
@@ -132,7 +140,8 @@ class DifficultyLevel(models.Model):
 		('intermediate', 'Intermediate'),
 		('advanced', 'Advanced'),
 	)
-	difficulty_level = models.CharField(max_length=20, choices=DIFFICULTY_CHOICES, default='beginner')
+	difficulty_level = models.CharField(
+		max_length=20, choices=DIFFICULTY_CHOICES, default='beginner')
 
 	def __str__(self):
 		return self.difficulty_level
@@ -151,7 +160,8 @@ class PostType(models.Model):
 		('video', 'Video'),
 		('podcast', 'Podcast'),
 	)
-	post_type = models.CharField(max_length=20, choices=TYPE_CHOICES, default='article')
+	post_type = models.CharField(
+		max_length=20, choices=TYPE_CHOICES, default='article')
 
 	def __str__(self):
 		"""Returns human-readable option in admin."""
@@ -173,16 +183,19 @@ class Post(models.Model):
 	title = models.CharField(max_length=280)
 	url = models.URLField(max_length=250)
 	description = models.TextField(null=True, blank=True)
-	post_type = models.ForeignKey(PostType, on_delete='SET_DEFAULT', default=0)
+	post_type = models.ForeignKey(
+		PostType, on_delete='SET_DEFAULT', default=0)
 	difficulty_level = models.ForeignKey(
-		DifficultyLevel, on_delete='SET_DEFAULT', default=get_default_difficulty)
+		DifficultyLevel, on_delete='SET_DEFAULT',
+		default=get_default_difficulty)
 	categories = models.ManyToManyField(Category, blank=True)
 	status = models.CharField(
 		max_length=20, choices=STATUS_CHOICES, default='draft')
-	publish = models.DateTimeField(default=get_default_day)
+	publish = models.DateTimeField(default=get_default_publish_date)
 	# 14 = 1 out of 4. max 9 posts per day.
 	set_number = models.CharField(max_length=2, default=get_default_number)
-	slug = models.SlugField(max_length=280, unique=True, blank=True, default='')
+	slug = models.SlugField(
+		max_length=280, unique=True, blank=True, default='')
 	original_author_url = models.URLField(max_length=250, blank=True)
 	original_author_handle = models.CharField(max_length=250, blank=True)
 	seo_title = models.CharField(max_length=60, blank=True, null=True)
@@ -242,7 +255,6 @@ class Post(models.Model):
 			while Post.objects.filter(slug=new_slug).exists():
 				counter += 1
 				new_slug = '{}-cp-{}'.format(base_slug, str(counter))
-				print(new_slug)
 
 			self.slug = new_slug
 
@@ -251,7 +263,8 @@ class Post(models.Model):
 			author_url_re = re.findall(r'https://twitter.com/.*?/', self.url)
 			if author_url_re:
 				self.original_author_url = author_url_re[0]
-			author_handle_re = re.findall(r'(?<=https://twitter.com/).*?(?=/)', self.url)
+			author_handle_re = re.findall(
+				r'(?<=https://twitter.com/).*?(?=/)', self.url)
 			if author_handle_re:
 				self.original_author_handle = author_handle_re[0]
 			# get_or_create returns object and boolean (object, True/False)

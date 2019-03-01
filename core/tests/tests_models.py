@@ -1,7 +1,11 @@
 from django.test import TestCase
-from core.models import Post, PostType, Category, DifficultyLevel
+from core.models import (Post, PostType, Category, DifficultyLevel, 
+	get_default_publish_date)
 from django.utils import timezone
 from django.contrib.auth.models import User
+
+from datetime import timedelta
+
 
 class TestModels(TestCase):
 
@@ -74,7 +78,110 @@ class TestModels(TestCase):
 
 		self.assertEquals(self.post.post_type, post_type_podcast)
 
+	def test_get_default_publish_date_no_posts(self):
+		posts = Post.objects.all()
+		for post in posts:
+			post.delete()
+		self.assertEquals(Post.objects.all().count(), 0)
+
+		today = timezone.now().replace(
+			hour=6, minute=0, second=0, microsecond=0)
+		self.assertEquals(get_default_publish_date(), today)
+
+	def test_get_default_publish_date_two_posts(self):
+		posts = Post.objects.all()
+		for post in posts:
+			post.delete()
+		self.post1 = Post.objects.create(
+			title='test project',
+			url='http://some.pl',
+			difficulty_level=self.difficulty_level,
+			post_type=self.post_type,
+		)
+		self.post2 = Post.objects.create(
+			title='test project',
+			url='http://some.pl',
+			difficulty_level=self.difficulty_level,
+			post_type=self.post_type,
+		)
+		posts = Post.objects.all()
+		# print(posts.count())
+		self.assertEquals(Post.objects.all().count(), 2)
+
+		last_date = posts[0].publish
+		self.assertEquals(get_default_publish_date(), last_date)
+
+	def test_get_default_publish_date_three_posts_same_day(self):
+		posts = Post.objects.all()
+		for post in posts:
+			post.delete()
+		self.post1 = Post.objects.create(
+			title='test project',
+			status='public',
+			url='http://some.pl',
+			difficulty_level=self.difficulty_level,
+			post_type=self.post_type,
+		)
+		self.post2 = Post.objects.create(
+			title='test project',
+			status='public',
+			url='http://some.pl',
+			difficulty_level=self.difficulty_level,
+			post_type=self.post_type,
+		)
+		self.post2 = Post.objects.create(
+			title='test project',
+			status='public',
+			url='http://some.pl',
+			difficulty_level=self.difficulty_level,
+			post_type=self.post_type,
+		)
+
+		posts = Post.objects.all()
+		self.assertEquals(Post.objects.all().count(), 3)
+
+		last_date = posts[0].publish
+		last_date = last_date.replace(hour=6, minute=0, second=0, microsecond=0)
+		next_day = last_date + timedelta(days=1)
+		self.assertEquals(get_default_publish_date(), next_day)
 
 
+	def test_get_default_publish_date_three_posts_diff_day(self):
+		posts = Post.objects.all()
+		for post in posts:
+			post.delete()
+		now = timezone.now()
+		yesterday = now - timedelta(days=1)
+		self.post1 = Post.objects.create(
+			title='test project',
+			status='public',
+			publish=yesterday,
+			url='http://some.pl',
+			difficulty_level=self.difficulty_level,
+			post_type=self.post_type,
+		)
+		self.post2 = Post.objects.create(
+			title='test project',
+			status='public',
+			publish=now,
+			url='http://some.pl',
+			difficulty_level=self.difficulty_level,
+			post_type=self.post_type,
+		)
+		self.post2 = Post.objects.create(
+			title='test project',
+			status='public',
+			publish=now,
+			url='http://some.pl',
+			difficulty_level=self.difficulty_level,
+			post_type=self.post_type,
+		)
+
+		posts = Post.objects.all()
+		self.assertEquals(Post.objects.all().count(), 3)
+
+		last_date = posts[0].publish
+		last_date = last_date.replace(hour=6, minute=0, second=0, microsecond=0)
+		self.assertEquals(get_default_publish_date(), last_date)
 
 
