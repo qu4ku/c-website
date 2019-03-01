@@ -49,22 +49,31 @@ def get_default_number():
 	posts = Post.objects.all()
 
 	# 2do: handle less than 3 posts in the database case:
-	if not posts or posts.count() < 3:
-		return '00'
-
-	day0 = posts[0].publish.day
-	day1 = posts[1].publish.day
-	day2 = posts[2].publish.day
-
-	# Last three days have the same day, mans current post if first one in the next day 
-	if day0 == day1 == day2:
+	if not posts: 
 		return '13'
-	elif day0 == day1 != day2:  #  Two the same days means current is third one
-		return '33'
-	elif day0 != day1 == day2:
+	elif posts.count() == 1:
 		return '23'
+	elif posts.count() == 2:
+		day0 = posts[0].publish.day
+		day1 = posts[1].publish.day
+		if day0 == day1:
+			return '33'
+		else:
+			return '23'
 	else:
-		return '00'
+		day0 = posts[0].publish.day
+		day1 = posts[1].publish.day
+		day2 = posts[2].publish.day
+
+		# Last three days have the same day, mans current post if first one in the next day 
+		if day0 == day1 == day2:
+			return '13'
+		elif day0 == day1 != day2:  #  Two the same days means current is third one
+			return '33'
+		elif day0 != day1 == day2:
+			return '23'
+		else:
+			return '00'
 
 
 def get_default_difficulty():
