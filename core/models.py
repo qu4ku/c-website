@@ -254,13 +254,17 @@ class Post(models.Model):
 			author_handle_re = re.findall(r'(?<=https://twitter.com/).*?(?=/)', self.url)
 			if author_handle_re:
 				self.original_author_handle = author_handle_re[0]
-			self.post_type = PostType.objects.get(post_type='twitter')
+			# get_or_create returns object and boolean (object, True/False)
+			self.post_type, is_created = PostType.objects.get_or_create(
+				post_type='twitter')
 
 		# Set post_type to video if youtube in an url
 		if 'youtube' in self.url:
-			self.post_type = PostType.objects.get(post_type='video')
+			self.post_type, is_created = PostType.objects.get_or_create(
+				post_type='video')
 		elif 'soundcloud' in self.url:
-			self.post_type = PostType.objects.get(post_type='podcast')  # Perhaps .get_or_create
+			self.post_type, is_created = PostType.objects.get_or_create(
+				post_type='podcast')
 
 		# Set publish date based on number
 		if self.set_number == '13':

@@ -25,7 +25,7 @@ class TestForms(TestCase):
 		self.category, is_created = Category.objects \
 			.get_or_create(title='testcategory', slug='testcategory')
 
-		self.test_post = Post.objects.create(
+		self.post = Post.objects.create(
 			title='project',
 			slug='subpage',
 			publish = timezone.now(),
@@ -39,19 +39,19 @@ class TestForms(TestCase):
 	def test_post_form_valid_data(self):
 
 		form = PostForm(data={
-			'title': self.test_post.title,
+			'title': self.post.title,
 			'slug': 'new-slug',
-			'url': self.test_post.url,
-			'description': self.test_post.description,
-			'set_number': self.test_post.set_number,
-			'status': self.test_post.status,
-			'publish': self.test_post.publish,
-			'categories': self.test_post.categories,
-			# 'difficulty_level': self.test_post.difficulty_level,
+			'url': self.post.url,
+			'description': self.post.description,
+			'set_number': self.post.set_number,
+			'status': self.post.status,
+			'publish': self.post.publish,
+			'categories': self.post.categories,
+			# 'difficulty_level': self.post.difficulty_level,
 			'difficulty_level': DifficultyLevel.objects.all().first(),
-			'post_type': self.test_post.post_type,
+			'post_type': self.post.post_type,
 			# 'post_type': 'twitter',
-			'seo_title': self.test_post.seo_title,
+			'seo_title': self.post.seo_title,
 			})
 		print(DifficultyLevel.objects.all().first())
 		print(form.errors)

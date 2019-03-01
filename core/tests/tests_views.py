@@ -25,7 +25,7 @@ class TestViews(TestCase):
 		self.difficulty_level, is_created = DifficultyLevel.objects.get_or_create(difficulty_level='beginner')
 		self.category, is_created = Category.objects.get_or_create(title='testcategory', slug='testcategory')
 
-		self.test_post = Post.objects.create(
+		self.post = Post.objects.create(
 			title='project',
 			slug='subpage',
 			publish = timezone.now(),
@@ -42,11 +42,11 @@ class TestViews(TestCase):
 		self.assertEquals(response.status_code, 302)
 		response = self.client.get(reverse(
 			'post_edit',
-			kwargs={'slug': self.test_post.slug}))
+			kwargs={'slug': self.post.slug}))
 		self.assertEquals(response.status_code, 302)
 		response = self.client.get(reverse(
 			'post_delete',
-			kwargs={'slug': self.test_post.slug}))
+			kwargs={'slug': self.post.slug}))
 		self.assertEquals(response.status_code, 302)
 		response = self.client.get(reverse('feedbacks'))
 		self.assertEquals(response.status_code, 302)
@@ -67,23 +67,23 @@ class TestViews(TestCase):
 
 	def test_post_detail_view_GET(self):
 
-		url = reverse('post_detail', kwargs={'slug': self.test_post.slug})
+		url = reverse('post_detail', kwargs={'slug': self.post.slug})
 		response = self.client.get(url)
 
 		self.assertEquals(response.status_code, 200)
 		self.assertTemplateUsed(response, 'post_detail.html')
 
 	def test_post_detail_view_edit_GET(self):
-		response = self.client.get(reverse('post_edit', kwargs={'slug': self.test_post.slug}))
+		response = self.client.get(reverse('post_edit', kwargs={'slug': self.post.slug}))
 
 		self.assertEquals(response.status_code, 200)
 		self.assertTemplateUsed(response, 'post_edit.html')
 
 	def test_post_delete_view_GET(self):
-		response = self.client.get(reverse('post_delete', kwargs={'slug': self.test_post.slug}), follow=True)
+		response = self.client.get(reverse('post_delete', kwargs={'slug': self.post.slug}), follow=True)
 
 		self.assertEquals(response.status_code, 200)
-		self.assertEquals(Post.objects.filter(slug=self.test_post).exists(), False)
+		self.assertEquals(Post.objects.filter(slug=self.post).exists(), False)
 	
 	def test_category_view_GET(self):
 		url = reverse('category', kwargs={'slug': self.category.slug})
@@ -221,14 +221,14 @@ class TestViews(TestCase):
 		self.assertContains(response, 'Link already in reviewed links.')
 
 	def test_post_edit_view_POST_invalid(self):
-		url = reverse('post_edit', kwargs={'slug': self.test_post.slug})
+		url = reverse('post_edit', kwargs={'slug': self.post.slug})
 		response = self.client.post(url, {
 			'title': 'sometitle',
 			'url': 'https://newurl.pl'
 			})
 
 		self.assertEquals(response.status_code, 200)
-		self.assertEquals(Post.objects.filter(slug=self.test_post.slug).first().title, 'project')
+		self.assertEquals(Post.objects.filter(slug=self.post.slug).first().title, 'project')
 
 	def test_post_edit_view_POST_non_existent_slug(self):
 		url = reverse('post_edit', kwargs={'slug': 'doesnt-exist'})
@@ -237,13 +237,13 @@ class TestViews(TestCase):
 		self.assertEquals(response.status_code, 404)
 
 	def test_post_edit_view_POST_valid(self):
-		url = reverse('post_edit', kwargs={'slug': self.test_post.slug})
-		new_instance_dict = model_to_dict(self.test_post)
+		url = reverse('post_edit', kwargs={'slug': self.post.slug})
+		new_instance_dict = model_to_dict(self.post)
 		del new_instance_dict['thumb_image']
 		response = self.client.post(url, new_instance_dict)
 
 		self.assertEquals(response.status_code, 200)
-		self.assertEquals(Post.objects.filter(slug=self.test_post.slug).first().title, 'project')
+		self.assertEquals(Post.objects.filter(slug=self.post.slug).first().title, 'project')
 
 
 
