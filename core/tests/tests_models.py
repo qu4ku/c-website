@@ -1,6 +1,7 @@
 from django.test import TestCase
-from core.models import (Post, PostType, Category, DifficultyLevel, 
-	get_default_publish_date)
+from core.models import (
+	Post, PostType, Category, DifficultyLevel, Feedback, ReviewedLink, Link,
+	get_default_publish_date, get_default_number)
 from django.utils import timezone
 from django.contrib.auth.models import User
 
@@ -105,11 +106,11 @@ class TestModels(TestCase):
 			post_type=self.post_type,
 		)
 		posts = Post.objects.all()
-		# print(posts.count())
 		self.assertEquals(Post.objects.all().count(), 2)
 
 		last_date = posts[0].publish
-		self.assertEquals(get_default_publish_date(), last_date)
+		last_date = last_date.replace(hour=6, minute=0, second=0, microsecond=0)
+		self.assertEquals(get_default_publish_date().day, last_date.day)
 
 	def test_get_default_publish_date_three_posts_same_day(self):
 		posts = Post.objects.all()
@@ -129,7 +130,7 @@ class TestModels(TestCase):
 			difficulty_level=self.difficulty_level,
 			post_type=self.post_type,
 		)
-		self.post2 = Post.objects.create(
+		self.post3 = Post.objects.create(
 			title='test project',
 			status='public',
 			url='http://some.pl',
@@ -144,7 +145,6 @@ class TestModels(TestCase):
 		last_date = last_date.replace(hour=6, minute=0, second=0, microsecond=0)
 		next_day = last_date + timedelta(days=1)
 		self.assertEquals(get_default_publish_date(), next_day)
-
 
 	def test_get_default_publish_date_three_posts_diff_day(self):
 		posts = Post.objects.all()
@@ -184,4 +184,273 @@ class TestModels(TestCase):
 		last_date = last_date.replace(hour=6, minute=0, second=0, microsecond=0)
 		self.assertEquals(get_default_publish_date(), last_date)
 
+	def test_get_default_publish_date_three_posts_3_same_d(self):
+		posts = Post.objects.all()
+		for post in posts:
+			post.delete()
+		now = timezone.now()
+		next_day = now + timedelta(days=1)
+		self.post1 = Post.objects.create(
+			title='test project',
+			status='public',
+			publish=now,
+			url='http://some.pl',
+			difficulty_level=self.difficulty_level,
+			post_type=self.post_type,
+		)
+		self.post2 = Post.objects.create(
+			title='test project',
+			status='public',
+			publish=now,
+			url='http://some.pl',
+			difficulty_level=self.difficulty_level,
+			post_type=self.post_type,
+		)
+		self.post2 = Post.objects.create(
+			title='test project',
+			status='public',
+			publish=now,
+			url='http://some.pl',
+			difficulty_level=self.difficulty_level,
+			post_type=self.post_type,
+		)
+
+		posts = Post.objects.all()
+		self.assertEquals(Post.objects.all().count(), 3)
+
+		last_date = posts[0].publish
+		last_date = last_date.replace(hour=6, minute=0, second=0, microsecond=0)
+		next_day = next_day.replace(hour=6, minute=0, second=0, microsecond=0)
+		self.assertEquals(get_default_publish_date(), next_day)
+
+	def test_get_default_number_no_posts(self):
+		posts = Post.objects.all()
+		for post in posts:
+			post.delete()
+		self.assertEquals(Post.objects.all().count(), 0)
+
+		self.assertEquals(get_default_number(), '13')
+
+	def test_get_default_number_two_posts_same_date(self):
+		posts = Post.objects.all()
+		for post in posts:
+			post.delete()
+		now = timezone.now()
+		self.post1 = Post.objects.create(
+			title='test project',
+			url='http://some.pl',
+			publish=now,
+			difficulty_level=self.difficulty_level,
+			post_type=self.post_type,
+		)
+		self.post2 = Post.objects.create(
+			title='test project',
+			url='http://some.pl',
+			publish=now,
+			difficulty_level=self.difficulty_level,
+			post_type=self.post_type,
+		)
+		posts = Post.objects.all()
+		self.assertEquals(Post.objects.all().count(), 2)
+
+		self.assertEquals(get_default_number(), '33')
+
+	def test_get_default_number_two_posts_diff_date(self):
+		posts = Post.objects.all()
+		for post in posts:
+			post.delete()
+		now = timezone.now()
+		yesterday = now - timedelta(days=1)
+		self.post1 = Post.objects.create(
+			title='test project',
+			url='http://some.pl',
+			publish=now,
+			difficulty_level=self.difficulty_level,
+			post_type=self.post_type,
+		)
+		self.post2 = Post.objects.create(
+			title='test project',
+			url='http://some.pl',
+			publish=yesterday,
+			difficulty_level=self.difficulty_level,
+			post_type=self.post_type,
+		)
+		posts = Post.objects.all()
+		self.assertEquals(Post.objects.all().count(), 2)
+
+		self.assertEquals(get_default_number(), '23')
+
+
+	def test_get_default_number_three_posts_same_date(self):
+		posts = Post.objects.all()
+		for post in posts:
+			post.delete()
+		now = timezone.now()
+		yesterday = now - timedelta(days=1)
+		self.post1 = Post.objects.create(
+			title='test project',
+			url='http://some.pl',
+			publish=yesterday,
+			difficulty_level=self.difficulty_level,
+			post_type=self.post_type,
+		)
+		self.post2 = Post.objects.create(
+			title='test project',
+			url='http://some.pl',
+			publish=yesterday,
+			difficulty_level=self.difficulty_level,
+			post_type=self.post_type,
+		)
+		self.post3 = Post.objects.create(
+			title='test project',
+			url='http://some.pl',
+			publish=yesterday,
+			difficulty_level=self.difficulty_level,
+			post_type=self.post_type,
+		)
+		posts = Post.objects.all()
+		self.assertEquals(Post.objects.all().count(), 3)
+
+		self.assertEquals(get_default_number(), '13')
+
+	def test_get_default_number_three_posts_dif_dateAAB(self):
+		posts = Post.objects.all()
+		for post in posts:
+			post.delete()
+		now = timezone.now()
+		yesterday = now - timedelta(days=1)
+		self.post1 = Post.objects.create(
+			title='test project',
+			url='http://some.pl',
+			publish=now,
+			difficulty_level=self.difficulty_level,
+			post_type=self.post_type,
+		)
+		self.post2 = Post.objects.create(
+			title='test project',
+			url='http://some.pl',
+			publish=yesterday,
+			difficulty_level=self.difficulty_level,
+			post_type=self.post_type,
+		)
+		self.post3 = Post.objects.create(
+			title='test project',
+			url='http://some.pl',
+			publish=yesterday,
+			difficulty_level=self.difficulty_level,
+			post_type=self.post_type,
+		)
+		posts = Post.objects.all()
+		self.assertEquals(Post.objects.all().count(), 3)
+
+		self.assertEquals(get_default_number(), '23')
+
+	def test_get_default_number_three_posts_dif_dateABB(self):
+		posts = Post.objects.all()
+		for post in posts:
+			post.delete()
+		now = timezone.now()
+		yesterday = now - timedelta(days=1)
+		self.post1 = Post.objects.create(
+			title='test project',
+			url='http://some.pl',
+			publish=now,
+			difficulty_level=self.difficulty_level,
+			post_type=self.post_type,
+		)
+		self.post2 = Post.objects.create(
+			title='test project',
+			url='http://some.pl',
+			publish=now,
+			difficulty_level=self.difficulty_level,
+			post_type=self.post_type,
+		)
+		self.post3 = Post.objects.create(
+			title='test project',
+			url='http://some.pl',
+			publish=yesterday,
+			difficulty_level=self.difficulty_level,
+			post_type=self.post_type,
+		)
+		posts = Post.objects.all()
+		self.assertEquals(Post.objects.all().count(), 3)
+
+		self.assertEquals(get_default_number(), '33')
+
+	def test_get_default_number_three_posts_dif_dateABC(self):
+		posts = Post.objects.all()
+		for post in posts:
+			post.delete()
+		now = timezone.now()
+		yesterday = now - timedelta(days=1)
+		two_days_ago = yesterday - timedelta(days=1)
+		self.post1 = Post.objects.create(
+			title='test project',
+			url='http://some.pl',
+			publish=now,
+			difficulty_level=self.difficulty_level,
+			post_type=self.post_type,
+		)
+		self.post2 = Post.objects.create(
+			title='test project',
+			url='http://some.pl',
+			publish=two_days_ago,
+			difficulty_level=self.difficulty_level,
+			post_type=self.post_type,
+		)
+		self.post3 = Post.objects.create(
+			title='test project',
+			url='http://some.pl',
+			publish=yesterday,
+			difficulty_level=self.difficulty_level,
+			post_type=self.post_type,
+		)
+		posts = Post.objects.all()
+		self.assertEquals(Post.objects.all().count(), 3)
+
+		self.assertEquals(get_default_number(), '23')
+
+
+	def test_category_get_absolute_url(self):
+		test_slug = 'categoy test title'
+		category = Category.objects.create(
+			title=test_slug,
+			slug=test_slug)
+
+		absolute_url = '/category/{}/'.format(test_slug)
+		self.assertEquals(category.get_absolute_url(), absolute_url)
+
+	def test_difficulty_level_get_absolute_url(self):
+		difficulty_level_url = '/level/{}/'.format(self.difficulty_level)
+
+		self.assertEquals(
+			self.difficulty_level.get_absolute_url(),
+			difficulty_level_url)
+
+	def test_post_type_get_absolute_url(self):
+		post_type_url = '/type/{}/'.format(self.post_type)
+
+		self.assertEquals(
+			self.post_type.get_absolute_url(),
+			post_type_url)
+
+	def test_feedback_str(self):
+		ip = '192.0.2.30'
+		body = 'some body text'
+		feedback = Feedback.objects.create(ip=ip, body=body)
+
+		feedback_str = '{}: {}'.format(ip, body[:20])
+		self.assertEquals(str(feedback), feedback_str)
+
+	def test_link_str(self):
+		url = 'http://some.com'
+		link = Link.objects.create(url=url)
+
+		self.assertEquals(str(link), url)
+
+	def test_reviewed_link_str(self):
+		url = 'http://some.com'
+		link = ReviewedLink.objects.create(url=url)
+
+		self.assertEquals(str(link), url)
 

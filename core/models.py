@@ -72,8 +72,8 @@ def get_default_number():
 			return '33'
 		elif day0 != day1 == day2:
 			return '23'
-		else:
-			return '00'
+		else: #  Three differeent dates
+			return '23'
 
 
 def get_default_difficulty():
