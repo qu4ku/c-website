@@ -2,7 +2,8 @@ from django.test import TestCase, Client
 from django.urls import reverse
 from django.forms.models import model_to_dict
 
-from core.models import Post, PostType, DifficultyLevel, Category, Link, ReviewedLink
+from core.models import (
+	Post, PostType, DifficultyLevel, Category, Link,ReviewedLink)
 from django.contrib.auth.models import User
 
 from datetime import datetime
@@ -21,9 +22,12 @@ class TestViews(TestCase):
 		self.client.login(username='test', password='test')
 
 		# Test Post
-		self.post_type, is_created = PostType.objects.get_or_create(post_type='twitter')
-		self.difficulty_level, is_created = DifficultyLevel.objects.get_or_create(difficulty_level='beginner')
-		self.category, is_created = Category.objects.get_or_create(title='testcategory', slug='testcategory')
+		self.post_type, is_created = PostType.objects.get_or_create(
+			post_type='twitter')
+		self.difficulty_level, is_created = DifficultyLevel \
+			.objects.get_or_create(difficulty_level='beginner')
+		self.category, is_created = Category.objects.get_or_create(
+			title='testcategory', slug='testcategory')
 
 		self.post = Post.objects.create(
 			title='project',
@@ -59,6 +63,25 @@ class TestViews(TestCase):
 		self.assertEquals(response.status_code, 200)
 		self.assertTemplateUsed(response, 'home.html')
 
+	def test_home_view_with_search_query_GET(self):
+		url = '{}?q=test_exist'.format(reverse('search'))
+		response = self.client.get(url)
+
+		self.assertEquals(response.status_code, 200)
+
+	def test_search_view_with_search_query_GET(self):
+		url = '{}?q=test_exist'.format(reverse('search'))
+		response = self.client.get(url)
+
+		self.assertEquals(response.status_code, 200)
+		self.assertContains(response, 'No results')
+
+		url = '{}?q=project'.format(reverse('search'))
+		response = self.client.get(url)
+
+		self.assertEquals(response.status_code, 200)
+		self.assertContains(response, 'project')
+
 	def test_about_view_GET(self):
 		response = self.client.get(reverse('about'))
 
@@ -74,17 +97,19 @@ class TestViews(TestCase):
 		self.assertTemplateUsed(response, 'post_detail.html')
 
 	def test_post_detail_view_edit_GET(self):
-		response = self.client.get(reverse('post_edit', kwargs={'slug': self.post.slug}))
+		url = reverse('post_edit', kwargs={'slug': self.post.slug})
+		response = self.client.get(url)
 
 		self.assertEquals(response.status_code, 200)
 		self.assertTemplateUsed(response, 'post_edit.html')
 
 	def test_post_delete_view_GET(self):
-		response = self.client.get(reverse('post_delete', kwargs={'slug': self.post.slug}), follow=True)
+		url = reverse('post_delete', kwargs={'slug': self.post.slug})
+		response = self.client.get((url), follow=True)
 
 		self.assertEquals(response.status_code, 200)
 		self.assertEquals(Post.objects.filter(slug=self.post).exists(), False)
-	
+
 	def test_category_view_GET(self):
 		url = reverse('category', kwargs={'slug': self.category.slug})
 		response = self.client.get(url)
@@ -228,7 +253,8 @@ class TestViews(TestCase):
 			})
 
 		self.assertEquals(response.status_code, 200)
-		self.assertEquals(Post.objects.filter(slug=self.post.slug).first().title, 'project')
+		self.assertEquals(
+			Post.objects.filter(slug=self.post.slug).first().title, 'project')
 
 	def test_post_edit_view_POST_non_existent_slug(self):
 		url = reverse('post_edit', kwargs={'slug': 'doesnt-exist'})
@@ -243,7 +269,8 @@ class TestViews(TestCase):
 		response = self.client.post(url, new_instance_dict)
 
 		self.assertEquals(response.status_code, 200)
-		self.assertEquals(Post.objects.filter(slug=self.post.slug).first().title, 'project')
+		self.assertEquals(
+			Post.objects.filter(slug=self.post.slug).first().title, 'project')
 
 
 

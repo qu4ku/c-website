@@ -18,7 +18,7 @@ def home_view(request):
 	if query:
 		# Check both title and description for the query word
 		post_list = Post.published.filter(
-			Q(title__icontains=query) | 
+			Q(title__icontains=query) |
 			Q(description__icontains=query)
 		).distinct()
 
@@ -41,13 +41,12 @@ def about_view(request):
 def post_detail_view(request, slug):
 	template = 'post_detail.html'
 	post = get_object_or_404(Post, slug=slug, status='public')
-	categories = post.categories.all() # Get categories objects
-	
+	categories = post.categories.all()  # Get categories objects
+
 	categories_dict = {}
 	post_cap = 3
 	for category in categories:
-
-		top_posts =  Post.objects.all().filter(categories=category)[:post_cap]
+		top_posts = Post.objects.all().filter(categories=category)[:post_cap]
 		categories_dict[category] = top_posts
 
 	context = {
