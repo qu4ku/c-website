@@ -79,31 +79,42 @@ def get_default_number():
 def get_default_difficulty():
 	"""
 	Gets default difficulty. 
+	The first and last posts are beginner, second is intermediate. 
 	"""
 	posts = Post.objects.all()
-	if not posts or posts.count() < 3:  # Beginner level for the first post
+	if not posts:  # Beginner level for the first post
 		beginner, is_created = DifficultyLevel.objects.get_or_create(
 			difficulty_level='beginner')
 		return beginner
-	elif posts.count() == 2:  # Intermediate level for the second post
+	elif posts.count() == 1:  # Intermediate level for the second post
 		intermediate, is_created = DifficultyLevel.objects.get_or_create(
 			difficulty_level='intermediate')
 		return intermediate
-
-
-	day0 = posts[0].publish.day
-	day1 = posts[1].publish.day
-	day2 = posts[2].publish.day
-
-	# Set default difficulty to intermediate for a second day	
-	if day0 != day1 == day2:  
-		intermediate, is_created = DifficultyLevel.objects.get_or_create(
+	elif posts.count() == 2: 
+		day0 = posts[0].publish.day
+		day1 = posts[1].publish.day
+		if day0 == day1:
+			beginner, is_created = DifficultyLevel.objects.get_or_create(
+				difficulty_level='beginner')
+			return beginner
+		else:
+			intermediate, is_created = DifficultyLevel.objects.get_or_create(
 			difficulty_level='intermediate')
-		return intermediate
+			return intermediate
 	else:
-		beginner, is_created = DifficultyLevel.objects.get_or_create(
-			difficulty_level='beginner')
-		return beginner
+		day0 = posts[0].publish.day
+		day1 = posts[1].publish.day
+		day2 = posts[2].publish.day
+
+		# Set default difficulty to intermediate for a second day	
+		if day0 != day1 == day2:  
+			intermediate, is_created = DifficultyLevel.objects.get_or_create(
+				difficulty_level='intermediate')
+			return intermediate
+		else:
+			beginner, is_created = DifficultyLevel.objects.get_or_create(
+				difficulty_level='beginner')
+			return beginner
 
 
 class PublicManager(models.Manager):

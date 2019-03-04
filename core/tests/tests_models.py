@@ -1,7 +1,7 @@
 from django.test import TestCase
 from core.models import (
 	Post, PostType, Category, DifficultyLevel, Feedback, ReviewedLink, Link,
-	get_default_publish_date, get_default_number)
+	get_default_publish_date, get_default_number, get_default_difficulty)
 from django.utils import timezone
 from django.contrib.auth.models import User
 
@@ -33,6 +33,49 @@ class TestModels(TestCase):
 			difficulty_level=self.difficulty_level,
 			post_type=self.post_type,
 		)
+
+	def test_category_get_absolute_url(self):
+		test_slug = 'categoy test title'
+		category = Category.objects.create(
+			title=test_slug,
+			slug=test_slug)
+
+		absolute_url = '/category/{}/'.format(test_slug)
+		self.assertEquals(category.get_absolute_url(), absolute_url)
+
+	def test_difficulty_level_get_absolute_url(self):
+		difficulty_level_url = '/level/{}/'.format(self.difficulty_level)
+
+		self.assertEquals(
+			self.difficulty_level.get_absolute_url(),
+			difficulty_level_url)
+
+	def test_post_type_get_absolute_url(self):
+		post_type_url = '/type/{}/'.format(self.post_type)
+
+		self.assertEquals(
+			self.post_type.get_absolute_url(),
+			post_type_url)
+
+	def test_feedback_str(self):
+		ip = '192.0.2.30'
+		body = 'some body text'
+		feedback = Feedback.objects.create(ip=ip, body=body)
+
+		feedback_str = '{}: {}'.format(ip, body[:20])
+		self.assertEquals(str(feedback), feedback_str)
+
+	def test_link_str(self):
+		url = 'http://some.com'
+		link = Link.objects.create(url=url)
+
+		self.assertEquals(str(link), url)
+
+	def test_reviewed_link_str(self):
+		url = 'http://some.com'
+		link = ReviewedLink.objects.create(url=url)
+
+		self.assertEquals(str(link), url)
 
 	def test_set_number(self):
 		self.assertEquals(self.post.set_number, '13')
@@ -410,47 +453,188 @@ class TestModels(TestCase):
 
 		self.assertEquals(get_default_number(), '23')
 
+	def test_get_default_difficulty_no_posts(self):
+		posts = Post.objects.all()
+		for post in posts:
+			post.delete()
+		self.assertEquals(Post.objects.all().count(), 0)
 
-	def test_category_get_absolute_url(self):
-		test_slug = 'categoy test title'
-		category = Category.objects.create(
-			title=test_slug,
-			slug=test_slug)
+		beginner, is_created = DifficultyLevel.objects.get_or_create(
+			difficulty_level='beginner')
+		self.assertEquals(get_default_difficulty(), beginner)
 
-		absolute_url = '/category/{}/'.format(test_slug)
-		self.assertEquals(category.get_absolute_url(), absolute_url)
+	def test_get_difficulty_one_post(self):
+		posts = Post.objects.all()
+		for post in posts:
+			post.delete()
+		self.post1 = Post.objects.create(
+			title='test project',
+			url='http://some.pl',
+			difficulty_level=self.difficulty_level,
+			post_type=self.post_type,
+		)
+		posts = Post.objects.all()
+		self.assertEquals(Post.objects.all().count(), 1)
 
-	def test_difficulty_level_get_absolute_url(self):
-		difficulty_level_url = '/level/{}/'.format(self.difficulty_level)
+		intermediate, is_created = DifficultyLevel.objects.get_or_create(
+			difficulty_level='intermediate')
+		self.assertEquals(get_default_difficulty(), intermediate)
 
-		self.assertEquals(
-			self.difficulty_level.get_absolute_url(),
-			difficulty_level_url)
+	def test_get_default_difficulty_two_posts_AB(self):
+		posts = Post.objects.all()
+		for post in posts:
+			post.delete()
+		now = timezone.now()
+		yesterday = now - timedelta(days=1)
+		self.post1 = Post.objects.create(
+			title='test project',
+			url='http://some.pl',
+			publish=now,
+			difficulty_level=self.difficulty_level,
+			post_type=self.post_type,
+		)
+		self.post2 = Post.objects.create(
+			title='test project',
+			url='http://some.pl',
+			publish=yesterday,
+			difficulty_level=self.difficulty_level,
+			post_type=self.post_type,
+		)
 
-	def test_post_type_get_absolute_url(self):
-		post_type_url = '/type/{}/'.format(self.post_type)
+		posts = Post.objects.all()
+		self.assertEquals(Post.objects.all().count(), 2)
 
-		self.assertEquals(
-			self.post_type.get_absolute_url(),
-			post_type_url)
+		intermediate, is_created = DifficultyLevel.objects.get_or_create(
+			difficulty_level='intermediate')
+		self.assertEquals(get_default_difficulty(), intermediate)	
 
-	def test_feedback_str(self):
-		ip = '192.0.2.30'
-		body = 'some body text'
-		feedback = Feedback.objects.create(ip=ip, body=body)
+	def test_get_default_difficulty_two_posts_AA(self):
+		posts = Post.objects.all()
+		for post in posts:
+			post.delete()
+		now = timezone.now()
+		self.post1 = Post.objects.create(
+			title='test project',
+			url='http://some.pl',
+			publish=now,
+			difficulty_level=self.difficulty_level,
+			post_type=self.post_type,
+		)
+		self.post2 = Post.objects.create(
+			title='test project',
+			url='http://some.pl',
+			publish=now,
+			difficulty_level=self.difficulty_level,
+			post_type=self.post_type,
+		)
 
-		feedback_str = '{}: {}'.format(ip, body[:20])
-		self.assertEquals(str(feedback), feedback_str)
+		posts = Post.objects.all()
+		self.assertEquals(Post.objects.all().count(), 2)
 
-	def test_link_str(self):
-		url = 'http://some.com'
-		link = Link.objects.create(url=url)
+		beginner, is_created = DifficultyLevel.objects.get_or_create(
+			difficulty_level='beginner')
+		self.assertEquals(get_default_difficulty(), beginner)
 
-		self.assertEquals(str(link), url)
+	def test_get_default_difficulty_three_posts_AAA(self):
+		posts = Post.objects.all()
+		for post in posts:
+			post.delete()
+		now = timezone.now()
+		self.post1 = Post.objects.create(
+			title='test project',
+			url='http://some.pl',
+			publish=now,
+			difficulty_level=self.difficulty_level,
+			post_type=self.post_type,
+		)
+		self.post2 = Post.objects.create(
+			title='test project',
+			url='http://some.pl',
+			publish=now,
+			difficulty_level=self.difficulty_level,
+			post_type=self.post_type,
+		)
+		self.post2 = Post.objects.create(
+			title='test project',
+			url='http://some.pl',
+			publish=now,
+			difficulty_level=self.difficulty_level,
+			post_type=self.post_type,
+		)
 
-	def test_reviewed_link_str(self):
-		url = 'http://some.com'
-		link = ReviewedLink.objects.create(url=url)
+		posts = Post.objects.all()
+		self.assertEquals(Post.objects.all().count(), 3)
 
-		self.assertEquals(str(link), url)
+		beginner, is_created = DifficultyLevel.objects.get_or_create(
+			difficulty_level='beginner')
+		self.assertEquals(get_default_difficulty(), beginner)
 
+	def test_get_default_difficulty_three_posts_AAB(self):
+		posts = Post.objects.all()
+		for post in posts:
+			post.delete()
+		now = timezone.now()
+		yesterday = timezone.now() - timedelta(days=1)
+		self.post1 = Post.objects.create(
+			title='test project',
+			url='http://some.pl',
+			publish=now,
+			difficulty_level=self.difficulty_level,
+			post_type=self.post_type,
+		)
+		self.post2 = Post.objects.create(
+			title='test project',
+			url='http://some.pl',
+			publish=yesterday,
+			difficulty_level=self.difficulty_level,
+			post_type=self.post_type,
+		)
+		self.post2 = Post.objects.create(
+			title='test project',
+			url='http://some.pl',
+			publish=yesterday,
+			difficulty_level=self.difficulty_level,
+			post_type=self.post_type,
+		)
+		
+		posts = Post.objects.all()
+		self.assertEquals(Post.objects.all().count(), 3)
+
+		intermediate, is_created = DifficultyLevel.objects.get_or_create(
+			difficulty_level='intermediate')
+		self.assertEquals(get_default_difficulty(), intermediate)
+
+	def test_get_default_difficulty_three_posts_ABB(self):
+		posts = Post.objects.all()
+		for post in posts:
+			post.delete()
+		now = timezone.now()
+		yesterday = timezone.now() - timedelta(days=1)
+		self.post1 = Post.objects.create(
+			title='test project',
+			url='http://some.pl',
+			publish=yesterday,
+			difficulty_level=self.difficulty_level,
+			post_type=self.post_type,
+		)
+		self.post2 = Post.objects.create(
+			title='test project',
+			url='http://some.pl',
+			publish=now,
+			difficulty_level=self.difficulty_level,
+			post_type=self.post_type,
+		)
+		self.post2 = Post.objects.create(
+			title='test project',
+			url='http://some.pl',
+			publish=now,
+			difficulty_level=self.difficulty_level,
+			post_type=self.post_type,
+		)
+
+		posts = Post.objects.all()
+		self.assertEquals(Post.objects.all().count(), 3)
+
+		beginner, is_created = DifficultyLevel.objects.get_or_create(
+			difficulty_level='beginner')
+		self.assertEquals(get_default_difficulty(), beginner)
