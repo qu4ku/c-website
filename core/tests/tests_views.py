@@ -1,12 +1,14 @@
 from django.test import TestCase, Client
 from django.urls import reverse
 from django.forms.models import model_to_dict
+from django.db.models import Q
 
 from core.models import (
 	Post, PostType, DifficultyLevel, Category, Link,ReviewedLink)
 from django.contrib.auth.models import User
 
 from datetime import datetime
+from datetime import timedelta
 from django.utils import timezone
 
 
@@ -32,12 +34,13 @@ class TestViews(TestCase):
 		self.post = Post.objects.create(
 			title='project',
 			slug='subpage',
-			publish = timezone.now(),
+			publish = timezone.now() - timedelta(days=1),
 			status='public',
 			url='http://some.pl',
 			difficulty_level=self.difficulty_level,
 			post_type=self.post_type,
 		)
+		self.post.categories.add(self.category)
 
 	def test_all_views_that_need_logged_user_GET(self):
 		self.client.logout()
@@ -64,8 +67,26 @@ class TestViews(TestCase):
 		self.assertTemplateUsed(response, 'home.html')
 
 	def test_home_view_with_search_query_GET(self):
-		url = '{}?q=test_exist'.format(reverse('search'))
+		query = 'test_notexist'
+		url = '{}?q={}'.format(reverse('home'), query)
 		response = self.client.get(url)
+
+		post_list = post_list = Post.published.filter(
+			Q(title__icontains=query) |
+			Q(description__icontains=query)
+		).distinct()
+		self.assertEquals(post_list.count(), 0)
+
+		query = 'project'
+		url = '{}?q={}'.format(reverse('home'), query)
+		print(url)
+		response = self.client.get(url)
+
+		post_list = Post.published.filter(
+			Q(title__icontains=query) |
+			Q(description__icontains=query)
+		).distinct()
+		self.assertEquals(post_list.count(), 1)
 
 		self.assertEquals(response.status_code, 200)
 
