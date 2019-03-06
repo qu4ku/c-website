@@ -68,7 +68,7 @@ def post_create_view(request):
 		post.save()
 		# Messages are not used right now
 		messages.success(request, 'Successfully Created')
-		return redirect(reverse('home'))
+		return redirect(reverse('post_create'))
 	else:
 		messages.error(request, "Error")
 

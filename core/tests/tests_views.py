@@ -12,7 +12,6 @@ from datetime import timedelta
 from django.utils import timezone
 
 
-
 class TestViews(TestCase):
 
 	def setUp(self):
@@ -79,7 +78,6 @@ class TestViews(TestCase):
 
 		query = 'project'
 		url = '{}?q={}'.format(reverse('home'), query)
-		print(url)
 		response = self.client.get(url)
 
 		post_list = Post.published.filter(

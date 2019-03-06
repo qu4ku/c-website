@@ -2,6 +2,7 @@ from django.test import TestCase
 from core.models import (
 	Post, PostType, Category, DifficultyLevel, Feedback, ReviewedLink, Link,
 	get_default_publish_date, get_default_number, get_default_difficulty)
+from newsletter.models import NewsletterContact
 from django.utils import timezone
 from django.contrib.auth.models import User
 
@@ -70,6 +71,12 @@ class TestModels(TestCase):
 		link = Link.objects.create(url=url)
 
 		self.assertEquals(str(link), url)
+
+	def test_newsletter_contact_str(self):
+		email = 'test@email.com'
+		contact = NewsletterContact.objects.create(email=email)
+
+		self.assertEquals(str(contact), email)
 
 	def test_reviewed_link_str(self):
 		url = 'http://some.com'
