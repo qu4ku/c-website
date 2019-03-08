@@ -291,5 +291,3 @@ class TestViews(TestCase):
 		self.assertEquals(
 			Post.objects.filter(slug=self.post.slug).first().title, 'project')
 
-
-
