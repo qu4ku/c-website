@@ -1,16 +1,7 @@
 from django.test import TestCase, Client
 from django.urls import reverse
-# from django.forms.models import model_to_dict
-# from django.db.models import Q
 
-# from core.models import (
-# 	Post, PostType, DifficultyLevel, Category, Link,ReviewedLink)
 from django.contrib.auth.models import User
-
-# from datetime import datetime
-# from datetime import timedelta
-# from django.utils import timezone
-
 
 
 class TestViews(TestCase):
@@ -21,7 +12,6 @@ class TestViews(TestCase):
 		self.user = User.objects.create_user('test', 'test', 'test')
 		self.user.save()
 		self.client.login(username='test', password='test')
-
 
 	def test_jobs_view_GET(self):
 
