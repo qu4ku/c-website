@@ -841,6 +841,11 @@ input:focus {
 	margin-bottom: 20px;
 }
 
+.about h3 {
+	font-size: 28px;
+	margin-bottom: 20px;
+}
+
 .about__text-section p {
 	margin-bottom: 20px;
 }
@@ -848,6 +853,46 @@ input:focus {
 .grayed-out {
 	color: grey;
 }
+
+.about__add-feature p {
+	margin-bottom: 20px;
+}
+
+.about__form textarea, .form textarea {
+	display: block;
+	width: 100%;
+	height: 200px;
+	border: none;
+	border-radius: 10px;
+	padding: 20px;
+	font-family: "B-Regular", sans-serif;
+	font-size: 16px;
+	box-sizing: border-box;
+	outline: none;
+}
+
+.form input[type="text"] {
+	display: block;
+	width: 100%;
+	height: 30px;
+	border-radius: 10px;
+	padding: 20px;
+	font-family: "B-Regular", sans-serif;
+	font-size: 16px;
+	box-sizing: border-box;
+	outline: none;
+	box-shadow: none;
+	border: none;
+}
+
+/*.form input {
+	background: red;
+
+}*/
+
+
+
+
 
 /*------------------ JOBS ------------------*/
 
@@ -962,4 +1007,10 @@ input[type=url] {
 	background-color: white;
 	padding: 2px 5px;
 	border-radius: 5px;
+}
+
+
+.button-submit {
+	color: #242d40;
+	margin-bottom: 40px;
 }
