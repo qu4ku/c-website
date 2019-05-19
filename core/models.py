@@ -82,25 +82,28 @@ def get_default_difficulty():
 	The first and last posts are beginner, second is intermediate. 
 	"""
 	posts = Post.objects.all()
+
+
 	if not posts:  # Beginner level for the first post
 		beginner, is_created = DifficultyLevel.objects.get_or_create(
 			difficulty_level='beginner')
-		return beginner
+		# It looks like in case of ForeighKey default value is expected to be integer
+		return beginner.pk
 	elif posts.count() == 1:  # Intermediate level for the second post
 		intermediate, is_created = DifficultyLevel.objects.get_or_create(
 			difficulty_level='intermediate')
-		return intermediate
+		return intermediate.pk 
 	elif posts.count() == 2: 
 		day0 = posts[0].publish.day
 		day1 = posts[1].publish.day
 		if day0 == day1:
 			beginner, is_created = DifficultyLevel.objects.get_or_create(
 				difficulty_level='beginner')
-			return beginner
+			return beginner.pk
 		else:
 			intermediate, is_created = DifficultyLevel.objects.get_or_create(
 			difficulty_level='intermediate')
-			return intermediate
+			return intermediate.pk
 	else:
 		day0 = posts[0].publish.day
 		day1 = posts[1].publish.day
@@ -110,11 +113,11 @@ def get_default_difficulty():
 		if day0 != day1 == day2:  
 			intermediate, is_created = DifficultyLevel.objects.get_or_create(
 				difficulty_level='intermediate')
-			return intermediate
+			return intermediate.pk
 		else:
 			beginner, is_created = DifficultyLevel.objects.get_or_create(
 				difficulty_level='beginner')
-			return beginner
+			return beginner.pk
 
 
 class PublicManager(models.Manager):
