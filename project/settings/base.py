@@ -18,6 +18,7 @@ INSTALLED_APPS = [
     'jobs',
     'account',
     'django.contrib.sitemaps',
+    'dbbackup',
 ]
 
 MIDDLEWARE = [

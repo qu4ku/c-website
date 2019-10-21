@@ -1,6 +1,7 @@
 {% load static %}
 <div class="post__info__social">
 	<a 	class="social-link" 
+			rel="nofollow"
 			aria-label="Share on Facebook" 
 			tabindex="0" 
 			href="http://www.facebook.com/share.php?u={{ post.get_url_for_social }}&title={{ post.title|urlencode }}" 
@@ -9,6 +10,7 @@
 		<img src="{% static 'img/icons/fb.png' %}" alt="Social share Facebook icon">
 	</a>
 	<a class="social-link" 
+			rel="nofollow"
 			aria-label="Share on Twitter" 
 			tabindex="0" 
 			href="http://twitter.com/home?status={{ post.title|urlencode }}+{{ post.url }}%20via%20https%3A%2F%2Fknowledgeprotocol.com" 
@@ -16,6 +18,7 @@
 		<img src="{% static 'img/icons/twitter.png' %}" alt="Social share Twitter icon">
 	</a>
 	<a class="social-link" 
+			rel="nofollow"
 			aria-label="Share on LinkedIn" 
 			tabindex="0" 
 			href="http://www.linkedin.com/shareArticle?mini=true&url={{ post.get_url_for_social }}&title={{ post.title|urlencode }}&source=www.knowledgeprotocol.com"
@@ -23,6 +26,7 @@
 		<img src="{% static 'img/icons/linkedin.png' %}" alt="Social share Linkedin icon">
 	</a>
 	<a class="social-link" 
+			rel="nofollow"
 			aria-label="Internal Link" 
 			tabindex="0" 
 			href="{{ post.get_absolute_url }}" 

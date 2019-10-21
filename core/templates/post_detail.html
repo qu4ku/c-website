@@ -30,12 +30,12 @@
 {% if post.post_type|stringformat:"s" == "article" %}
 	<div class="post">
 		<div class="post__number"><span class="big_num">{{ post.first_set_number }}</span><span class="small_num">/ {{ post.second_set_number }}</span></div>
-		<h2 class="post__title"><a href="{{ post.url }}" target="_blank">{{ post.title }} (<img src="{% static 'img/link-icon.png' %}">)</a></h2>
+		<h2 class="post__title"><a href="{{ post.url }}" target="_blank" rel="nofollow">{{ post.title }} (<img src="{% static 'img/link-icon.png' %}">)</a></h2>
 		<div class="post__date">{{ post.publish|date:"d M, Y" }}</div>
 		<p class="post__description">{{ post.description }}</p>
 		<div class="post__info {% if not post.description %} post__info--no-description {% endif %}">
 			<div class="post__info__categories">
-				<a class="link-standard" href="{% url 'level' slug=post.difficulty_level %}">{{ post.difficulty_level }}</a>
+				<a class="link-standard" href="{% url 'level' slug=post.difficulty_level %}" rel="nofollow">{{ post.difficulty_level }}</a>
 				{% for category in post.categories.all %}
 					<img src="{% static 'img/category-separator.png' %}" alt="Category separator" class="category-separator"><a class="link-standard" href="{% url 'category' slug=category.slug %}">{{ category.title }}</a>
 				{% endfor %}
@@ -50,9 +50,9 @@
 {% if post.post_type|stringformat:"s" == "video" %}
 			<div class="post">
 				<div class="post__number"><span class="big_num">{{ post.first_set_number }}</span><span class="small_num">/ {{ post.second_set_number }}</span></div>
-				<h2 class="post__title post__title--media"><a href="{{ post.url }}" target="_blank">{{ post.title }} (<img src="{% static 'img/link-icon.png' %}">)</a></h2>
+				<h2 class="post__title post__title--media"><a href="{{ post.url }}" target="_blank" rel="nofollow">{{ post.title }} (<img src="{% static 'img/link-icon.png' %}">)</a></h2>
 				<div class="media__image">
-					<a href="{{ post.url }}">
+					<a href="{{ post.url }}" rel="nofollow">
 						{% if post.thumb_image %}
 							<img class="video-play-overlay" src="{% static 'img/vid-play-overlay.png' %}" alt="">
 							<img class="thumb-image" src="{{ post.thumb_image.url }}" alt="">
@@ -65,7 +65,7 @@
 				<p class="post__description video__description">{{ post.description }}</p>
 				<div class="post__info {% if not post.description %} post__info--no-description {% endif %}">
 					<div class="post__info__categories">
-						<a class="link-standard" href="{% url 'level' slug=post.difficulty_level %}">{{ post.difficulty_level }}</a>
+						<a class="link-standard" href="{% url 'level' slug=post.difficulty_level %}" rel="nofollow">{{ post.difficulty_level }}</a>
 						{% for category in post.categories.all %}
 							<img src="{% static 'img/category-separator.png' %}" alt="Category separator" class="category-separator"><a class="link-standard" href="{% url 'category' slug=category.slug %}">{{ category.title }}</a>
 						{% endfor %}
@@ -80,9 +80,9 @@
 {% if post.post_type|stringformat:"s" == "podcast" %}
 	<div class="post">
 		<div class="post__number"><span class="big_num">{{ post.first_set_number }}</span><span class="small_num">/ {{ post.second_set_number }}</span></div>
-		<h2 class="post__title post__title--media"><a href="{{ post.url }}" target="_blank">{{ post.title }} (<img src="{% static 'img/link-icon.png' %}">)</a></h2>
+		<h2 class="post__title post__title--media"><a href="{{ post.url }}" target="_blank" rel="nofollow">{{ post.title }} (<img src="{% static 'img/link-icon.png' %}">)</a></h2>
 		<div class="media__image">
-			<a href="{{ post.url }}">
+			<a href="{{ post.url }}" rel="nofollow">
 				<img class="thumb-image" src="{% static 'img/podcast-icon.png' %}" alt="Podcast content image">
 			</a>
 		</div>	
@@ -90,7 +90,7 @@
 		<p class="post__description video__description">{{ post.description }}</p>
 		<div class="post__info {% if not post.description %} post__info--no-description {% endif %}">
 			<div class="post__info__categories">
-				<a class="link-standard" href="{% url 'level' slug=post.difficulty_level %}">{{ post.difficulty_level }}</a>
+				<a class="link-standard" href="{% url 'level' slug=post.difficulty_level %}" rel="nofollow">{{ post.difficulty_level }}</a>
 				{% for category in post.categories.all %}
 					<img src="{% static 'img/category-separator.png' %}" alt="Category separator" class="category-separator"><a class="link-standard" href="{% url 'category' slug=category.slug %}">{{ category.title }}</a>
 				{% endfor %}
@@ -105,9 +105,9 @@
 {% if post.post_type|stringformat:"s" == "twitter" %}
 	<div class="post">
 		<div class="post__number"><span class="big_num">{{ post.first_set_number }}</span><span class="small_num">/ {{ post.second_set_number }}</span></div>
-		<h2 class="post__title post__title--media"><a href="{{ post.url }}" target="_blank">{{ post.title }} (<img src="{% static 'img/link-icon.png' %}">)</a></h2>
+		<h2 class="post__title post__title--media"><a href="{{ post.url }}" target="_blank" rel="nofollow">{{ post.title }} (<img src="{% static 'img/link-icon.png' %}" rel="nofollow">)</a></h2>
 		<div class="media__image">
-			<a href="{{ post.url }}">
+			<a href="{{ post.url }}" rel="nofollow">
 				<img class="thumb-image" src="{% static 'img/twitter-icon.png' %}" alt="Twitter content image">
 			</a>
 		</div>	
@@ -115,7 +115,7 @@
 		<p class="post__description video__description">{{ post.description }}</p>
 		<div class="post__info {% if not post.description %} post__info--no-description {% endif %}">
 			<div class="post__info__categories">
-				<a class="original-author-url" href="{{ post.original_author_url }}" target="_blank">{{ post.original_author_handle }}</a>
+				<a class="original-author-url" href="{{ post.original_author_url }}" target="_blank" rel="nofollow">{{ post.original_author_handle }}</a>
 				{% for category in post.categories.all %}
 					<img src="{% static 'img/category-separator.png' %}" alt="Category separator" class="category-separator"><a class="link-standard" href="{% url 'category' slug=category.slug %}">{{ category.title }}</a>
 				{% endfor %}
@@ -135,7 +135,7 @@
 
 	<div class="categories__title">Newest in: <a class="link-standard" href="{% url 'category' slug=category.slug %}">{{ category.title }}</a></div>
 		{% for post in posts %}
-			<p><a class="link-detail-post" href="{{ post.url }}" target="_blank">{{ post.title }}</a> ({{ post.post_type }})</p>
+			<p><a class="link-detail-post" href="{{ post.url }}" target="_blank" rel="nofollow">{{ post.title }}</a> ({{ post.post_type }})</p>
 		{% endfor %}
 	
 	{% endfor %}

@@ -5,10 +5,12 @@
 	
     {% if posts.has_previous %}
         <a  href="?page=1" 
+            rel="nofollow"
             class="button-standard button-pagination">
             <img src="{% static 'img/arrow-first.png' %}" alt="first page">
         </a>
         <a  href="?page={{ posts.previous_page_number }}" 
+            rel="nofollow"
             class="button-standard button-pagination">
             <img src="{% static 'img/arrow-prev.png' %}" alt="previous page">
         </a>
@@ -21,10 +23,12 @@
     {% if posts.has_next %}
         
         <a  href="?page={{ posts.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" 
+            rel="nofollow"
             class="button-standard button-pagination">
             <img src="{% static 'img/arrow-next.png' %}" alt="next page">
         </a>
         <a  href="?page={{ posts.paginator.num_pages }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" 
+            rel="nofollow"
             class="button-standard button-pagination">
             <img src="{% static 'img/arrow-last.png' %}" 
             alt="last page"></a>
